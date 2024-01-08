@@ -1,8 +1,9 @@
-from __future__ import absolute_import
-import json
+# import multiprocessing.dummy as multiprocessing
+#from multiprocessing.pool import ThreadPool
+from multiprocessing.dummy import Pool as ThreadPool
 
 import ipdb
-from multiprocessing.pool import ThreadPool
+
 from cpme_api.api.feature import rest
 from requests.models import Response
 from cpme_api.api.configuration import Configuration
@@ -34,10 +35,9 @@ class ApiClient(object):
         self.client_side_validation = False  # configuration.client_side_validation
         self.pool = ThreadPool()
 
-    #def __del__(self):
-    #    pass
-        #self.pool.close()
-        #self.pool.join()
+    def close(self):
+        self.pool.close()
+        self.pool.join()
 
     @staticmethod
     def _split_parameters(params: dict, api_key: dict = None) -> (dict, dict):
@@ -163,7 +163,7 @@ class ApiClient(object):
 
         # perform request and return response
         response_data = self.request(
-            method, url, query_params=query_params, headers=header_params,
+            method, url, endpoint, query_params=query_params, headers=header_params,
             body=body, request_timeout=request_timeout, verbose=params.get('verbose', True))
 
         if serialization:
@@ -179,12 +179,13 @@ class ApiClient(object):
             else:
                 return response_data
 
-    def request(self, method, url, query_params=None, headers=None,
+    def request(self, method, url, endpoint, query_params=None, headers=None,
                 body=None, request_timeout=None,
                 verbose=False, preload_content=True, post_params=None):
         """Makes the HTTP request using RESTClient."""
         if method == "GET":
             return self.rest_client.GET(url,
+                                        endpoint,
                                         query_params=query_params,
                                         _preload_content=preload_content,
                                         _request_timeout=request_timeout,
@@ -208,6 +209,7 @@ class ApiClient(object):
                                             verbose=verbose)
         elif method == "POST":
             return self.rest_client.POST(url,
+                                         endpoint,
                                          query_params=query_params,
                                          headers=headers,
                                          post_params=post_params,

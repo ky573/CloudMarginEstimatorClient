@@ -175,6 +175,13 @@ class Settings(Dynaconf):
         else:
             return False
 
+    def env_equal(self, envs: list = []):
+        al_env = [Environment.alias(e) for e in envs]
+        if envs is [] or (self.current_env in al_env):
+            return True
+        else:
+            return False
+
 
 class BetterLazy(LazySettings):
     def __init__(self, *args, **kwargs):

@@ -5,17 +5,13 @@ import json
 import re
 import ssl
 import certifi
-import ipdb
-# python 2 and python 3 compatibility library
-import six
-from six.moves.urllib.parse import urlencode
+from urllib.parse import urlencode
 
 try:
     import urllib3
 except ImportError:
     raise ImportError('Swagger python client requires urllib3.')
 
-from model_gen.config import settings
 from cpme_api.api.configuration import Configuration
 import requests
 import urllib3
@@ -232,7 +228,7 @@ class RESTClientObject(object):
 
         return resp
 
-    def GET(self, url, headers=None, query_params=None, _preload_content=True,
+    def GET(self, url, endpoint, headers=None, query_params=None, _preload_content=True,
             _request_timeout=None, verbose=True):
         if verbose:
             msg_timeout = ''
@@ -240,7 +236,7 @@ class RESTClientObject(object):
             if _request_timeout:
                 msg_timeout = f'Timeout = {_request_timeout}'
 
-            self.log.info(f"HEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
+            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
         if self.pooling:
             return self.request("GET", url,
                                 headers=headers,
@@ -248,10 +244,11 @@ class RESTClientObject(object):
                                 _request_timeout=_request_timeout,
                                 query_params=query_params)
         else:
+            # temporarily for requests lib
             return requests.get(url,
                                 params=query_params,
                                 headers=headers,
-                                verify=settings.cert_for_verify(),
+                                verify=False,
                                 timeout=_request_timeout,
                                 stream=True)
 
@@ -282,7 +279,7 @@ class RESTClientObject(object):
                             _request_timeout=_request_timeout,
                             body=body)
 
-    def POST(self, url, headers=None, query_params=None, post_params=None,
+    def POST(self, url, endpoint, headers=None, query_params=None, post_params=None,
              body=None, _preload_content=True, _request_timeout=None, verbose=True):
         if verbose:
             msg_timeout = ''
@@ -290,7 +287,7 @@ class RESTClientObject(object):
             if _request_timeout:
                 msg_timeout = f'Timeout = {_request_timeout}'
 
-            self.log.info(f"HEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
+            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
 
         if self.pooling:
             return self.request("POST", url,
@@ -303,7 +300,7 @@ class RESTClientObject(object):
         else:
             return requests.post(url,
                                  headers=headers,
-                                 verify=settings.cert_for_verify(),
+                                 verify=False,
                                  timeout=_request_timeout,
                                  stream=False,
                                  json=body)

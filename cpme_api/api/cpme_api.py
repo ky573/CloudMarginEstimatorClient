@@ -48,6 +48,9 @@ class CpmeApi(BaseApi):
         self.configuration = configuration
         self._api_client = ApiClient(configuration)
 
+    def close(self):
+        self._api_client.close()
+
     def clearing_currencies_get(self, **kwargs):
         """List All Clearing Currencies
 
