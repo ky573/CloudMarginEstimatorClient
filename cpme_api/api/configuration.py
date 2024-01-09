@@ -1,23 +1,18 @@
 """
-    Cloud Prisma Margin Estimator API
-
-    Cloud Prisma Margin Estimator (CPME) calculates margin for an uploaded portfolio according to Eurex PRISMA methodology. The application is available to both members and non-members of Eurex Clearing. It can be accessed via web user interface, see [CPME GUI](https://eurexmargins.prod.dbgservice.com), or directly through API, described here.  The key request is `/estimator`, it is the only request you need to calculate the margin. Other requests provide lists or details of instruments, available dates etc. CPME supports also greek and stress price calculation - these analytical tools are not related to the margin.  Part of the API is also Cloud Default Fund Estimator (CPDE) which *estimates* Default Fund contribution for an uploaded portfolio according to Eurex methodology. Its key resource is `/default_fund`, similar `/estimator` up to the following differences: historical calculation is not possible for Default Fund; OTC portfolio support is planned only in future.  [FAQ](https://deutsche-boerse-risk.github.io/CloudPrismaMarginEstimator/) ## API Key For API access please register at [Deutsche Boerse API website](https://console.developer.deutsche-boerse.com/apis).  There you create your project, subscribe to \"Prisma Margin Estimator\" API and get a key. Use the key in a request header as `X-DBP-APIKEY`, e.g.:  <pre> curl --header 'X-DBP-APIKEY: your-key' \\   https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/products </pre>  Requests from web API portals (Apiary, SwaggerHub) must contain the key as well. ## Example in Python The **[crossmargining.py](https://github.com/Deutsche-Boerse-Risk/CloudPrismaMarginEstimator-API/blob/master/examples/python/crossmargining.py)** generates a portfolio in CSV format. The portfolio consists of a 10Y EUR interest rate swap starting two days from today and a short position in Euro-Bund futures. Initial margin is calculated with and without cross margining (xm = True and xm = False, respectively) and results are printed. Replace xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx by your API key (see above).  ## Compressing request and response Both requests and responses can be compressed by gzip which can reduce response time for large requests and bypass request size limits. Use of compression in submitted request is indicated by `Content-Encoding: gzip` header. Compressed response is requested by `Accept-Encoding: gzip` header. For example:  <pre>echo '{\"portfolio_components\":[{\"type\":\"etd_portfolio\",\"etd_portfolio\":[{\"line_no\":1,\"product_id\":\"FEXD\",\"contract_date\":20301220,\"net_ls_balance\":1}]}]}' \\   | gzip \\   | curl -s -H \"X-DBP-APIKEY: your-key\" -H \"Content-Type: application/json\" \\     https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator \\     --data-binary @- -H \"Content-Encoding: gzip\" -H \"Accept-Encoding: gzip\" \\   | gunzip </pre>  It is also possible to use compression only for request or only for response. ## Business date and time The requests can contain optional business date and time attributes. The application finds the latest snapshot from the requested business date with timestamp equal or smaller than the requested time. If time is not given then the latest timestamp of the business date is used.  It takes several minutes to start the instance for a specified snapshot, That instance can then serve subsequent requests for the same snapshot. After some inactive time the instance is shutdown. It is recommended not to specify a date and time and calculate current margin or margin as of last end-of-day, see below.  Example of requesting the latest snapshot of given date, in GET and POST type of request:  <pre>curl -H 'X-DBP-APIKEY: your-key' \\   'https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/series?products=FGBM&business_date=20190307' echo '{\"snapshot\":{\"business_date\":20190307},\"portfolio_components\":[{\"type\":\"etd_portfolio\",\"etd_portfolio\":[{\"line_no\":1,\"product_id\":\"FEXD\",\"contract_date\":20301220,\"net_ls_balance\":1}]}]}' \\   | curl -H 'X-DBP-APIKEY: your-key' \\     'https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator' \\     --data-binary @- </pre>  If business date is not given, the latest business date is used. If only live=False is specified, last end-of-day is used. Calculation instance for these two requests is always up, you should not experience any delay.  Response contains identification of the selected snapshot, see attributes `business_date`, `live` and `live_timestamp`. ## Change log - 7.0.0 OTC portfolio can be submitted also as CC233 sensitivities report - 6.8.0 Security Basket ISIN, errors explained, upgrade to OpenAPI 3.0 description format - 6.5.0 ETD maturity specified preferably by contract_date - 6.3.1 Indicative margin resource - 6.2.0 Cash Market Repo, ETD CP005 and ETD CSV added to API v2 - 6.1.1 default 1T payment period for inflation swaps, ignore unknown calendars - 5.7.0 support for inflation swaps - 5.2.0 request with live=false without date means last end-of-day - 4.2.2 list of snapshots can be requested, OTC sensitivities - 4.2.1 OTC trade details resource and also included in estimator response - 4.1.1 historical snapshots also for list of products, series and currencies  # noqa: E501
-
-    OpenAPI spec version: 2.0
-    
-    Generated by: https://github.com/swagger-api/swagger-codegen.git
 """
 import logging
 import multiprocessing
 import sys
 import urllib3
-# from six.moves import http_client as httplib
 from http.client import HTTPConnection
 
 NAME = "CPME-client"
 
 
 class Configuration(object):
+    """
+    Configuration class
+    """
 
     def __init__(self):
         """Constructor"""
@@ -36,7 +31,7 @@ class Configuration(object):
         self.loggers = {"package_logger": logging.getLogger("cpme_api"),
                         "urllib3_logger": logging.getLogger("urllib3")}
         # Log format
-        self.logger_format = '%(asctime)-23s CPME %(levelname)-6s %(name)s %(module)-1s.%(funcName)-15s  %(message)s'
+        self.logger_format = '%(asctime)-23s api-client %(levelname)-6s %(name)s %(module)-1s.%(funcName)-15s  %(message)s'
         # Log stream handler
         self.logger_stream_handler = None
         # Log file handler
@@ -86,6 +81,13 @@ class Configuration(object):
 
     @property
     def enable_logging(self):
+        """Enable logging for client loggers. It is disabled as default.
+
+        While enable the stdout logging with default INFO severity is established. The user can define logger_file attribute to enable file logger.
+
+        :param value:
+        :type: bool
+        """
         return self._enable_logging
 
     @enable_logging.setter
@@ -166,26 +168,58 @@ class Configuration(object):
 
     @property
     def api_key(self):
+        """
+        User unique key .....
+
+        :param value:
+        :type: str:
+        """
         return self._api_key
 
     @api_key.setter
     def api_key(self, value):
+        """
+        User unique key .....
+
+        :param value:
+        :type: str:
+        """
         self._api_key = value
 
     @property
     def request_timeout(self):
+        """Maximum timeout of individual request in seconds.
+
+        :param value:
+        :type: int
+        """
         return self._request_timeout
 
     @request_timeout.setter
     def request_timeout(self, value):
+        """Maximum timeout of individual request in seconds.
+
+        :param value:
+        :type: int
+        """
         self._request_timeout = value
 
     @property
     def pool_size(self):
+        """Number of pools of urrllib connector
+
+        :param value:
+        :type: int
+        """
         return self._pool_size
 
     @pool_size.setter
-    def pool_size(self, value):
+    def pool_size(self, value: int):
+        """Number of pools of urrllib connector
+
+        :param value:
+        :type: int
+        """
         self._pool_size = value
 
     @property
@@ -230,10 +264,20 @@ class Configuration(object):
 
     @property
     def verbose(self):
+        """Enable/Disable additional info messages into the logger
+
+        :param value:
+        :type: bool
+        """
         return self._verbose
 
     @verbose.setter
-    def verbose(self, value):
+    def verbose(self, value: bool):
+        """Enable/Disable additional info messages into the logger
+
+        :param value:
+        :type: bool
+        """
         self._verbose = value
 
     @property
@@ -248,7 +292,7 @@ class Configuration(object):
         return self._logger_format
 
     @logger_format.setter
-    def logger_format(self, value):
+    def logger_format(self, value: str):
         """The logger format.
 
         The logger_formatter will be updated when sets logger_format.
@@ -272,7 +316,7 @@ class Configuration(object):
         return self._logger_file
 
     @logger_file.setter
-    def logger_file(self, value):
+    def logger_file(self, value: str):
         """The logger file.
 
         If the logger_file is None, then add stream handler and remove file
@@ -295,7 +339,8 @@ class Configuration(object):
 
     @property
     def debug(self):
-        """Debug status
+        """
+        Debug status
 
         :param value: The debug status, True or False.
         :type: bool
@@ -303,8 +348,9 @@ class Configuration(object):
         return self._debug
 
     @debug.setter
-    def debug(self, value):
-        """Debug status
+    def debug(self, value: bool):
+        """
+        Debug status
 
         :param value: The debug status, True or False.
         :type: bool
@@ -337,7 +383,7 @@ class Configuration(object):
         return self._logger_format
 
     @logger_format.setter
-    def logger_format(self, value):
+    def logger_format(self, value: str):
         """The logger format.
 
         The logger_formatter will be updated when sets logger_format.
@@ -358,12 +404,7 @@ class Configuration(object):
         ).get('authorization')
 
     def auth_settings(self):
-        """Gets Auth Settings dict for api client.
-
-        :return: The Auth Settings information dict.
-        """
-        return {
-        }
+        return {}
 
     def info(self):
         self.loggers['package_logger'].debug(str({k.lstrip('_'): v for k, v in self.__dict__.items()}))

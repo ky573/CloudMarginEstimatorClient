@@ -185,3 +185,15 @@ def _csv_to_data(rows: TextIO, delimiter: str, quotechar: str, mapping=None) -> 
     reader = csv.DictReader(rows, delimiter=delimiter, quotechar=quotechar)
     data = [{mapping.get(key, key): digit_to_int(val) for key, val in row.items()} for row in reader]
     return data
+
+
+def list_to_csv(rows: list, file_name: str):
+    # https://stackoverflow.com/questions/3086973/how-do-i-convert-this-list-of-dictionaries-to-a-csv-file
+    if not file_name.endswith('.csv'):
+        file_name = file_name + '.csv'
+
+    with open(file_name, 'w', encoding='utf8', newline='') as output_file:
+        fc = csv.DictWriter(output_file,
+                            fieldnames=rows[0].keys())
+        fc.writeheader()
+        fc.writerows(rows)

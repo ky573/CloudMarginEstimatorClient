@@ -5,7 +5,7 @@ TODO add link to github README file
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.api.feature.utils import json_to_file, load_csv_to_list
 from cpme_api.api.tools import get_series
-import cpme_api.api.models as spec
+import cpme_api.models as spec
 
 
 def example_instruments_from_file(api: CpmeApi):
@@ -44,7 +44,8 @@ def example_for_actual_instruments(api: CpmeApi):
 
 if __name__ == '__main__':
     config = Configuration()
-    # config.api_key = API_KEY
+    config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
+    config.url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
     config.enable_logging = True
     config.enable_pooling = True
     config.return_json = True

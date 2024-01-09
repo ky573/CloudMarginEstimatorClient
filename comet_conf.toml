@@ -1,0 +1,29 @@
+['default']
+# snapshots_folder="."
+# requests_folder="."
+# responses_folder="."
+# snaptool_folder="."
+# scenario_path_folder=""
+# precision_points=4
+logging=true
+async_request=false
+request_timeout=60
+cli_logo=true
+
+
+['development']
+url = "https://cpme.risk.dev.ams.gcp.dbgcloud.io/api/v2.0"
+
+['production']
+url = "https://eurexmargins.prod.dbgservice.com/api/v2.0"
+
+['acceptance']
+url = "/hohoh/act"
+
+['simulation']
+url = "/hohoh/simu"
+
+['snaptool']
+url = "https://cpme.risk.dev.fra.aws.dbgcloud.io"
+snapshots_folder = "/abs_path/snaptool"
+snaptool_folder = "./snaptool"

@@ -43,14 +43,14 @@ class ApiClient(object):
     def _split_parameters(params: dict, api_key: dict = None) -> (dict, dict):
         n_params = {k: params[k] for k in params if k in params.get('defined')}
         if api_key:
-            HEADER.update({'x_dbp_apikey': params.get('api_key', api_key)})
+            HEADER.update({'X-DBP-APIKEY': params.get('api_key', api_key)})
             if 'x_dbp_apikey' in params:
                 n_params.pop('x_dbp_apikey')
         elif 'x_dbp_apikey' in params:
-            HEADER.update({'x_dbp_apikey': params['x_dbp_apikey']})
+            HEADER.update({'X-DBP-APIKEY': params['x_dbp_apikey']})
             n_params.pop('x_dbp_apikey')
         elif 'api_key' in params:
-            HEADER.update({'x_dbp_apikey': params['api_key']})
+            HEADER.update({'X-DBP-APIKEY': params['api_key']})
         HEADER.update(USER_AGENT)
         if 'q_path' in params:
             return HEADER, n_params, params.pop('q_path')

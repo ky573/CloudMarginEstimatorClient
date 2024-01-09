@@ -20,17 +20,17 @@
 """
 import ipdb
 from cpme_api.api import CpmeApi, fancy, Configuration, GET
-from cpme_api.api.feature.utils import json_to_file
+from cpme_api.api.feature.utils import json_to_file, list_to_csv
 
 
 BD = '20220906'
 
-API_KEY = 'b953e6e4-235e-4217-a7b0-ceb071a9dba1'
+API_KEY = '9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358'
 
 PARAM_PROD = {'business_date': BD,
               'live': 'false',
               'extrafields': ['underlying_isin', 'product_type'],
-              'x_dbp_apikey': API_KEY,
+              'api_key': API_KEY,
               }
 
 
@@ -46,11 +46,14 @@ def example(api: CpmeApi):
     resp = api.products_get(extrafields=api.get_extrafields(GET.products))
     # fancy(resp)
     json_to_file(resp, 'products')
+    list_to_csv(resp['products'], 'products')
 
 
 if __name__ == '__main__':
     config = Configuration()
-    config.api_key = API_KEY
+    config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
+    config.url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
+    # config.api_key = API_KEY
     config.enable_logging = True
     config.enable_pooling = True
     config.return_json = True

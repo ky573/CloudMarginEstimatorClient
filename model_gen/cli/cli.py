@@ -2,12 +2,9 @@ import click
 import sys
 import webbrowser
 from model_gen.cli.utils import CONTEXT_SETTINGS, get_comet_sysenv, show_logo
-from model_gen.config import settings, Environment, PROJECT_ROOT
+from model_gen.config import settings, Environment, PROJECT_ROOT, data_folder_fix
 from .update_cli import update_cli
 import io
-
-# need to change namespaces
-from cpme_api.api.feature.utils import data_folder_fix
 from model_gen.common import host_from_url
 
 

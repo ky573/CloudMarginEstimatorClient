@@ -11,7 +11,7 @@ SWAGGER_TYPE = {
 
 PRIMITIVE_TYPES = (float, bool, bytes, int, str)
 
-MODEL_MODULE = importlib.import_module('cpme_api.api.models')
+MODEL_MODULE = importlib.import_module('cpme_api.models')
 
 
 def str_to_bool(name: str):

@@ -2,7 +2,7 @@
 This namespace contains useful functions
 """
 from typing import List, TextIO
-from cpme_api.api.config import log
+from model_gen.config import log
 import csv
 import json
 from urllib import parse

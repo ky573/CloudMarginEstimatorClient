@@ -73,10 +73,10 @@ def get_series(prod_ids: List[str] = tuple(),
 
 def get_live_snapshot(date: int, ts_only=False, random_flag=False, api: CpmeApi = None) -> Union[dict, int]:
     """
-    if ts_only=True and random_flag=True = return only one timestamp
-    if ts_only=False and random_flag=True = return list of timestamps
-    else:
-        return live_snapshot records
+    When ts_only=True and random_flag=True = return only one timestamp
+    When ts_only=False and random_flag=True = return list of timestamps
+    otherwise it teturns live_snapshot records, eg:
+
     business_date,cash_available,live,live_timestamp,otc_available
     20220906,True,True,0,True
     20220906,True,True,1662423998525,True

@@ -14,6 +14,7 @@ from pathlib import Path
 import sys
 from typing import Union, Type
 from os import environ
+import logging
 
 
 _ENVIRONMENTS = ['production']
@@ -21,6 +22,13 @@ _ENVIRONMENTS = ['production']
 _ENVIRONMENTS_MAP = {
     'prod': 'production'
 }
+
+
+log = logging.getLogger("model_gen")
+stream_handler = logging.StreamHandler(sys.stdout)
+stream_handler.setFormatter('%(asctime)-23s model-gen %(levelname)-6s %(name)s %(module)-1s.%(funcName)-15s  %(message)s')
+stream_handler.setLevel(logging.INFO)
+log.addHandler(stream_handler)
 
 
 class Environment:

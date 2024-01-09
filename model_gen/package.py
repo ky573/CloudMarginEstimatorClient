@@ -11,7 +11,7 @@ import importlib
 
 log = logging.getLogger('model_gen')
 
-MODULE_FOLDER = os.path.join(PROJECT_ROOT, 'cpme_api/api/models/')
+MODULE_FOLDER = os.path.join(PROJECT_ROOT, 'cpme_api/models/')
 PRIMITIVE_FOLDER = 'primitive/'
 EXAMPLES_FOLDER = 'examples/'
 RESPONSES_FOLDER = 'responses/'
@@ -189,7 +189,8 @@ def generate_oneof(id: str, data: Any, ext_dir: str = ''):
     if not isinstance(data, list):
         raise ValueError(f'Unsupported type of {type(data)} of `OneOf` structure in {id}')
     out = list()
-    out.append(f"class {align_object_name(id)}():\n\n")
+    out.append(f"class {align_object_name(id)}():\n")
+    out.append(f'    """\n    """\n')
     out.append("    one_of = [\n")
     p_keys = None
     for item in data:
@@ -242,7 +243,8 @@ def generate_primitive(id: str, data: dict, ext_dir: str = '') -> None:
     print('PRIMITIVE: ' + id)
     out = list()
     out.append(f'"""\n{data.get("description")}\n"""\n\n\n')
-    out.append(f"class {align_object_name(id)}(BaseContent):\n\n")
+    out.append(f"class {align_object_name(id)}(BaseContent):\n")
+    out.append(f'    """\n    """\n')
     out.append(f"    _primitive = '{data['type']}'\n\n")
     if enum := data.get('enum'):
         out.append(f"    _enum = {str(enum)}\n\n")
@@ -297,7 +299,8 @@ def generate_object(id: str,
         if not id.startswith('body'):
             id = 'body_' + id
     print('Object: ' + id)
-    out.append(f"class {align_object_name(id)}(BaseContent):\n\n")
+    out.append(f"class {align_object_name(id)}(BaseContent):\n")
+    out.append(f'    """\n    """\n')
     properties = data.get('properties')
     out.append(f"    _swagger_types = " + '{\n')
     queue_objects = []
@@ -408,7 +411,8 @@ def generate_array(id: str, data: dict, ext_dir: str = '', sub_module: str = '',
     out = list()
     print('ARRAY: ' + id)
     out.append(f'"""\n{data.get("description")}\n"""\n\n\n')
-    out.append(f"class {align_object_name(id)}(BaseContent):\n\n")
+    out.append(f"class {align_object_name(id)}(BaseContent):\n")
+    out.append(f'    """\n    """\n')
     properties = data.get('properties')
     if properties:
         ValueError(f"Swagger error: `properties` defined in `array` for {id}")
