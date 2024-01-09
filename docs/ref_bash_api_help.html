@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_rtd_size.css?v=3b072d6b" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            COMET - Cloud Margin Estimator api Test tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="get_start.html">Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">1. Command Line Interface usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">2. Library usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenarios.html">Scenarios Example</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#api-models">API models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="models.html">API features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">COMET - Cloud Margin Estimator api Test tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>--help
+<span class="w">     </span>_/_/_/<span class="w">            </span>_/<span class="w">      </span>_/<span class="w">  </span>_/_/_/_/<span class="w">  </span>_/_/_/_/_/<span class="w">  </span>_/_/_/_/_/
+<span class="w">  </span>_/<span class="w">          </span>_/_/<span class="w">    </span>_/_/<span class="w">  </span>_/_/<span class="w">  </span>_/<span class="w">            </span>_/<span class="w">          </span>_/
+<span class="w"> </span>_/<span class="w">        </span>_/<span class="w">    </span>_/<span class="w">  </span>_/<span class="w">  </span>_/<span class="w">  </span>_/<span class="w">  </span>_/_/_/<span class="w">        </span>_/<span class="w">          </span>_/
+_/<span class="w">        </span>_/<span class="w">    </span>_/<span class="w">  </span>_/<span class="w">      </span>_/<span class="w">  </span>_/<span class="w">            </span>_/<span class="w">          </span>_/
+<span class="w"> </span>_/_/_/<span class="w">    </span>_/_/<span class="w">    </span>_/<span class="w">      </span>_/<span class="w">  </span>_/_/_/_/<span class="w">      </span>_/<span class="w">          </span>_/
+<span class="w">                                                                </span>Ⓒⓛⓞⓤⓓ<span class="w"> </span>Ⓜⓐⓡⓖⓘⓝ<span class="w"> </span>Ⓔⓢⓣⓘⓜⓐⓣⓞⓡ<span class="w"> </span>Ⓣⓔⓢⓣ<span class="w"> </span>Ⓣⓞⓞⓛ
+<span class="w">  </span>v2.0.0
+
+Usage:<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet.python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>ENDPOINT<span class="o">]</span>...
+
+<span class="w">  </span>Commands<span class="w"> </span>of<span class="w"> </span>api<span class="w"> </span>section
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>products
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>products<span class="w"> </span>-p<span class="w"> </span><span class="nv">business_date</span><span class="o">=</span><span class="m">20220111</span><span class="w"> </span>-p
+<span class="w">  </span><span class="nv">extrafields</span><span class="o">=</span>instrument_type,currency<span class="w"> </span>-t<span class="w"> </span><span class="m">20</span>
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>series<span class="w"> </span>-p<span class="w"> </span><span class="nv">products</span><span class="o">=</span>FME,D2TE<span class="w"> </span>-p<span class="w"> </span><span class="nv">business_date</span><span class="o">=</span><span class="m">20220111</span>
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>default_fund<span class="w"> </span>--body<span class="w"> </span><span class="nv">portfolio_components</span><span class="o">=</span>etd_csv
+<span class="w">  </span>--prefix<span class="w"> </span>TC-001-df<span class="w"> </span>--to-json<span class="w"> </span>-V
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>?
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>estimator<span class="w"> </span>-i<span class="w"> </span>-V
+
+<span class="w">  </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>comet<span class="w"> </span>api<span class="w"> </span>estimator<span class="w"> </span>--prefix<span class="w"> </span>TC-001-es
+
+Options:
+<span class="w">  </span>-i,<span class="w"> </span>--info<span class="w">                 </span>Show<span class="w"> </span>info<span class="w"> </span>of<span class="w"> </span>proper<span class="w"> </span>endpoint.
+<span class="w">  </span>-d,<span class="w"> </span>--dates<span class="w"> </span>INTEGER<span class="w"> </span>RANGE<span class="w">  </span>List<span class="w"> </span>available<span class="w"> </span>snapshots<span class="w"> </span>dates<span class="w"> </span><span class="o">[</span>options:<span class="w"> </span><span class="nv">0</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                             </span>current,<span class="w"> </span><span class="nv">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>prev,<span class="w"> </span>&lt;number_of_last_bd&gt;<span class="o">]</span>
+<span class="w">                             </span><span class="o">[</span><span class="m">0</span>&lt;<span class="o">=</span>x&lt;<span class="o">=</span><span class="m">20</span><span class="o">]</span>
+<span class="w">  </span>--find<span class="w"> </span>TEXT<span class="w">                </span>Find<span class="w"> </span>attribute<span class="w"> </span>information.<span class="w"> </span>Use<span class="w"> </span>with<span class="w"> </span><span class="s1">&#39;?&#39;</span><span class="w"> </span>to<span class="w"> </span>list
+<span class="w">                             </span>available<span class="w"> </span>attributes.
+<span class="w">  </span>--to-json<span class="w">                  </span>Export<span class="w"> </span>snapshots<span class="w"> </span>into<span class="w"> </span>.json<span class="w"> </span>file<span class="w">  </span><span class="o">[</span>.csv<span class="w"> </span>is
+<span class="w">                             </span>default<span class="o">]</span>
+<span class="w">  </span>--print<span class="w">                    </span>Print<span class="w"> </span>response<span class="w"> </span>content<span class="w"> </span>into<span class="w"> </span>stdout
+<span class="w">  </span>-V,<span class="w"> </span>--verbose<span class="w">              </span>Show<span class="w"> </span>more<span class="w"> </span>detail
+<span class="w">  </span>--only-body<span class="w">                </span>Use<span class="w"> </span>together<span class="w"> </span>with<span class="w"> </span>verbose<span class="w"> </span>and<span class="w"> </span>show<span class="w"> </span>only<span class="w"> </span>JSON<span class="w"> </span>body
+<span class="w">                             </span>content.
+<span class="w">  </span>-S,<span class="w"> </span>--silent<span class="w">               </span>Obsolete,<span class="w"> </span>limited<span class="w"> </span>usage!<span class="w"> </span>Stop<span class="w"> </span>all<span class="w"> </span>info<span class="w"> </span>messages,
+<span class="w">                             </span>show<span class="w"> </span>only<span class="w"> </span>exported<span class="w"> </span>data,<span class="w"> </span>useful<span class="w"> </span>with<span class="w"> </span>pipe<span class="w"> </span><span class="nb">command</span>
+<span class="w">                             </span>stream
+<span class="w">  </span>-R,<span class="w"> </span>--required<span class="w">             </span>Use<span class="w"> </span>by<span class="w"> </span>--with<span class="w"> </span><span class="nb">command</span><span class="w"> </span>to<span class="w"> </span>generate<span class="w"> </span>only<span class="w"> </span>minimum
+<span class="w">                             </span>required<span class="w"> </span>fields<span class="w"> </span>according<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>specification
+<span class="w">  </span>--to_dict<span class="w">                   </span>Export<span class="w"> </span>body<span class="w"> </span>request<span class="w"> </span>input<span class="w"> </span>data<span class="w"> </span>into<span class="w"> </span>the<span class="w"> </span>json/csv
+<span class="w">  </span>--no-body-check<span class="w">            </span>Disable<span class="w"> </span>default<span class="w"> </span>check<span class="w"> </span>of<span class="w"> </span>body<span class="w"> </span>json<span class="w"> </span>structure
+<span class="w">                             </span>load.<span class="w"> </span>Useful<span class="w"> </span><span class="k">for</span><span class="w"> </span>negative<span class="w"> </span>scenarios.
+<span class="w">  </span>--compare<span class="w">                  </span>Comparison<span class="w"> </span>between<span class="w"> </span>JSON<span class="w"> </span>response<span class="w"> </span>vs<span class="w"> </span>stored<span class="w"> </span>with
+<span class="w">                             </span>--prefix<span class="w"> </span>command.
+<span class="w">  </span>--path<span class="w"> </span>TEXT<span class="w">                </span>Full<span class="w"> </span>path<span class="w"> </span>where<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>json<span class="w"> </span>response.<span class="w"> </span><span class="o">[</span>default:
+<span class="w">                             </span>/home/parimir/workspace/DAVe-CPME-API-
+<span class="w">                             </span>Regression/development/snapshots<span class="w"> </span><span class="k">for</span><span class="w"> </span>get<span class="w"> </span>results,
+<span class="w">                             </span>/home/parimir/workspace/DAVe-CPME-API-
+<span class="w">                             </span>Regression/development/responses<span class="w"> </span><span class="k">for</span><span class="w"> </span>post
+<span class="w">                             </span>results<span class="o">]</span>
+<span class="w">  </span>-F,<span class="w"> </span>--file-name<span class="w"> </span>TEXT<span class="w">       </span>File<span class="w"> </span>name<span class="w"> </span>to<span class="w"> </span>find<span class="w"> </span>with<span class="w"> </span>body<span class="w"> </span>request<span class="w"> </span>content.
+<span class="w">  </span>-O,<span class="w"> </span>--out<span class="w"> </span>TEXT<span class="w">             </span>Output<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>of<span class="w"> </span>response.
+<span class="w">  </span>--prefix<span class="w"> </span>TEXT<span class="w">              </span>The<span class="w"> </span><span class="nb">alias</span><span class="w"> </span>name<span class="w"> </span><span class="k">for</span><span class="w"> </span>to_dict<span class="w"> </span>files.<span class="w">  </span><span class="o">[</span>default:<span class="w"> </span>cli<span class="o">]</span>
+<span class="w">  </span>-p,<span class="w"> </span>--params<span class="w"> </span>TEXT<span class="w">          </span>Input<span class="w"> </span>parameters<span class="w"> </span><span class="k">for</span><span class="w"> </span>query.<span class="w"> </span>For<span class="w"> </span>all<span class="w"> </span><span class="sb">`</span>extrafields<span class="sb">`</span>
+<span class="w">                             </span>use<span class="w"> </span><span class="s1">&#39;-p extrafields all&#39;</span>.
+<span class="w">  </span>-b,<span class="w"> </span>--body<span class="w"> </span>TEXT<span class="w">            </span>Input<span class="w"> </span>parameters<span class="w"> </span><span class="k">for</span><span class="w"> </span>response<span class="w"> </span>body.<span class="w"> </span>For<span class="w"> </span>DEFAULT<span class="o">[</span>s
+<span class="w">                             </span>napshot,portfolio_components<span class="o">=</span>etd_csv?csv_json<span class="o">]</span>
+<span class="w">  </span>-M,<span class="w"> </span>--from-merge<span class="w"> </span>TEXT<span class="w">      </span>Merge<span class="w"> </span>loaded<span class="w"> </span>body<span class="w"> </span>prefix<span class="w"> </span>file<span class="w"> </span>with<span class="w"> </span>prefix<span class="w"> </span>string
+<span class="w">                             </span>or<span class="w"> </span>file<span class="w"> </span>name<span class="w"> </span>string<span class="w"> </span><span class="o">[</span>example:<span class="w"> </span>--from-merge<span class="o">=</span>TC-
+<span class="w">                             </span>Currency<span class="w"> </span>or<span class="w"> </span>-M<span class="w"> </span>x-y_currency.json<span class="o">]</span>
+<span class="w">  </span>-t,<span class="w"> </span>--timeout<span class="w"> </span>FLOAT<span class="w">        </span>Request<span class="w"> </span>timeout.<span class="w"> </span>To<span class="w"> </span><span class="nb">wait</span><span class="w"> </span>forever<span class="w"> </span><span class="k">for</span><span class="w"> </span>a<span class="w"> </span>response,
+<span class="w">                             </span>use<span class="w"> </span><span class="m">0</span><span class="w"> </span>value<span class="w">  </span><span class="o">[</span>default:<span class="w"> </span><span class="m">30</span><span class="o">]</span>
+<span class="w">  </span>-e,<span class="w"> </span>--env<span class="w"> </span>TEXT<span class="w">             </span>Request<span class="w"> </span>of<span class="w"> </span>corresponding<span class="w"> </span>endpoint<span class="w"> </span>with<span class="w"> </span>parameter.
+<span class="w">                             </span>Default<span class="w"> </span>input<span class="w"> </span>is<span class="w"> </span>used<span class="w"> </span>from<span class="w"> </span>setting<span class="w"> </span>toml<span class="w"> </span>file.
+<span class="w">                             </span>Available<span class="w"> </span>keys:<span class="w">  </span><span class="o">[</span><span class="s1">&#39;dev&#39;</span>,<span class="w"> </span><span class="s1">&#39;prod&#39;</span>,<span class="w"> </span><span class="s1">&#39;simu&#39;</span>,<span class="w"> </span><span class="s1">&#39;act&#39;</span>,
+<span class="w">                             </span><span class="s1">&#39;k8s&#39;</span>,<span class="w"> </span><span class="s1">&#39;snap&#39;</span><span class="o">]</span>.<span class="o">[</span>default:<span class="w"> </span>development<span class="o">]</span>
+<span class="w">  </span>--help<span class="w">                     </span>Show<span class="w"> </span>this<span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span>exit.
+</pre></div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

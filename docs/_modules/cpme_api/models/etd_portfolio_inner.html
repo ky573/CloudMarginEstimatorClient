@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cpme_api.models.etd_portfolio_inner &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/sphinx_rtd_size.css?v=3b072d6b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            COMET - Cloud Margin Estimator api Test tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html">Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">1. Command Line Interface usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../library.html">2. Library usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scenarios.html">Scenarios Example</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#api-models">API models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">API features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">COMET - Cloud Margin Estimator api Test tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">cpme_api.models.etd_portfolio_inner</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for cpme_api.models.etd_portfolio_inner</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">cpme_api.api.feature.models</span> <span class="kn">import</span> <span class="n">BaseContent</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">None</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="EtdPortfolioInner">
+<a class="viewcode-back" href="../../../models.html#cpme_api.models.EtdPortfolioInner">[docs]</a>
+<span class="k">class</span> <span class="nc">EtdPortfolioInner</span><span class="p">(</span><span class="n">BaseContent</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_swagger_types</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;call_put_flag&#39;</span><span class="p">:</span> <span class="s1">&#39;CallPutFlag&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;contract_date&#39;</span><span class="p">:</span> <span class="s1">&#39;ContractDate&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;exercise_price&#39;</span><span class="p">:</span> <span class="s1">&#39;ExercisePrice&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;exercise_style&#39;</span><span class="p">:</span> <span class="s1">&#39;ExerciseStyle&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;iid&#39;</span><span class="p">:</span> <span class="s1">&#39;Iid&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;instrument_type&#39;</span><span class="p">:</span> <span class="s1">&#39;InstrumentType&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line_no&#39;</span><span class="p">:</span> <span class="s1">&#39;LineNo&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;maturity&#39;</span><span class="p">:</span> <span class="s1">&#39;Maturity&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;net_ea&#39;</span><span class="p">:</span> <span class="s1">&#39;NetEa&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;net_ls_balance&#39;</span><span class="p">:</span> <span class="s1">&#39;NetLsBalance&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;product_id&#39;</span><span class="p">:</span> <span class="s1">&#39;ProductId&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;version_number&#39;</span><span class="p">:</span> <span class="s1">&#39;VersionNumber&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_default_values</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;call_put_flag&#39;</span><span class="p">:</span> <span class="s1">&#39;P&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;contract_date&#39;</span><span class="p">:</span> <span class="s1">&#39;20281215&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;exercise_price&#39;</span><span class="p">:</span> <span class="mi">2400</span><span class="p">,</span>
+        <span class="s1">&#39;exercise_style&#39;</span><span class="p">:</span> <span class="s1">&#39;AMERICAN&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;iid&#39;</span><span class="p">:</span> <span class="mi">27471356</span><span class="p">,</span>
+        <span class="s1">&#39;instrument_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Flex Option&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;line_no&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;maturity&#39;</span><span class="p">:</span> <span class="mi">202812</span><span class="p">,</span>
+        <span class="s1">&#39;net_ea&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s1">&#39;net_ls_balance&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span>
+        <span class="s1">&#39;product_id&#39;</span><span class="p">:</span> <span class="s1">&#39;OESX&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;version_number&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_required</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;line_no&#39;</span><span class="p">,</span> <span class="s1">&#39;net_ls_balance&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_call_put_flag</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contract_date</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exercise_price</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_exercise_style</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_iid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_instrument_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_line_no</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maturity</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_net_ea</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_net_ls_balance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version_number</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EtdPortfolioInner</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">line_no</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_line_no</span>
+
+    <span class="nd">@line_no</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">line_no</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;line_no&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_id</span>
+
+    <span class="nd">@product_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">product_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;product_id&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">contract_date</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contract_date</span>
+
+    <span class="nd">@contract_date</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">contract_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;contract_date&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">maturity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maturity</span>
+
+    <span class="nd">@maturity</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">maturity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;maturity&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">call_put_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_put_flag</span>
+
+    <span class="nd">@call_put_flag</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">call_put_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;call_put_flag&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exercise_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exercise_price</span>
+
+    <span class="nd">@exercise_price</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">exercise_price</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;exercise_price&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version_number</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_version_number</span>
+
+    <span class="nd">@version_number</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">version_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;version_number&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">iid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iid</span>
+
+    <span class="nd">@iid</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">iid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;iid&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">instrument_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_instrument_type</span>
+
+    <span class="nd">@instrument_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">instrument_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;instrument_type&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">exercise_style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exercise_style</span>
+
+    <span class="nd">@exercise_style</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">exercise_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;exercise_style&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">net_ea</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_net_ea</span>
+
+    <span class="nd">@net_ea</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">net_ea</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;net_ea&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">net_ls_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_net_ls_balance</span>
+
+    <span class="nd">@net_ls_balance</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">net_ls_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="s2">&quot;net_ls_balance&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
