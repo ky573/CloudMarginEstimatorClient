@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/sphinx_rtd_size.css?v=3b072d6b" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Command Line Interface usage" href="cli.html" />
+    <link rel="prev" title="Start" href="get_start.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            COMET - Cloud Margin Estimator api Test tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="get_start.html">Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">1. Command Line Interface usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="library.html">2. Library usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenarios.html">Scenarios Example</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Library API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#api-models">API models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="models.html">API features</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">COMET - Cloud Margin Estimator api Test tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>The COMET test tool uses <a class="reference external" href="https://www.dynaconf.com/">Dynaconf</a> and can be configured tree ways
+from system environments, .env docker file or toml/json files.</p>
+<section id="setting-files">
+<h2>Setting files<a class="headerlink" href="#setting-files" title="Link to this heading"></a></h2>
+<p>You can check the example of <strong>comet_conf.toml</strong> file which is used as an default file.
+Default environment is <strong>development</strong>. The environment system variable is <strong>ENVIRONMENT_FOR_COMET</strong>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">to_dict</span> <span class="n">ENVIRONMENT_FOR_COMET</span><span class="o">=</span><span class="n">production</span>   <span class="c1"># update evn to production</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Supported formats:</p>
+<ul class="simple">
+<li><p>toml - Default and recommended file format.</p></li>
+<li><p>yaml|.yml</p></li>
+<li><p>json - Useful to reuse existing or exported settings.</p></li>
+<li><p>.env - Useful to automate the loading of environment variables.</p></li>
+</ul>
+</div>
+<p>The full path of an configuration file is read from <strong>COMET_CONFIG</strong> as default. If the env variable does not exist
+the default file name is <strong>comet_conf.toml</strong> or <strong>setting.toml</strong> and default location is project’s folder.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">to_dict</span> <span class="n">COMET_CONFIG</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">conf</span><span class="o">.</span><span class="n">toml</span>   <span class="c1"># user defined config file</span>
+</pre></div>
+</div>
+<p>The default configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SWAGGER_YAML_DEFINITION_FILE</span> <span class="o">=</span> <span class="o">./</span><span class="n">comet</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">yaml</span><span class="o">/</span><span class="n">marginestimator2</span><span class="o">.</span><span class="n">yaml</span>
+<span class="n">SNAPSHOTS_FOLDER</span> <span class="o">=</span> <span class="o">./</span><span class="n">example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">snapshots</span>
+<span class="n">REQUESTS_FOLDER</span> <span class="o">=</span> <span class="o">./</span><span class="n">example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">requests</span>
+<span class="n">RESPONSES_FOLDER</span> <span class="o">=</span> <span class="o">./</span><span class="n">example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">responses</span>
+<span class="n">SNAPTOOL_FOLDER</span> <span class="o">=</span> <span class="o">./</span><span class="n">example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">snapexport</span>
+<span class="n">URL_API</span> <span class="o">=</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">cpme</span><span class="o">.</span><span class="n">risk</span><span class="o">.</span><span class="n">dev</span><span class="o">.</span><span class="n">fra</span><span class="o">.</span><span class="n">aws</span><span class="o">.</span><span class="n">dbgcloud</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v2</span><span class="mf">.0</span>
+<span class="n">REQUEST_TIMEOUT</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to overwrite already defined global variables via system environment variables with <strong>COMET_</strong> prefix.</p>
+</div>
+<p>To safely store sensitive data the setting module also searches for a <strong>.secrets {toml|json|yaml}</strong> file to look for data like tokens and passwords.
+The secrete file supports all the environment definitions in the config/setting file.</p>
+<p>The supported environments are [‘development’, ‘acceptance’, ‘simulation’, ‘production’, ‘k8sprod’]</p>
+<p>The <strong>default</strong> section in <strong>comet_conf.toml</strong> contains</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">default</span><span class="p">]</span>
+<span class="n">snaptool_folder</span><span class="o">=</span><span class="s2">&quot;.&quot;</span>
+<span class="n">async_request</span><span class="o">=</span><span class="n">false</span>
+<span class="n">generate_endpoint</span><span class="o">=</span><span class="n">false</span>
+<span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="get_start.html" class="btn btn-neutral float-left" title="Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="1. Command Line Interface usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
