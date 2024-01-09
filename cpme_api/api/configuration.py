@@ -12,7 +12,7 @@ import multiprocessing
 import sys
 import urllib3
 # from six.moves import http_client as httplib
-import http
+from http.client import HTTPConnection
 
 NAME = "CPME-client"
 
@@ -315,7 +315,7 @@ class Configuration(object):
             for _, logger in self.loggers.items():
                 logger.setLevel(logging.DEBUG)
             # turn on httplib debug
-            http.HTTPConnection.debuglevel = 1
+            HTTPConnection.debuglevel = 1
             self.info()
         else:
             # if debug status is False, turn off debug logging,
@@ -323,7 +323,7 @@ class Configuration(object):
             for _, logger in self.loggers.items():
                 logger.setLevel(logging.INFO)
             # turn off httplib debug
-            http.HTTPConnection.debuglevel = 0
+            HTTPConnection.debuglevel = 0
 
     @property
     def logger_format(self):

@@ -60,7 +60,6 @@ def json_to_file(data_dict: dict, file_name: str, verbose=True, update=True) -> 
 
     if dir_name == '':
         dir_exist = True
-        file_name = './example/' + file_name
 
     file_name = os.path.abspath(file_name)
     if update and dir_exist:
