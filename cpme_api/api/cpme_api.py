@@ -101,7 +101,8 @@ class CpmeApi(BaseApi):
         return self._api_client.call_api(
             '/securities', 'GET',
             params,
-            response_type='RespSecurities'
+            response_type='RespSecurities',
+            collection_format={'isin': 'multi'}
         )
 
     def products_get(self, **kwargs):
