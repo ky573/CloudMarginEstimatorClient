@@ -32,12 +32,14 @@ class ApiClient(object):
         self.rest_client = rest.RESTClientObject(configuration)
         self.pooling = configuration.enable_pooling
         self.default_headers = {}
-        self.client_side_validation = False  # configuration.client_side_validation
-        self.pool = ThreadPool()
+        self.client_side_validation = False
+        if self.pooling:
+            self.pool = ThreadPool()
 
     def close(self):
-        self.pool.close()
-        self.pool.join()
+        if self.pooling:
+            self.pool.close()
+            self.pool.join()
 
     @staticmethod
     def _split_parameters(params: dict, api_key: dict = None) -> (dict, dict):
@@ -98,7 +100,7 @@ class ApiClient(object):
             If parameter async_req is False or missing,
             then the method will return the response directly.
         """
-        if not params.get('async_req'):
+        if not params.get('async_req') or not self.pooling:
             return self._call_api(endpoint, method, params,
                                   body, serialization,
                                   request_timeout, response_type, collection_format)
@@ -150,10 +152,10 @@ class ApiClient(object):
 
         if request_timeout is None:
             # load from parameters
-            if params.get('timeout') is None:
+            if params.get('request_timeout') is None:
                 request_timeout = self.config.request_timeout
             else:
-                request_timeout = params['timeout']
+                request_timeout = params['request_timeout']
 
         # request url
         if path_params:
@@ -169,15 +171,10 @@ class ApiClient(object):
         if serialization:
             return self.deserialize(response_data, response_type)
 
-        if isinstance(response_data, Response):
-            # Response from requests lib
-            return response_data
+        if self.config.return_json:
+            return response_data.json
         else:
-            # Response of poolmanager urllib
-            if self.config.return_json:
-                return response_data.json
-            else:
-                return response_data
+            return response_data
 
     def request(self, method, url, endpoint, query_params=None, headers=None,
                 body=None, request_timeout=None,
