@@ -7,6 +7,8 @@ import ssl
 import certifi
 from urllib.parse import urlencode
 
+import ipdb
+
 try:
     import urllib3
 except ImportError:
@@ -14,7 +16,7 @@ except ImportError:
 
 from cpme_api.api.configuration import Configuration
 import requests
-import urllib3
+from requests.models import Response
 
 
 urllib3.disable_warnings()
@@ -22,24 +24,29 @@ urllib3.disable_warnings()
 
 class RESTResponse(io.IOBase):
     def __init__(self, resp):
-        self.urllib3_response = resp
-        self.status = resp.status
-        self.reason = resp.reason
-        # In the python 3, the response.data is bytes.
-        # we need to decode it to string.
-        self.data = resp.data.decode('utf8')
+        if isinstance(resp, Response):
+            self.requests_response = resp
+            self.status = resp.status_code
+            self.reason = resp.reason
+            self.headers = resp.headers
+            self.data = resp.content
+        else:
+            self.urllib3_response = resp
+            self.status = resp.status
+            self.reason = resp.reason
+            self.headers = resp.getheaders()
+            # In the python 3, the response.data is bytes.
+            # we need to decode it to string.
+            self.data = resp.data.decode('utf8')
+
         if self.status != 200:
             self.json = {}
         else:
             self.json = resp.json()
 
-    def getheaders(self):
-        """Returns a dictionary of the response headers."""
-        return self.urllib3_response.getheaders()
-
     def getheader(self, name, default=None):
         """Returns a given response header."""
-        return self.urllib3_response.getheader(name, default)
+        return self.headers.get(name, default)
 
 
 def shorten_body(body: dict) -> str:
@@ -51,13 +58,9 @@ def shorten_body(body: dict) -> str:
 
 class RESTClientObject(object):
 
-    def __init__(self, configuration: Configuration):
+    def __init__(self, configuration: Configuration, pools_size=4, maxsize=None):
         self.pooling = configuration.enable_pooling
-        maxsize = configuration.max_size
         self.log = configuration.loggers.get('package_logger')
-        if configuration.pool_size is None:
-            pools_size = 4
-        pools_size = 4
         # urllib3.PoolManager will pass all kw parameters to connectionpool
         # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/poolmanager.py#L75  # noqa: E501
         # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/connectionpool.py#L680  # noqa: E501
@@ -79,12 +82,11 @@ class RESTClientObject(object):
 
         addition_pool_args = {}
 
-        #if maxsize is None:
-        #    if configuration.connection_pool_maxsize is not None:
-        #        maxsize = configuration.connection_pool_maxsize
-        #    else:
-        #        maxsize = 4
-        maxsize = 4
+        if maxsize is None:
+            if configuration.connection_pool_maxsize is not None:
+                maxsize = configuration.connection_pool_maxsize
+            else:
+                maxsize = 4
 
         # https pool manager
         if configuration.proxy:
@@ -210,10 +212,10 @@ class RESTClientObject(object):
             # For `GET`, `HEAD`
             else:
                 resp = self.pool_manager.request(method, url,
-                                              fields=query_params,
-                                              preload_content=_preload_content,
-                                              timeout=timeout,
-                                              headers=headers)
+                                                 fields=query_params,
+                                                 preload_content=_preload_content,
+                                                 timeout=timeout,
+                                                 headers=headers)
         except urllib3.exceptions.SSLError as e:
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             raise ApiException(status=0, reason=msg)
@@ -221,7 +223,7 @@ class RESTClientObject(object):
         if _preload_content:
             resp = RESTResponse(resp)
             # log response body
-            self.log.debug(f"{method} url: {url} headers: {resp.getheaders()} response_body: {resp.data}")
+            self.log.debug(f"{method} url: {url} headers: {resp.headers} response_body: {resp.data}")
 
         if not 200 <= resp.status <= 299:
             raise ApiException(http_resp=resp)
@@ -245,12 +247,21 @@ class RESTClientObject(object):
                                 query_params=query_params)
         else:
             # temporarily for requests lib
-            return requests.get(url,
+            resp = requests.get(url,
                                 params=query_params,
                                 headers=headers,
                                 verify=False,
                                 timeout=_request_timeout,
                                 stream=True)
+            if _preload_content:
+                resp = RESTResponse(resp)
+                # log response body
+                self.log.debug(f"GET url: {url} headers: {resp.headers} response_body: {resp.data}")
+
+            if not 200 <= resp.status <= 299:
+                raise ApiException(http_resp=resp)
+
+            return resp
 
     def HEAD(self, url, headers=None, query_params=None, _preload_content=True,
              _request_timeout=None):
@@ -333,7 +344,7 @@ class ApiException(Exception):
             self.status = http_resp.status
             self.reason = http_resp.reason
             self.body = http_resp.data
-            self.headers = http_resp.getheaders()
+            self.headers = http_resp.headers
         else:
             self.status = status
             self.reason = reason
