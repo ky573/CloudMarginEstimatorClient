@@ -63,6 +63,22 @@ To check that api client is installed:
 
 ```python -m cpmeapi```
 
+# CPME API library
+
+## Connection
+
+As default the url is static address of [DBP](https://console.developer.deutsche-boerse.com/apis/afdc9fa5-767a-49ac-b834-ee92ea0ac040)
+
+Default url is https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0
+
+You can change url with instance of Config class.
+
+```
+from cpme_api.api Configuration
+
+config = Configuration()
+config.url = 'https://eurexmargins.prod.dbgservice.com/api/v2.0'
+```
 
 # Model Generator
 

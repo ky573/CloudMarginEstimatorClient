@@ -17,7 +17,9 @@ class Configuration(object):
     def __init__(self):
         """Constructor"""
         # Default Base url
-        self._url = "https://cpme.risk.dev.ams.gcp.dbgcloud.io/api/v2.0"
+        # self._url = "https://eurexmargins.prod.dbgservice.com/api/v2.0"
+        self._url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
+        # self._url = "https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0"
         # Temp file folder for downloading files
         self.temp_folder_path = None
         # Authentication Settings
@@ -42,7 +44,7 @@ class Configuration(object):
         # Debug switch
         self._debug = False
         # SSL/TLS verification
-        # Set this to false to skip verifying SSL certificate when calling API
+        # Set this to False to skip verifying SSL certificate when calling API
         # from https server.
         self._verify_ssl = False
         # Set this to customize the certificate file to verify the peer.
@@ -58,18 +60,16 @@ class Configuration(object):
         # not the best value when you are making a lot of possibly parallel
         # requests to the same host, which is often the case here.
         # cpu_count * 5 is used as default value to increase performance.
-        self.connection_pool_maxsize = multiprocessing.cpu_count() * 5
+        self._connection_pool_maxsize = multiprocessing.cpu_count() * 5
         # Proxy URL
         self._proxy = None
         # Safe chars for path_param
         self._enable_pooling = None
-        self._pool_size = 4
-        self._max_size = None
         self._verbose = None
         self._timeout = None
         self._env = "PROD"
         self._request_timeout = None
-        self._return_json = None
+        self._return_json = True
 
     @property
     def return_json(self):
@@ -205,30 +205,22 @@ class Configuration(object):
         self._request_timeout = value
 
     @property
-    def pool_size(self):
+    def connection_pool_maxsize(self):
         """Number of pools of urrllib connector
 
         :param value:
         :type: int
         """
-        return self._pool_size
+        return self._connection_pool_maxsize
 
-    @pool_size.setter
-    def pool_size(self, value: int):
+    @connection_pool_maxsize.setter
+    def connection_pool_maxsize(self, value: int):
         """Number of pools of urrllib connector
 
         :param value:
         :type: int
         """
-        self._pool_size = value
-
-    @property
-    def max_size(self):
-        return self._max_size
-
-    @max_size.setter
-    def max_size(self, value):
-        self._max_size = value
+        self._connection_pool_maxsize = value
 
     @property
     def verify_ssl(self):
