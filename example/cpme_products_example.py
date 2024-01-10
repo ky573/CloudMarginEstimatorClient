@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 """
-<products>: GET
-  Description:
+ Description:
  Lists all exchange-traded products, Eurex and ECC. Only `product` and `instrument_type`
  are returned by default. Remaining attributes (see response) are returned
  only if specified in `extrafields`.
 
-  Parameters:
+ Parameters:
     HEADER: {'x_dbp_apikey': 'X-DBP-APIKEY'}
     QUERY PARAMETERS: 'extrafields','business_date','live','live_timestamp'
     EXTRA_FIELDS:
@@ -45,21 +44,18 @@ def example(api: CpmeApi):
     # resp = api.products_get(**PARAM_PROD, timeout=5)
     resp = api.products_get(extrafields=api.get_extrafields(GET.products))
     # fancy(resp)
-    json_to_file(resp, 'products')
-    list_to_csv(resp['products'], 'products')
+    json_to_file(resp, './data/products')
+    # list_to_csv(resp['products'], './data/products')
 
 
 if __name__ == '__main__':
     config = Configuration()
     config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-    config.url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
-    # config.api_key = API_KEY
     config.enable_logging = True
-    config.enable_pooling = True
-    config.return_json = True
+    config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
+    # config.request_timeout = 5
     # config.debug = True
-    # config.logger_file = 'debug_log5.log'
-
+    config.logger_file = 'debug_log5.log'
     api = CpmeApi(configuration=config)
     example(api)
     api.close()
