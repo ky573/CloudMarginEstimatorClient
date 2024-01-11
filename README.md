@@ -1,67 +1,74 @@
 # Cloud Margin Estimator API Client
 
 ## Introduction
-The motivation is to simplify testing of cpME api in form of python library and user friendly command line interface. The main goal is auto generated code to avoid a boiler code and get access into all attributes in request and response data structure for easy manipulation and validation. 
+The motivation is to provide user-friendly interface to cpME api in form of python library. The main goal is auto generated code to avoid a boiler code and get access into all attributes of particular request and response data structure for easy manipulation and validation.
+
 The code generator is some kind of tree resource object model (like DOM) from swagger definition file of open api standard. The tool can be used by developers and testers to avoid manual routines
 and provide an api specification in available from CLI.
-The library helps regression testing with pytest framework for corresponding environment.
-The python test framework COMET for cpME api test (system, regression and business tests). It is based on CLI interface with python library. The main goal is to use CLI to interact with test scanario development with fast and flexible way. Intuitive commands and test approach with auto validation will simplify test process and improve quality of our cpME product.
+
+The library is part of [COMET](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-Tests) tool and helps regression testing with pytest framework for corresponding environment.
 
 
 ## Features
+### cpme_api module
 - Support of all cpme endpoints, get and post requests, exporting data to csv/json/xls
+- Synchronous or asynchronous switch
+- Data Models 
+- Example of scripts
+- Rich documentation of setup and usage
+- Easy configuration of client setting with logging
+
+### model_gen module
 - Support of mocking data
 - Generic code for all endpoints from swagger file according to open api 3.0
 - Auto validation of expected response format according to the swagger specification
 - Auto validation of expected type and items in response JSON structure according to the swagger specification
-- CLI interface for quick API info, requests and snaptool (master data and market data) fetching from S3 drive
-- Global configuration via (environment variables, docker .env or toml, yaml, json file)
-- Independent configuration for different environments DEV, PROD, SIMU, ACT, SNAP or ANY which can be switchable during runtime
+- Global configuration via (environment variables, toml file)
+- Independent configuration for different environments DEV, PROD, SIMU .
 
 ## Installation
 ### Virtual environments
 The main purpose of Python virtual environments is to create an isolated environment for a Python project to have its own dependencies, regardless of other projects. [Read more about Python Virtual Environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment)
 Python 3 already has the venv module installed with the standard library.
 
-Depending on your preferred Python installation, you can create virtual environments to work with Comet as follows:
+Depending on your preferred Python installation. You can create virtual environment to use cpme_api client as follows:
 
 ```
-python3 -m venv comet-environment  # macOS/ Linux
-python3 -m venv comet-environment  # Windows
+python3 -m venv cpme-environment  # macOS/ Linux
+python3 -m venv cpme-environment  # Windows
 ```
 
 Activate this virtual environment:
 
 ```
-source env/comet-environment/bin/activate  # macOS/ Linux
-.\comet-environment/Scripts/activate       # Windows
+source cpme-environment/bin/activate  # macOS/ Linux
+cpme-environment/Scripts/activate     # Windows
 ```
 
 To exit the environment:
 
 ```deactivate```
 
-### Install Comet
+### Install
+- To try out a stable version of Comet direct from the Github repository:
 
-To try out a stable version of Comet direct from the Github repository:
+```git clone https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient --depth 1 -b master```
 
-```git clone https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-Tests --depth 1 -b master```
+- Enter the downloaded folder
 
-Enter the downloaded folder
+``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient``
 
-``cd /local_repository_folder/DAVe-MarginEstiamtor-Test``
+- and run inside the virtual environment
 
-and run inside the virtual environment
+```pip install .``` or ```python . install```
 
-```pip install .```
+- set up **PYTHONPATH**
 
-set up PYTHONPATH
+```export PYTHONPATH=<local_folder>/DAVe-MarginEstimator-PythonAPIClient```
 
-```to_dict PYTHONPATH=/local_repository_folder/DAVe-MarginEstimator-Tests```
+- To check that api client is installed:
 
-To check that api client is installed:
-
-```python -m cpmeapi```
+```python -m cpme_api``` or call just ``cpme_api``
 
 # CPME API library
 
@@ -71,7 +78,7 @@ As default the url is static address of [DBP](https://console.developer.deutsche
 
 Default url is https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0
 
-You can change url with instance of Config class.
+You can change url with instance of **Configuration** class.
 
 ```
 from cpme_api.api Configuration
@@ -80,6 +87,8 @@ config = Configuration()
 config.url = 'https://eurexmargins.prod.dbgservice.com/api/v2.0'
 ```
 
+For more details use [documentation](https://pages.github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/model_gen/docs/build/html/index.html)
+
 # Model Generator
 
 Data class generator from swagger yaml file base on open api 3.0 standard generates models with data classe for cpme_api client.
@@ -87,10 +96,10 @@ It creates namespaces like (examples, primitive, request_body, responses) into c
 
 
 ## Model Update with command line interface (CLI)
-After the installation you can call CLI by simple call with library module parameter `-m`
+After the installation you can call generator:
 
 ```
-$ python -m model_gen update
+$ model_gen update
 
                                                                       
      _/_/_/            _/      _/  _/_/_/_/  _/_/_/_/_/  _/_/_/_/_/   
@@ -117,39 +126,34 @@ Options:
   --help                Show this message and exit.
 ```
 
-# Library Usage
+# Examples
 
-Library usage with examples you can find in [examples](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-Tests/tree/master/example). 
+Example requests you can find in [examples](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/master/example). 
 
-## Example:
+## Request of /products snapshots:
 
-### Get request of products (resource) with auto validation and compare response with expected result
+Get request of products (resource) and save the response into csv file.
 
-1. Load the api dictionary definition with all endpoints  
+ 1. Load the api dictionary definition with all endpoints  
 ```
 from cpme_api.api import CpmeApi, fancy, Configuration, GET
 from cpme_api.api.feature.utils import json_to_file
-
-
-apis, inputs = factory.loader()
 ```
 2. Define api_key and enable logging
 ```
 config = Configuration()
-config.api_key = API_KEY
+config.api_key = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
 config.enable_logging = True
-
 ```
 3. Create client
 ```
 api = CpmeApi(configuration=config)
-
 ```
-a) explicitly:
+a) explicitly with reference:
 ```
 BD = '20220906'
 
-API_KEY = 'A953e6e4-235e-4217-a7b0-ceb071a9dba9'
+API_KEY = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
 
 PARAM_PROD  = {
     'business_date': '20220623,
@@ -158,23 +162,23 @@ PARAM_PROD  = {
     'x_dbp_apikey': API_KEY,
 }
 
-default_p = params.get_default(**PARAM_PROD)
+resp = api.products_get.get_default(**PARAM_PROD)
 ```
 
-It is possible to predefine general parameters for all endpoints as a precondition for all parameters instances 
+b) directly 
 ```
-resp = api.products_get('business_date': '20220623, 'live': 0, timeout=5)
-```
-
-b) implicitly if the endpoint support extra-fields, you can assign all of them
-```
-resp = api.products_get(extrafields=api.get_extrafields(GET.products))
+resp = api.products_get(business_date=20220623, live=0, extrafields=api.get_extrafields(GET.products))
 ```
 
 4. save results
 ```
-json_to_file(resp, 'products')
+json_to_file(resp['products'], 'products')
 ```
+5. close api
+```
+api.close()
+```
+
 
 
 
