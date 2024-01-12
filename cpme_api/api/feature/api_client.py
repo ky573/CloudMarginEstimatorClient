@@ -1,5 +1,5 @@
 # import multiprocessing.dummy as multiprocessing
-#from multiprocessing.pool import ThreadPool
+from multiprocessing.pool import ThreadPool
 from multiprocessing.dummy import Pool as ThreadPool
 
 import ipdb
@@ -108,6 +108,7 @@ class ApiClient(object):
             thread = self.pool.apply_async(self._call_api, (endpoint,
                                            method, params, body,
                                            request_timeout, request_timeout, response_type, collection_format))
+            setattr(thread, 'id', endpoint.lstrip('/') + '-' + str(thread._job))
         return thread
 
     def parameters_to_tuples(self, params, collection_formats):

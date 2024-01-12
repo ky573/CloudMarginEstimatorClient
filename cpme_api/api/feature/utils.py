@@ -52,6 +52,8 @@ def json_to_file(data_dict: dict, file_name: str, verbose=True, update=True) -> 
     :param update: if True it overwrites already existing file
     :return: absolute path of file_name
     """
+    assert isinstance(data_dict, dict), 'data must be instance of dict'
+    assert isinstance(file_name, str), 'file_name must be string'
     dir_name = os.path.dirname(file_name)
     dir_exist = os.path.isdir(dir_name)
 

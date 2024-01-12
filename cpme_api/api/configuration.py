@@ -395,6 +395,9 @@ class Configuration(object):
             basic_auth=self.username + ':' + self.password
         ).get('authorization')
 
+    def get_loggger(self):
+        return self.loggers['package_logger']
+
     def auth_settings(self):
         return {}
 
