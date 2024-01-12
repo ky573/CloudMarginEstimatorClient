@@ -1,16 +1,14 @@
 # Cloud Margin Estimator API Client
 
 ## Introduction
-The motivation is to provide user-friendly interface to cpME api in form of python library. The main goal is auto generated code to avoid a boiler code and get access into all attributes of particular request and response data structure for easy manipulation and validation.
+The motivation is to provide user-friendly interface to cpME api in form of python library and to provide to user the easy way how to send requests and save results into the json or csv file.
 
-The code generator is some kind of tree resource object model (like DOM) from swagger definition file of open api standard. The tool can be used by developers and testers to avoid manual routines
-and provide an api specification in available from CLI.
-
-The library is part of [COMET](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-Tests) tool and helps regression testing with pytest framework for corresponding environment.
-
+Get access to auto generated data classes with all attributes of particular request and response data structure for easy manipulation and validation.
 
 ## Features
 ### cpme_api module
+The library is part of [COMET](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-Tests) tool and helps regression testing with pytest framework for corresponding environment.
+
 - Support of all cpme endpoints, get and post requests, exporting data to csv/json/xls
 - Synchronous or asynchronous switch
 - Data Models 
@@ -19,6 +17,9 @@ The library is part of [COMET](https://github.deutsche-boerse.de/dev/DAVe-Margin
 - Easy configuration of client setting with logging
 
 ### model_gen module
+The code generator is some kind of tree resource object model (like DOM) from swagger definition file of open api standard. The tool can be used by developers and testers to avoid manual routines
+and provide an api specification in available from CLI.
+
 - Support of mocking data
 - Generic code for all endpoints from swagger file according to open api 3.0
 - Auto validation of expected response format according to the swagger specification
@@ -42,7 +43,7 @@ Activate this virtual environment:
 
 ```
 source cpme-environment/bin/activate  # macOS/ Linux
-cpme-environment/Scripts/activate     # Windows
+cpme-environment\Scripts\activate     # Windows
 ```
 
 To exit the environment:
@@ -50,11 +51,11 @@ To exit the environment:
 ```deactivate```
 
 ### Install
-- To try out a stable version of Comet direct from the Github repository:
+- clone a stable version from Github repository:
 
 ```git clone https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient --depth 1 -b master```
 
-- Enter the downloaded folder
+- cnter the downloaded folder
 
 ``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient``
 
@@ -66,9 +67,9 @@ To exit the environment:
 
 ```export PYTHONPATH=<local_folder>/DAVe-MarginEstimator-PythonAPIClient```
 
-- To check that api client is installed:
+- To check that api client is working just execute some [example](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/blob/main/example/cpme_products_example.py) script
 
-```python -m cpme_api``` or call just ``cpme_api``
+```./example/cmpe_products_example.py``` 
 
 # CPME API library
 
@@ -114,7 +115,7 @@ _/        _/    _/  _/      _/  _/            _/          _/
 Usage: model_gen update [OPTIONS]
 
   Regenerate data model classes according to the recent swagger yaml file
-  definition with default values into cpme_api/api/models. The data objects
+  definition with default values into cpme_api/models. The data objects
   are mutable dictionary based structures of body request for POST api
   endpoints. It helps to build JSON body request object during the runtime :-)
   usage:     import cpme_api.api.models     from cpme_api.api.models import
@@ -128,56 +129,54 @@ Options:
 
 # Examples
 
-Example requests you can find in [examples](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/master/example). 
+Example requests you can find in [examples](https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example). 
 
 ## Request of /products snapshots:
 
 Get request of products (resource) and save the response into csv file.
 
- 1. Load the api dictionary definition with all endpoints  
-```
-from cpme_api.api import CpmeApi, fancy, Configuration, GET
-from cpme_api.api.feature.utils import json_to_file
-```
+1. Load the api dictionary definition with all endpoints
+    ```
+    from cpme_api.api import CpmeApi, fancy, Configuration, GET
+    from cpme_api.api.feature.utils import json_to_file
+    ```
 2. Define api_key and enable logging
-```
-config = Configuration()
-config.api_key = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
-config.enable_logging = True
-```
+    ```
+    config = Configuration()
+    config.api_key = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
+    config.enable_logging = True
+    ```
 3. Create client
-```
-api = CpmeApi(configuration=config)
-```
-a) explicitly with reference:
-```
-BD = '20220906'
-
-API_KEY = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
-
-PARAM_PROD  = {
-    'business_date': '20220623,
-    'live': 0,
-    'extrafields': ['underlying_isin', 'product_type'],
-    'x_dbp_apikey': API_KEY,
-}
-
-resp = api.products_get.get_default(**PARAM_PROD)
-```
-
-b) directly 
-```
-resp = api.products_get(business_date=20220623, live=0, extrafields=api.get_extrafields(GET.products))
-```
-
+    ```
+    api = CpmeApi(configuration=config)
+    ```
+    a) explicitly:
+    ```
+    BD = '20220906'
+    
+    API_KEY = 'U953e6r4-777e-4353-cfgf-ctrrtetres2'
+    
+    PARAM_PROD  = {
+        'business_date': '20220623',
+        'live': 0,
+        'extrafields': ['underlying_isin', 'product_type'],
+        'x_dbp_apikey': API_KEY,
+    }
+    
+    resp = api.products_get.get_default(**PARAM_PROD)
+    ```
+    b) with parameters 
+    ```
+    resp = api.products_get(business_date=20220623, live=0, extrafields=api.get_extrafields(GET.products))
+    ```
 4. save results
-```
-json_to_file(resp['products'], 'products')
-```
+    ```
+    json_to_file(resp['products'], 'products')
+    ```
 5. close api
-```
-api.close()
-```
+    ```
+    api.close()
+    ```
 
 
 
