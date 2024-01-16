@@ -1,5 +1,3 @@
-"""
-"""
 import logging
 import multiprocessing
 import sys
@@ -18,8 +16,8 @@ class Configuration(object):
         """Constructor"""
         # Default Base url
         # self._url = "https://eurexmargins.prod.dbgservice.com/api/v2.0"
-        self._url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
-        # self._url = "https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0"
+        # self._url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
+        self._url = "https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0"
         # Temp file folder for downloading files
         self.temp_folder_path = None
         # Authentication Settings
@@ -54,7 +52,7 @@ class Configuration(object):
         # client key file
         self._key_file = None
         # Set this to True/False to enable/disable SSL hostname verification.
-        self.assert_hostname = None
+        self._assert_hostname = None
         # urllib3 connection pool's maximum number of connections saved
         # per pool. urllib3 uses 1 connection as default value, but this is
         # not the best value when you are making a lot of possibly parallel
@@ -63,13 +61,19 @@ class Configuration(object):
         self._connection_pool_maxsize = multiprocessing.cpu_count() * 5
         # Proxy URL
         self._proxy = None
-        # Safe chars for path_param
-        self._enable_pooling = None
         self._verbose = None
         self._timeout = None
         self._env = "PROD"
         self._request_timeout = None
         self._return_json = True
+
+    @property
+    def assert_hostname(self):
+        return self._assert_hostname
+
+    @assert_hostname.setter
+    def assert_hostname(self, value: bool):
+        self._assert_hostname, value
 
     @property
     def return_json(self):
@@ -229,14 +233,6 @@ class Configuration(object):
     @verify_ssl.setter
     def verify_ssl(self, value):
         self._verify_ssl = value
-
-    @property
-    def enable_pooling(self):
-        return self._enable_pooling
-
-    @enable_pooling.setter
-    def enable_pooling(self, value):
-        self._enable_pooling = value
 
     @property
     def username(self):

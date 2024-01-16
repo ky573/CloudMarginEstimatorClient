@@ -2,7 +2,7 @@ import os
 from pprintjson import pprintjson
 import json
 from json.decoder import JSONDecodeError
-from typing import List, TextIO
+from typing import List, TextIO, Union
 import logging
 import csv
 
@@ -43,7 +43,7 @@ def dir_check(file_dir: str, del_files: bool = False):
                 os.remove(file_dir + file)
 
 
-def json_to_file(data_dict: dict, file_name: str, verbose=True, update=True) -> str:
+def json_to_file(data_dict: Union[dict, list], file_name: str, verbose=True, update=True) -> str:
     """
     Save dictionary structure into the JSON file.
     :param data_dict: dictionary object of json response
@@ -52,7 +52,7 @@ def json_to_file(data_dict: dict, file_name: str, verbose=True, update=True) -> 
     :param update: if True it overwrites already existing file
     :return: absolute path of file_name
     """
-    assert isinstance(data_dict, dict), 'data must be instance of dict'
+    assert isinstance(data_dict, dict) or isinstance(data_dict, list), 'data must be instance of dict or list'
     assert isinstance(file_name, str), 'file_name must be string'
     dir_name = os.path.dirname(file_name)
     dir_exist = os.path.isdir(dir_name)

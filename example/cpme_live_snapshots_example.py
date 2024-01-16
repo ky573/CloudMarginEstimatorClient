@@ -1,24 +1,20 @@
 #!/usr/bin/env python
 """
-List of live (intraday) snapshots for given business_date..
-"""
-import ipdb
+List of live (intraday) snapshots for given business_date.
 
-from cpme_api.api import CpmeApi, Configuration
+The example shows and save result into the json file.
+"""
+from cpme_api.api import CpmeApi, Configuration, fancy
 from cpme_api.api.feature.utils import json_to_file
 
 
 config = Configuration()
 config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-# config.url = "https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
-# config.enable_logging = False
-config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
-config.enable_pooling = True
-log = config.get_loggger()
+config.enable_logging = True
+config.proxy = "http://webproxy.deutsche-boerse.de:8080"
 
 api = CpmeApi(configuration=config)
-
-ipdb.set_trace()
-resp = api.live_snapshots_get(async_req=True, business_date=20230110)
-json_to_file(resp, 'llllive_snapshots')
+resp = api.live_snapshots_get(business_date=20230110)
+fancy(resp)
+# json_to_file(resp, 'live_snapshots')
 api.close()

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 """
-TODO add link to github README file
+The example shows and save result into the json file.
+
+It uses body composition with data classes from cpme_api.models.
+
 """
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.api.feature.utils import json_to_file, load_csv_to_list
@@ -47,7 +50,6 @@ if __name__ == '__main__':
     config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
     config.url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
     config.enable_logging = True
-    config.enable_pooling = True
     config.return_json = True
     api = CpmeApi(configuration=config)
     # example_instruments_from_file(api)

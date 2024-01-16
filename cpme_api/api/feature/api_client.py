@@ -1,11 +1,6 @@
-# import multiprocessing.dummy as multiprocessing
 from multiprocessing.pool import ThreadPool
 from multiprocessing.dummy import Pool as ThreadPool
-
-import ipdb
-
 from cpme_api.api.feature import rest
-from requests.models import Response
 from cpme_api.api.configuration import Configuration
 
 
@@ -17,12 +12,8 @@ class ApiClient(object):
     """Generic API client for Swagger client library builds.
 
     Swagger generic API client. This client handles the client-
-    server communication, and is invariant across implementations.
+    server communication.
 
-    :param pooling: Flag enable or disable PoolingManager of Urllib
-        if false then simple request() from requests libt will be called
-    :return response: if pooling=False returns requests.models.Response
-            else returns dict
     """
 
     def __init__(self, configuration: Configuration):
@@ -30,16 +21,13 @@ class ApiClient(object):
             configuration = Configuration()
         self.config = configuration
         self.rest_client = rest.RESTClientObject(configuration)
-        self.pooling = configuration.enable_pooling
         self.default_headers = {}
         self.client_side_validation = False
-        if self.pooling:
-            self.pool = ThreadPool()
+        self.pool = ThreadPool()
 
     def close(self):
-        if self.pooling:
-            self.pool.close()
-            self.pool.join()
+        self.pool.close()
+        self.pool.join()
 
     @staticmethod
     def _split_parameters(params: dict, api_key: dict = None) -> (dict, dict):
@@ -100,7 +88,7 @@ class ApiClient(object):
             If parameter async_req is False or missing,
             then the method will return the response directly.
         """
-        if not params.get('async_req') or not self.pooling:
+        if not params.get('async_req'):
             return self._call_api(endpoint, method, params,
                                   body, serialization,
                                   request_timeout, response_type, collection_format)

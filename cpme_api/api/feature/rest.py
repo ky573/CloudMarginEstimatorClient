@@ -7,12 +7,10 @@ import ssl
 import certifi
 from urllib.parse import urlencode
 
-import ipdb
-
 try:
     import urllib3
 except ImportError:
-    raise ImportError('Swagger python client requires urllib3.')
+    raise ImportError('python client requires urllib3.')
 
 from cpme_api.api.configuration import Configuration
 import requests
@@ -24,20 +22,13 @@ urllib3.disable_warnings()
 
 class RESTResponse(io.IOBase):
     def __init__(self, resp):
-        if isinstance(resp, Response):
-            self.requests_response = resp
-            self.status = resp.status_code
-            self.reason = resp.reason
-            self.headers = resp.headers
-            self.data = resp.content
-        else:
-            self.urllib3_response = resp
-            self.status = resp.status
-            self.reason = resp.reason
-            self.headers = resp.getheaders()
-            # In the python 3, the response.data is bytes.
-            # we need to decode it to string.
-            self.data = resp.data.decode('utf8')
+        self.urllib3_response = resp
+        self.status = resp.status
+        self.reason = resp.reason
+        self.headers = resp.getheaders()
+        # In the python 3, the response.data is bytes.
+        # we need to decode it to string.
+        self.data = resp.data.decode('utf8')
 
         if self.status != 200:
             self.json = {}
@@ -59,7 +50,6 @@ def shorten_body(body: dict) -> str:
 class RESTClientObject(object):
 
     def __init__(self, configuration: Configuration, pools_size=4, maxsize=None):
-        self.pooling = configuration.enable_pooling
         self.log = configuration.loggers.get('package_logger')
         # urllib3.PoolManager will pass all kw parameters to connectionpool
         # https://github.com/shazow/urllib3/blob/f9409436f83aeb79fbaf090181cd81b784f1b8ce/urllib3/poolmanager.py#L75  # noqa: E501
@@ -81,6 +71,8 @@ class RESTClientObject(object):
             ca_certs = certifi.where()
 
         addition_pool_args = {}
+        if configuration.assert_hostname is not None:
+            addition_pool_args['assert_hostname'] = configuration.assert_hostname
 
         if maxsize is None:
             if configuration.connection_pool_maxsize is not None:
@@ -88,7 +80,7 @@ class RESTClientObject(object):
             else:
                 maxsize = 4
 
-        # https pool manager
+        # pool manager urllib3
         if configuration.proxy:
             self.pool_manager = urllib3.ProxyManager(
                 num_pools=pools_size,
@@ -110,8 +102,6 @@ class RESTClientObject(object):
                 key_file=configuration.key_file,
                 **addition_pool_args
             )
-        if not self.pooling:
-            self.pool_manager = None
 
     def request(self, method, url, query_params=None, headers=None,
                 body=None, post_params=None, _preload_content=True,
@@ -239,29 +229,11 @@ class RESTClientObject(object):
                 msg_timeout = f'Timeout = {_request_timeout}'
 
             self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
-        if self.pooling:
-            return self.request("GET", url,
-                                headers=headers,
-                                _preload_content=_preload_content,
-                                _request_timeout=_request_timeout,
-                                query_params=query_params)
-        else:
-            # temporarily for requests lib
-            resp = requests.get(url,
-                                params=query_params,
-                                headers=headers,
-                                verify=False,
-                                timeout=_request_timeout,
-                                stream=True)
-            if _preload_content:
-                resp = RESTResponse(resp)
-                # log response body
-                self.log.debug(f"GET url: {url} headers: {resp.headers} response_body: {resp.data}")
-
-            if not 200 <= resp.status <= 299:
-                raise ApiException(http_resp=resp)
-
-            return resp
+        return self.request("GET", url,
+                            headers=headers,
+                            _preload_content=_preload_content,
+                            _request_timeout=_request_timeout,
+                            query_params=query_params)
 
     def HEAD(self, url, headers=None, query_params=None, _preload_content=True,
              _request_timeout=None):
@@ -300,21 +272,13 @@ class RESTClientObject(object):
 
             self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
 
-        if self.pooling:
-            return self.request("POST", url,
-                                headers=headers,
-                                query_params=query_params,
-                                post_params=post_params,
-                                _preload_content=_preload_content,
-                                _request_timeout=_request_timeout,
-                                body=body)
-        else:
-            return requests.post(url,
-                                 headers=headers,
-                                 verify=False,
-                                 timeout=_request_timeout,
-                                 stream=False,
-                                 json=body)
+        return self.request("POST", url,
+                            headers=headers,
+                            query_params=query_params,
+                            post_params=post_params,
+                            _preload_content=_preload_content,
+                            _request_timeout=_request_timeout,
+                            body=body)
 
     def PUT(self, url, headers=None, query_params=None, post_params=None,
             body=None, _preload_content=True, _request_timeout=None):
