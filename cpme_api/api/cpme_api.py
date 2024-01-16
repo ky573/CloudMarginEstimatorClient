@@ -6,7 +6,7 @@ from cpme_api.models.responses import products, series
 
 class BaseApi(object):
 
-    _opt_params = ['async_req', 'verbose', 'request_timeout', 'api_key', 'env']
+    _opt_params = ['async_req', 'verbose', 'request_timeout', 'api_key']
 
     _check_validation = True
 
@@ -25,14 +25,14 @@ class BaseApi(object):
         for key, val in params['kwargs'].items():
             if cls._check_validation and (key not in defined_params):
                 raise TypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method clearing_currencies_get" % key
+                    "Got an unexpected keyword argument '%s'" % key
                 )
             new_p[key] = val
+
         if cls._check_validation:
             # verify the required parameter 'x_dbp_apikey' is set
             if ('api_key' not in new_p.keys()) and ('x_dbp_apikey' not in new_p.keys()):
-                raise ValueError("Missing the required parameter `x_dbp_apikey` when calling `clearing_currencies_get`")
+                raise ValueError("Missing the required parameter `x_dbp_apikey` when calling xxx")
             if new_p.get('api_key'):
                 new_p['x_dbp_apikey'] = copy(new_p['api_key'])
                 del new_p['api_key']
@@ -101,8 +101,7 @@ class CpmeApi(BaseApi):
         return self._api_client.call_api(
             '/securities', 'GET',
             params,
-            response_type='RespSecurities',
-            collection_format={'isin': 'multi'}
+            response_type='RespSecurities'
         )
 
     def products_get(self, **kwargs):
@@ -137,7 +136,7 @@ class CpmeApi(BaseApi):
         This method makes a synchronous HTTP request by default.
 
         :param str x_dbp_apikey: your key, obtain it by registering at [DBG Digital Business Platform](https://console.developer.deutsche-boerse.com/) (required)
-        :param str products: Product ID, there can be multiple instances of the parameter to request series for several products (required)
+        :param list products: Product ID, there can be multiple instances of the parameter to request series for several products (required)
         :param list[str] extrafields: comma-separated list of optional fields that should be returned in addition to the default set of response fields. Alternatively can be specified also as multiple parameter instances instead of comma-separated list.
         :param float business_date: Business date as of which the result is calculated, in YYYYMMDD format
         :param bool live: Is the snapshot live (a.k.a. intraday)? False for end-of-day.
@@ -227,7 +226,7 @@ class CpmeApi(BaseApi):
 
         :param str x_dbp_apikey: your key, obtain it by registering at [DBG Digital Business Platform](https://console.developer.deutsche-boerse.com/) (required)
         :param str clearing_house: Either EUXCDEFF (i.e. Eurex, the default choice) or EEXCDE8L (i.e. European Commodity Clearing, linked to EEX = European Energy Exchange).
-        :param str products: Product ID of the future, there can be multiple instances of the parameter to request margin for several future products. If not provided the result will contain margin for all future products.
+        :param list products: Product ID of the future, there can be multiple instances of the parameter to request margin for several future products. If not provided the result will contain margin for all future products.
         :param str format: Required result format, JSON (default), XLS or XLSX spreadsheet.
         :param float business_date: Business date as of which the result is calculated, in YYYYMMDD format
         :param float business_date_from: Start of a date range, in YYYYMMDD format
@@ -244,7 +243,8 @@ class CpmeApi(BaseApi):
         return self._api_client.call_api(
             '/indicative_margin', 'GET',
             params,
-            response_type='IndicativeMargin200'
+            response_type='IndicativeMargin200',
+            collection_format={'products': 'multi'}
         )
 
     def live_snapshots_get(self, **kwargs):

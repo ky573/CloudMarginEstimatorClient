@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """
+Execute the script from ./example folder due to a relative path used in file name.
+
 List of end-of-day or first live snapshots that can be used in other requests.
 
 The example shows and save result into the json file.

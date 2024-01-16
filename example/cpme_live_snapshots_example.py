@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """
+Execute the script from ./example folder due to a relative path used in file name.
+
 List of live (intraday) snapshots for given business_date.
 
 The example shows and save result into the json file.
@@ -16,5 +18,5 @@ config.proxy = "http://webproxy.deutsche-boerse.de:8080"
 api = CpmeApi(configuration=config)
 resp = api.live_snapshots_get(business_date=20230110)
 fancy(resp)
-# json_to_file(resp, 'live_snapshots')
+# json_to_file(resp, './example/live_snapshots')
 api.close()

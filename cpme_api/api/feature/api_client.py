@@ -62,7 +62,9 @@ class ApiClient(object):
     def call_api(self, endpoint, method, params={}, response_type=None,
                  body=None, request_timeout=None,
                  serialization=None, collection_format={}):
-        """Makes the HTTP request (synchronous) and returns deserialized data.
+        """Makes the HTTP request (synchronous) and returns serialized data as default.
+
+        Serialization means to convert an object into that string, and deserialization is its inverse operation (convert string -> object).
 
         To make an async request, set the async_req parameter.
 
@@ -148,20 +150,20 @@ class ApiClient(object):
 
         # request url
         if path_params:
-            url = self.config.url + endpoint + path_params
+            url = self.config.url.rstrip('/') + endpoint + path_params
         else:
-            url = self.config.url + endpoint
+            url = self.config.url.rstrip('/') + endpoint
 
         # perform request and return response
         response_data = self.request(
             method, url, endpoint, query_params=query_params, headers=header_params,
             body=body, request_timeout=request_timeout, verbose=params.get('verbose', True))
 
-        if serialization:
-            return self.deserialize(response_data, response_type)
+        # if serialization:
+        #     return self.deserialize(response_data, response_type)
 
         if self.config.return_json:
-            return response_data.json
+            return response_data.json()
         else:
             return response_data
 

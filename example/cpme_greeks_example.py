@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """
+Execute the script from ./example folder due to a relative path used in file name.
+
 The example shows and save result into the json file.
 
 It uses body composition with data classes from cpme_api.models.
@@ -42,7 +44,7 @@ def example_for_actual_instruments(api: CpmeApi):
     greeks.fancy(line_text='BODY:')
     # send request
     response = api.greeks_post(body=greeks.to_dict())
-    json_to_file(response, 'greeks')
+    json_to_file(response, './example/greeks')
 
 
 if __name__ == '__main__':

@@ -21,12 +21,13 @@ def get_business_date(prev=False, all_dates=False, api: CpmeApi = None) -> Union
     else:
         res = response['snapshots']
     bd_list = [k for k, _ in groupby((x["business_date"] for x in res))]
+    bd_list.reverse()
     if all_dates:
         return bd_list
     if prev:
-        return bd_list[-2]
+        return bd_list[1]
     else:
-        return bd_list[-1]
+        return bd_list[0]
 
 
 def get_series(prod_ids: List[str] = tuple(),

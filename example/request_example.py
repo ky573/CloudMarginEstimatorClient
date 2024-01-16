@@ -7,15 +7,15 @@ import requests
 
 
 PARAMS = {
-    'clearing_house': 'EUXCDEFF',  # 'EUXCDEFF' or 'EEXCDE8L'
-    'products': ['RFVO', 'RFSX'],
-    'format': 'XLSX',  # JSON, XLS, XLSX
+    'clearing_house': 'EUXCDEFF',
+    'products': ['FDAX', 'CONF'],
+    'format': 'XLSX',
     'business_date': '20220623'
 }
 
 DEFAULT_PARAMS = {}
 
-API_KEY = 'b953e6e4-235e-4217-a7b0-ceb071a9dba1'
+API_KEY = '9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358'
 
 HEADER = {'Content-Type': 'application/json', 'X-DBP-APIKEY': API_KEY}
 

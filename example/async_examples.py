@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 """
+Execute the script from ./example folder due to a relative path used in file name.
+
 Example of async requests of four snapshots
  1. /clearing_currencies
  2. /series

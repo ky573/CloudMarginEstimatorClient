@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-
 import io
 import json
 import re
@@ -13,8 +12,6 @@ except ImportError:
     raise ImportError('python client requires urllib3.')
 
 from cpme_api.api.configuration import Configuration
-import requests
-from requests.models import Response
 
 
 urllib3.disable_warnings()
@@ -30,10 +27,8 @@ class RESTResponse(io.IOBase):
         # we need to decode it to string.
         self.data = resp.data.decode('utf8')
 
-        if self.status != 200:
-            self.json = {}
-        else:
-            self.json = resp.json()
+    def json(self):
+        return self.urllib3_response.json()
 
     def getheader(self, name, default=None):
         """Returns a given response header."""
@@ -210,7 +205,7 @@ class RESTClientObject(object):
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             raise ApiException(status=0, reason=msg)
 
-        if _preload_content:
+        if _preload_content and ('application/json' in resp.headers['Content-Type']):
             resp = RESTResponse(resp)
             # log response body
             self.log.debug(f"{method} url: {url} headers: {resp.headers} response_body: {resp.data}")
@@ -228,7 +223,12 @@ class RESTClientObject(object):
             if _request_timeout:
                 msg_timeout = f'Timeout = {_request_timeout}'
 
-            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
+            if query_params:
+                url_q = url + '?' + urlencode(query_params)
+            else:
+                url_q = url
+
+            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url_q} {msg_timeout}")
         return self.request("GET", url,
                             headers=headers,
                             _preload_content=_preload_content,

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """
- Description:
+Execute the script from ./example folder due to a relative path used in file name.
+
  Lists all exchange-traded products, Eurex and ECC. Only `product` and `instrument_type`
  are returned by default. Remaining attributes (see response) are returned
  only if specified in `extrafields`.
 
  Parameters:
-    HEADER: {'x_dbp_apikey': 'X-DBP-APIKEY'}
     QUERY PARAMETERS: 'extrafields','business_date','live','live_timestamp'
     EXTRA_FIELDS:
       'product','instrument_type','clearing_house','prod_name','prod_isin',
@@ -14,7 +14,6 @@
       'margin_style_flag','exercise_style_flag','product_settlement_type',
       'final_settlement_time','product_tick_size','product_tick_value',
       'liquidation_group','xm_eligibility'
-    *Required: 'x_dbp_apikey'
 
 """
 import ipdb

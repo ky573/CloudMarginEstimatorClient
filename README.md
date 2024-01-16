@@ -75,20 +75,20 @@ To exit the environment:
 
 ## Connection
 
-As default the url is static address of [DBP](https://console.developer.deutsche-boerse.com/apis/afdc9fa5-767a-49ac-b834-ee92ea0ac040)
+It is recommended to use API version 2.0, with dedicated gateway (static IP) [DBP](https://console.developer.deutsche-boerse.com/apis/416d7067-45dc-465b-a56a-abbabdd1467d).
 
-Default url is https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0
+The url is https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0
 
-You can change url with instance of **Configuration** class.
+In case of proxy usage you can update it with the instance of **Configuration** class.
 
 ```
 from cpme_api.api Configuration
 
 config = Configuration()
-config.url = 'https://eurexmargins.prod.dbgservice.com/api/v2.0'
+config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
 ```
 
-For more details use [documentation](https://pages.github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/model_gen/docs/build/html/index.html)
+For more details see [documentation](https://pages.github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/model_gen/docs/build/html/index.html)
 
 # Model Generator
 
