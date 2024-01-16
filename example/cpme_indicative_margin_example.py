@@ -17,7 +17,6 @@ As an alternative to selecting one business_date, time series can be requested u
     QUERY PARAMETERS: 'clearing_house','products','format','business_date','business_date_from','business_date_to','live','include_components'
 
 """
-import ipdb
 from cpme_api.api import CpmeApi, fancy, Configuration
 from cpme_api.api.tools import get_business_date
 from cpme_api.api.feature.utils import json_to_file
@@ -50,17 +49,18 @@ def save_to_json(api_: CpmeApi, p: dict):
 if __name__ == '__main__':
     api = CpmeApi(configuration=config)
     bds = get_business_date(all_dates=True, api=api)
-    ipdb.set_trace()
 
     params = {'business_date_from': bds[1],  # previous business date
               'business_date_to': bds[0],  # current business date
               'live': 'false'}
+
     save_to_json(api, params)
 
     params = {'clearing_house': 'EUXCDEFF',
               'products': ['FDAX', 'CONF'],
               'format': 'XLSX',
               'business_date': bds[0]}  # current business date
+
     config.return_json = False
     save_to_excel(api, params)
     api.close()
