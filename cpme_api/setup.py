@@ -9,33 +9,36 @@
 """
 from os import path
 from setuptools import setup, find_packages
-from cpme_api import __version__
+# from .cpme_api import __version__
 
 NAME = "cpme-api-client"
-VERSION = __version__
+VERSION = "1.0.0" #__version__
 here = path.abspath(path.dirname(__file__))
 
+# get the dependencies and installs
+with open("requirements.txt", encoding="utf-8") as f:
+    requires = [x.strip() for x in f if x.strip()]
+
 # Get the long description from the README file
-with open(path.join(here, "README.md"), encoding="utf-8") as f:
-    readme = f.read()
+#with open(path.join(here, "README.md"), encoding="utf-8") as f:
+#    readme = f.read()
 # To install the library, run the following
 #
-# python . install
+# pip install .
 #
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.15", "certifi", "requests", "pprintjson"]
 
 setup(
     name=NAME,
     version=VERSION,
     description="Cloud Prisma Margin Estimator API",
-    long_description=readme,
-    author_email="Miroslav Paris",
+    long_description="", # readme
+    author="Miroslav Paris",
+    install_requires=requires,
     url="https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient",
     keywords="dave, margining, risk, estimator, marginestimator, test, risk-it",
-    install_requires=REQUIRES,
     python_requires=">=3.8, <3.11",
     packages=find_packages(),
     include_package_data=True,
