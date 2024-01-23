@@ -230,7 +230,7 @@ Reason: Unauthorized
 <p><strong>async_req=True</strong> enable asynchronous request and function returns a thread more information about async usage see ..</p>
 <p><strong>verbose=False</strong> Disable info messages of particular request. It is True as default.</p>
 <p><strong>request_timeout=5</strong>  Define timeout interval for one request.</p>
-<p><strong>api_key</strong>  see <span class="xref std std-ref">api_setup_ref</span></p>
+<p><strong>api_key</strong>  Your key, obtain it by registering at <a class="reference external" href="https://console.developer.deutsche-boerse.com/">DBG Digital Business Platform</a> (required)</p>
 </div>
 <p>All endpoints are defined in cpme_api.api.endpoints module.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">GET</span><span class="o">.</span><span class="n">products</span>                    <span class="n">POST</span><span class="o">.</span><span class="n">estimator</span>
@@ -244,7 +244,7 @@ Reason: Unauthorized
 <span class="n">GET</span><span class="o">.</span><span class="n">global_scenarios</span>
 </pre></div>
 </div>
-<p>The return value is dictionary of JSON as default <span class="xref std std-ref">api-key-ref</span>. The project contains <a href="#id1"><span class="problematic" id="id2">`https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example`_</span></a> folder for the inspiration.</p>
+<p>The return value is dictionary of JSON as default. The project contains <a class="reference external" href="https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example">example</a> folder for the inspiration.</p>
 </section>
 <section id="get-requests">
 <h1>Get Requests<a class="headerlink" href="#get-requests" title="Link to this heading"></a></h1>
@@ -282,7 +282,7 @@ We not use logging and pass api key via optional parameter.</p>
 <span class="n">config</span><span class="o">.</span><span class="n">enable_logging</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="n">CpmeApi</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">))</span>
 <span class="n">json_to_file</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;./data/products&#39;</span><span class="p">)</span>
 
 <span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

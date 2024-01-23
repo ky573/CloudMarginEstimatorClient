@@ -189,7 +189,8 @@ The parameters of proper request method are shown in doc string.
 
     **request_timeout=5**  Define timeout interval for one request.
 
-    **api_key**  see :ref:`api_setup_ref`
+    **api_key**  Your key, obtain it by registering at `DBG Digital Business Platform <https://console.developer.deutsche-boerse.com/>`_ (required)
+
 
 All endpoints are defined in cpme_api.api.endpoints module.
 
@@ -206,7 +207,7 @@ All endpoints are defined in cpme_api.api.endpoints module.
     GET.global_scenarios
 
 
-The return value is dictionary of JSON as default :ref:`api-key-ref`. The project contains `https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example`_ folder for the inspiration.
+The return value is dictionary of JSON as default. The project contains `example <https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example>`_ folder for the inspiration.
 
 
 

@@ -6,9 +6,6 @@ Welcome to python Margin Estimator API   documentation!
     :titlesonly:
 
     get_start
-    cli
-    library
-    scenarios
 
 .. toctree::
     :caption: Library API
