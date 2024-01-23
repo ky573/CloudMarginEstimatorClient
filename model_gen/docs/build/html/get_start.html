@@ -129,15 +129,16 @@ cpme-environment<span class="se">\S</span>cripts<span class="se">\a</span>ctivat
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span>master
 </pre></div>
 </div>
-<p>enter to the downloaded folder</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;local_folder&gt;/DAVe-MarginEstimator-PythonAPIClient
+<p>activate your virtual environment</p>
+<p>enter to the downloaded sub folder cpme_api</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;local_folder&gt;/DAVe-MarginEstimator-PythonAPIClient/cpme_api
 </pre></div>
 </div>
-<p>and run inside the virtual environment</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>or<span class="w"> </span>python<span class="w"> </span>.<span class="w"> </span>install
+<p>and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
-<p>set up PYTHONPATH</p>
+<p>set up <strong>PYTHONPATH</strong> It must be defined anytime before you want to use the client lib!</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>&lt;local_folder&gt;/DAVe-MarginEstimator-PythonAPIClient
 </pre></div>
 </div>
@@ -282,7 +283,7 @@ We not use logging and pass api key via optional parameter.</p>
 <span class="n">config</span><span class="o">.</span><span class="n">enable_logging</span> <span class="o">=</span> <span class="kc">True</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="n">CpmeApi</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
-<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">))</span>
+<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">)</span>
 <span class="n">json_to_file</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;./data/products&#39;</span><span class="p">)</span>
 
 <span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

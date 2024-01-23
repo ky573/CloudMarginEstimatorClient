@@ -44,7 +44,7 @@ def example_03(api: CpmeApi):
     otc_csv_comp = spec.BodyEstimatorPortfolioComponents()
 
     # upload data from csv file
-    otc_csv_comp.otc_csv = spec.OtcCsv(csv=csv_to_str('./data/requests/otc_csv.csv'))
+    otc_csv_comp.otc_csv = spec.OtcCsv(csv=csv_to_str('./data/otc_csv.csv'))
 
     # create second portfolio component for etd_portfolio
     etd_p_comp = spec.BodyEstimatorPortfolioComponents(type='etd_portfolio')

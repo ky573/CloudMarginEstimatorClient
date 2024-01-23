@@ -55,15 +55,17 @@ To exit the environment:
 
 ```git clone https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient --depth 1 -b master```
 
-- cnter the downloaded folder
+- activate your virtual environment
 
-``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient``
+- enter to the downloaded sub folder cpme_api
 
-- and run inside the virtual environment
+``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient\cpme_api``
 
-```pip install .``` or ```python . install```
+- and run
 
-- set up **PYTHONPATH**
+```pip install .```
+
+- set up **PYTHONPATH** It must be defined anytime before you want to use the client lib.
 
 ```export PYTHONPATH=<local_folder>/DAVe-MarginEstimator-PythonAPIClient```
 

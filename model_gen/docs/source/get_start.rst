@@ -42,19 +42,21 @@ clone a stable version from Github repository:
 
     git clone https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient --depth 1 -b master
 
-enter to the downloaded folder
+activate your virtual environment
+
+enter to the downloaded sub folder cpme_api
 
 .. code-block:: bash
 
-    cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient
+    cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient/cpme_api
 
-and run inside the virtual environment
+and run
 
 .. code-block:: bash
 
-    pip install . or python . install
+    pip install .
 
-set up PYTHONPATH
+set up **PYTHONPATH** It must be defined anytime before you want to use the client lib!
 
 .. code-block:: bash
 
