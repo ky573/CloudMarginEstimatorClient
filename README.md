@@ -13,7 +13,7 @@ The library is part of [COMET](https://github.deutsche-boerse.de/dev/DAVe-Margin
 - Synchronous or asynchronous switch
 - Data Models 
 - Example of scripts
-- Rich documentation of setup and usage
+- Rich documentation of setup and usage [see](https://pages.github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/)
 - Easy configuration of client setting with logging
 
 ### model_gen module
