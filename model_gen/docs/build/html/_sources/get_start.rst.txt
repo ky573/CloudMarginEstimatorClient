@@ -206,7 +206,7 @@ All endpoints are defined in cpme_api.api.endpoints module.
     GET.global_scenarios
 
 
-The return value is dictionary of JSON as default :ref:`api-key-ref`. The project contains `example <../../../../example>`_ folder for the inspiration.
+The return value is dictionary of JSON as default :ref:`api-key-ref`. The project contains `https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example`_ folder for the inspiration.
 
 
 
@@ -452,9 +452,9 @@ Parallel requests
 The client support asynchronous request with optional parameter **async_req**. The called function returns thread with auto assign id.
 There is thread attribute ready() which is True if the response is fetched.
 
-You can follow example script for more information `script <../../../../example/async_examples.py>`_
+You can follow example script for more information `script <https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient/tree/main/example/async_examples.py>`_
 
 
 How to use model library
 ========================
-  TODO
+TODO
