@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Start &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+  <title>Margin Estimator API Client &mdash; Margin Estimator Api Client 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/css/sphinx_rtd_size.css?v=3b072d6b" />
@@ -17,7 +17,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -25,8 +25,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Configuration" href="config.html" />
-    <link rel="prev" title="Welcome to comet’s documentation!" href="index.html" /> 
+    <link rel="next" title="Module cpme_api" href="lib_api.html" />
+    <link rel="prev" title="Welcome to python Margin Estimator API documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +38,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            COMET - Cloud Margin Estimator api Test tool
+            Margin Estimator Api Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -50,25 +50,29 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">1. Command Line Interface usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library.html">2. Library usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scenarios.html">Scenarios Example</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Margin Estimator API Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#sending-request">Sending request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#get-requests">Get Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#post-requests">Post Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#tools-and-useful-functions">Tools and useful functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#parallel-requests">Parallel requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#how-to-use-model-library">How to use model library</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Library API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html">API features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#api-models">API models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html">Module cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.configuration">Module configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.feature">Module features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.tools.tools">Module tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="models.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Array or Dict Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.primitive">Primitive Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.request_body">Request Body Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.responses">Responses Data Classes</a></li>
 </ul>
 
         </div>
@@ -77,7 +81,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">COMET - Cloud Margin Estimator api Test tool</a>
+          <a href="index.html">Margin Estimator Api Client</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -85,7 +89,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Start</li>
+      <li class="breadcrumb-item active">Margin Estimator API Client</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -94,15 +98,388 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="start">
-<h1>Start<a class="headerlink" href="#start" title="Link to this heading"></a></h1>
+  <section id="margin-estimator-api-client">
+<h1>Margin Estimator API Client<a class="headerlink" href="#margin-estimator-api-client" title="Link to this heading"></a></h1>
+<p>Cloud Prisma Margin Estimator (CPME) calculates margin for an uploaded portfolio according to Eurex PRISMA methodology. The application is available to both members and non-members of Eurex Clearing. It can be accessed via web user interface, see <a class="reference external" href="https://eurexmargins.prod.dbgservice.com">CPME GUI</a>, or directly through API, described here.
+API allows to combine more input files/formats into one request, e.g.report cp005 with productive postions plus csv with additional positions.</p>
 </section>
-<section id="cloud-prisma-margin-estimator-api">
-<h1>Cloud Prisma Margin Estimator API<a class="headerlink" href="#cloud-prisma-margin-estimator-api" title="Link to this heading"></a></h1>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<section id="virtual-environments">
+<h2>Virtual environments<a class="headerlink" href="#virtual-environments" title="Link to this heading"></a></h2>
+<p>The main purpose of Python virtual environments is to create an isolated environment for a Python project to have its own dependencies, regardless of other projects. Read more about <a class="reference external" href="https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment">Python Virtual Environment</a> Python 3 already has the venv module installed with the standard library.</p>
+<p>Depending on your preferred Python installation. You can create virtual environment to use cpme_api client as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>cpme-environment<span class="w">  </span><span class="c1"># macOS/ Linux</span>
+python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>cpme-environment<span class="w">  </span><span class="c1"># Windows</span>
+</pre></div>
+</div>
+<p>Activate this virtual environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>cpme-environment/bin/activate<span class="w">  </span><span class="c1"># macOS/ Linux</span>
+cpme-environment<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">     </span><span class="c1"># Windows</span>
+</pre></div>
+</div>
+<p>To exit the environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>deactivate
+</pre></div>
+</div>
+</section>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Link to this heading"></a></h2>
+<p>clone a stable version from Github repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>-b<span class="w"> </span>master
+</pre></div>
+</div>
+<p>enter to the downloaded folder</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;local_folder&gt;/DAVe-MarginEstimator-PythonAPIClient
+</pre></div>
+</div>
+<p>and run inside the virtual environment</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>or<span class="w"> </span>python<span class="w"> </span>.<span class="w"> </span>install
+</pre></div>
+</div>
+<p>set up PYTHONPATH</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>&lt;local_folder&gt;/DAVe-MarginEstimator-PythonAPIClient
+</pre></div>
+</div>
+<p>To check that api client is working just execute some example script</p>
+<p>./example/cmpe_products_example.py</p>
+</section>
+</section>
+<section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>With the instance of Configuration class  in <a class="reference internal" href="lib_api.html#api-configuration"><span class="std std-ref">Module configuration</span></a> you can set-up the api client if you do not want to use default settings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The logging to stdout is off as a default.</p>
+</div>
+<p>if you want to enable log messages into the stdout:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Configuration<span class="o">()</span>
+config.enable_logging<span class="w"> </span><span class="o">=</span><span class="w"> </span>True
+</pre></div>
+</div>
+<p>if you want to enable logging into a file just define a file name or file name with path</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>config.file_logger<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cpme.log&quot;</span>
+
+config.file_logger<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;./data/cpme.log&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The set up of file_logger will enable only the file logger without stdout.</p>
+</div>
+<p>You can switch to “debug” mode which affects stdout or file logger if they are enabled.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>config.debug<span class="w"> </span><span class="o">=</span><span class="w"> </span>True
+</pre></div>
+</div>
+<p id="api-key-return-json">The api client returns dictionary of the JSON structure as default if there is no error.
+If some error on server occurs eg. error code &lt;&gt; 200 then an exception with error message will be triggered.</p>
+<p>If you want to received response object of <em>cpme_api.api.feature.rest.RESTResponse</em> just disable the default setting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>config.enable_json<span class="w"> </span><span class="o">=</span><span class="w"> </span>False
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In case of <strong>async_request=True</strong> parameter in a called function of api you will receive thread object instead.
+For more detailed about async request usage follows.</p>
+</div>
+<p id="api-key-ref">API Key For API access please register at <a class="reference external" href="https://console.developer.deutsche-boerse.com/apis">Deutsche Boerse API website</a> . There you create your project, subscribe to <em>Prisma Margin Estimator</em> API and get a key.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>config.api_key<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;api key string&#39;</span><span class="w">  </span><span class="c1"># from DBP</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The api key can be explicitely defined as an optional parameter of each request function of particular api instance. The parameter <strong>api_key</strong> for instance <strong>api.securities_get(api_key=’api key string’)</strong>. For more parameters see <a class="reference internal" href="lib_api.html#api-cpme-api"><span class="std std-ref">Module cpme_api</span></a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the API key is not valid the server send an error 401 and client raise an exception.</p>
+<p>cpme_api.api.feature.rest.ApiException: (401)
+Reason: Unauthorized
+…</p>
+</div>
+<p>The server API url is as default static address <a class="reference external" href="https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0">https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0</a> and you do not need to define it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>config.url<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;server url&#39;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For the proxy connection there can be some issue eg. no response and the proxy must be set up:</p>
+<p><strong>config.proxy = “http://my.proxy:port”</strong></p>
+<p>For more info about proxy connection you can follow <a class="reference external" href="http://urllib3.readthedocs.io/en/latest/advanced-usage.html">urllib3 documentation</a>. The client uses <a class="reference external" href="https://urllib3.readthedocs.io/en/latest/reference/urllib3.poolmanager.html#urllib3.ProxyManager">ProxyManager</a></p>
+</div>
+<p>The secure connection parameters like password, certificate you can define via properties, see <a class="reference internal" href="lib_api.html#api-configuration"><span class="std std-ref">Module configuration</span></a>.</p>
+</section>
+<section id="sending-request">
+<h1>Sending request<a class="headerlink" href="#sending-request" title="Link to this heading"></a></h1>
+<p>The Margin Estimator API client contains functions requests defined in swagger. It’s implementations you can fine in <a class="reference internal" href="lib_api.html#api-cpme-api"><span class="std std-ref">Module cpme_api</span></a>.</p>
+<p>At first the instance of the client must be created. The connector uses ThreadPool and the connection needs to be properly finished with <strong>closed()</strong> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cpme_api.api</span> <span class="kn">import</span> <span class="n">CpmeApi</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">CpmeApi</span><span class="p">()</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">()</span>
+<span class="o">...</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The parameters of proper request method are shown in doc string.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are four optional parameters which has impact only on the individual request. ‘async_req’, ‘verbose’, ‘request_timeout’, ‘api_key’</p>
+<p><strong>async_req=True</strong> enable asynchronous request and function returns a thread more information about async usage see ..</p>
+<p><strong>verbose=False</strong> Disable info messages of particular request. It is True as default.</p>
+<p><strong>request_timeout=5</strong>  Define timeout interval for one request.</p>
+<p><strong>api_key</strong>  see <span class="xref std std-ref">api_setup_ref</span></p>
+</div>
+<p>All endpoints are defined in cpme_api.api.endpoints module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">GET</span><span class="o">.</span><span class="n">products</span>                    <span class="n">POST</span><span class="o">.</span><span class="n">estimator</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">series</span>                      <span class="n">POST</span><span class="o">.</span><span class="n">otc_trade_details</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">securities</span>                  <span class="n">POST</span><span class="o">.</span><span class="n">otc_sensitivities</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">clearing_currencies</span>         <span class="n">POST</span><span class="o">.</span><span class="n">greeks</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">snapshots</span>                   <span class="n">POST</span><span class="o">.</span><span class="n">stressmatrix</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">live_snapshots</span>              <span class="n">POST</span><span class="o">.</span><span class="n">stress_test</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">indicative_margin</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">config</span>
+<span class="n">GET</span><span class="o">.</span><span class="n">global_scenarios</span>
+</pre></div>
+</div>
+<p>The return value is dictionary of JSON as default <span class="xref std std-ref">api-key-ref</span>. The project contains <a class="reference external" href="../../../../example">example</a> folder for the inspiration.</p>
+</section>
+<section id="get-requests">
+<h1>Get Requests<a class="headerlink" href="#get-requests" title="Link to this heading"></a></h1>
+<p>The list of supported requests with optional parameters:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clearing_currencies_get</span><span class="p">(</span><span class="n">business_date</span><span class="p">,</span> <span class="n">live</span><span class="p">,</span> <span class="n">live_timestamp</span><span class="p">)</span>
+<span class="n">indicative_margin_get</span><span class="p">(</span><span class="n">clearing_house</span><span class="p">,</span> <span class="n">products</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">business_date</span><span class="p">,</span> <span class="n">busness_date_from</span><span class="p">,</span> <span class="n">business_date_to</span><span class="p">,</span> <span class="n">live</span><span class="p">,</span> <span class="n">include_components</span><span class="p">)</span>
+<span class="n">live_snapshots_get</span><span class="p">(</span><span class="n">business_date</span><span class="p">)</span>
+<span class="n">products_get</span><span class="p">(</span><span class="n">business_date</span><span class="p">,</span> <span class="n">extrafields</span><span class="p">,</span> <span class="n">live</span><span class="p">,</span> <span class="n">live_timestamp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All get requests function of client has <em>_get</em> suffix. For the first usage lets try to get products snapshot with parameter extrafields and save the message into the json file and its snaphost part into the csv file.
+We not use logging and pass api key via optional parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cpme_api.api</span> <span class="kn">import</span> <span class="n">CpmeApi</span>
+<span class="kn">from</span> <span class="nn">cpme_api.api.feature.utils</span> <span class="kn">import</span> <span class="n">json_to_file</span><span class="p">,</span> <span class="n">list_to_csv</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">CpmeApi</span><span class="p">()</span>
+
+<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">)</span>
+<span class="n">json_to_file</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;./data/products&#39;</span><span class="p">)</span>
+<span class="n">list_to_csv</span><span class="p">(</span><span class="n">resp</span><span class="p">[</span><span class="s1">&#39;products&#39;</span><span class="p">],</span> <span class="s1">&#39;./data/products&#39;</span><span class="p">)</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The files will be silently created.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function <strong>get_extrafields(endpoint: str)</strong> return all columns comma separated names. It can be used only with <strong>series_get</strong> and <strong>products_get</strong> which support optional parameter <strong>extrafields</strong>.</p>
+</div>
+<p>To enable logging use instance of Configuration class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cpme_api.api</span> <span class="kn">import</span> <span class="n">CpmeApi</span><span class="p">,</span> <span class="n">Configuration</span>
+<span class="kn">from</span> <span class="nn">cpme_api.api.feature.utils</span> <span class="kn">import</span> <span class="n">json_to_file</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">enable_logging</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">CpmeApi</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">products_get</span><span class="p">(</span><span class="n">extrafields</span><span class="o">=</span><span class="n">api</span><span class="o">.</span><span class="n">get_extrafields</span><span class="p">(</span><span class="n">GET</span><span class="o">.</span><span class="n">products</span><span class="p">),</span> <span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;your api key&#39;</span><span class="p">)</span>
+<span class="n">json_to_file</span><span class="p">(</span><span class="n">resp</span><span class="p">,</span> <span class="s1">&#39;./data/products&#39;</span><span class="p">)</span>
+
+<span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># out:</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">596</span> <span class="n">api</span><span class="o">-</span><span class="n">client</span> <span class="n">INFO</span>   <span class="n">cpme_api</span> <span class="n">configuration</span><span class="o">.</span><span class="n">enable_logging</span>   <span class="n">Logger</span> <span class="n">start</span><span class="o">.</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">48</span><span class="p">,</span><span class="mi">600</span> <span class="n">api</span><span class="o">-</span><span class="n">client</span> <span class="n">INFO</span>   <span class="n">cpme_api</span> <span class="n">rest</span><span class="o">.</span><span class="n">GET</span>              <span class="o">/</span><span class="n">products</span>      <span class="n">HEADER</span><span class="p">:{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span> <span class="s1">&#39;X-DBP-APIKEY&#39;</span><span class="p">:</span> <span class="s1">&#39;9c40a29c-?..&#39;</span><span class="p">,</span> <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;CometApi/3.0.0/python&#39;</span><span class="p">}</span> <span class="n">PARAMS</span><span class="p">:[(</span><span class="s1">&#39;extrafields&#39;</span><span class="p">,</span> <span class="s1">&#39;clearing_house,currency,exercise_style_flag,extended_product_type,final_settlement_time,instrument_type,liquidation_group,margin_style_flag,prod_isin,prod_name,product,product_settlement_type,product_tick_size,product_tick_value,product_type,underlying_isin,xm_eligibility&#39;</span><span class="p">)]</span> <span class="n">URL</span><span class="p">:</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">risk</span><span class="o">.</span><span class="n">developer</span><span class="o">.</span><span class="n">deutsche</span><span class="o">-</span><span class="n">boerse</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">prisma</span><span class="o">-</span><span class="n">margin</span><span class="o">-</span><span class="n">estimator</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">0</span><span class="o">-</span><span class="mi">0</span><span class="o">/</span><span class="n">products</span><span class="err">?</span><span class="n">extrafields</span><span class="o">=</span><span class="n">clearing_house</span><span class="o">%</span><span class="mi">2</span><span class="n">Ccurrency</span><span class="o">%</span><span class="mi">2</span><span class="n">Cexercise_style_flag</span><span class="o">%</span><span class="mi">2</span><span class="n">Cextended_product_type</span><span class="o">%</span><span class="mi">2</span><span class="n">Cfinal_settlement_time</span><span class="o">%</span><span class="mi">2</span><span class="n">Cinstrument_type</span><span class="o">%</span><span class="mi">2</span><span class="n">Cliquidation_group</span><span class="o">%</span><span class="mi">2</span><span class="n">Cmargin_style_flag</span><span class="o">%</span><span class="mi">2</span><span class="n">Cprod_isin</span><span class="o">%</span><span class="mi">2</span><span class="n">Cprod_name</span><span class="o">%</span><span class="mi">2</span><span class="n">Cproduct</span><span class="o">%</span><span class="mi">2</span><span class="n">Cproduct_settlement_type</span><span class="o">%</span><span class="mi">2</span><span class="n">Cproduct_tick_size</span><span class="o">%</span><span class="mi">2</span><span class="n">Cproduct_tick_value</span><span class="o">%</span><span class="mi">2</span><span class="n">Cproduct_type</span><span class="o">%</span><span class="mi">2</span><span class="n">Cunderlying_isin</span><span class="o">%</span><span class="mi">2</span><span class="n">Cxm_eligibility</span>
+<span class="mi">2024</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">22</span> <span class="mi">18</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">06</span><span class="p">,</span><span class="mi">516</span> <span class="n">api</span><span class="o">-</span><span class="n">client</span> <span class="n">INFO</span>   <span class="n">cpme_api</span> <span class="n">utils</span><span class="o">.</span><span class="n">json_to_file</span>     <span class="n">The</span> <span class="n">content</span> <span class="n">saved</span> <span class="n">into</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">parimir</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">REPOS</span><span class="o">/</span><span class="n">DAVe</span><span class="o">-</span><span class="n">MarginEstimator</span><span class="o">-</span><span class="n">PythonAPIClient</span><span class="o">/</span><span class="n">example</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">products</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can see examples for every endpoint in the <strong>./example</strong> folder</p>
+</div>
+</section>
+<section id="post-requests">
+<h1>Post Requests<a class="headerlink" href="#post-requests" title="Link to this heading"></a></h1>
+<p>All post requests function of client has <em>_post</em> suffix and contains one mandatory parameter <strong>body</strong> which is type of dict.</p>
+<dl class="simple">
+<dt>Body message is complex JSON dictionary structure which can be created following ways:</dt><dd><ul class="simple">
+<li><p>dynamically with model data classes</p></li>
+<li><p>pass simple dictionary structure to <cite>body</cite> parameter</p></li>
+<li><p>load structure from json file</p></li>
+</ul>
+</dd>
+</dl>
+<p>The first example shows part of code with simple body load to calculate margin for actual business date with estimator_post() function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">message</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;portfolio_components&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;etd_portfolio&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s1">&#39;line_no&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="s1">&#39;product_id&#39;</span><span class="p">:</span> <span class="s1">&#39;FEXD&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;contract_date&#39;</span><span class="p">:</span> <span class="mi">20301220</span><span class="p">,</span>
+                    <span class="s1">&#39;net_ls_balance&#39;</span><span class="p">:</span> <span class="mi">1</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;etd_portfolio&quot;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">estimator_post</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+<span class="n">json_to_file</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;./data/estimator-margin&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The example below shows body load from a json file.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cpme_api.features</span> <span class="kn">import</span> <span class="n">load_json_file</span>
+
+<span class="o">...</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">estimator_post</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">load_json_file</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;body_file.json&#39;</span><span class="p">))</span>
+<span class="n">json_to_file</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s1">&#39;./data/estimator-margin&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And last example shows dynamically created body request for estimator with etd_portfolio and otc components for some live timestamp.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Dynamic composition of body request of estimator with many components&quot;&quot;&quot;</span>
+<span class="c1"># fetch option series &#39;GSK&#39; with time to expiration &lt;= 50</span>
+<span class="n">product_ids</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;GSK&#39;</span><span class="p">,</span> <span class="s1">&#39;ODAX&#39;</span><span class="p">)</span>
+<span class="n">series_list</span> <span class="o">=</span> <span class="n">get_series</span><span class="p">(</span><span class="n">prod_ids</span><span class="o">=</span><span class="n">product_ids</span><span class="p">,</span> <span class="n">max_tte</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">options_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="n">api</span><span class="p">)</span>
+
+<span class="c1"># get random timestamp for current business date</span>
+<span class="n">timestamp</span> <span class="o">=</span> <span class="n">get_live_snapshot</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="n">get_business_date</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="n">api</span><span class="p">),</span> <span class="n">ts_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">api</span><span class="o">=</span><span class="n">api</span><span class="p">)</span>
+
+<span class="c1"># define estimator body</span>
+<span class="n">es_body</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">BodyEstimator</span><span class="p">()</span>
+<span class="c1"># assign Live Snapshot</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">Snapshot</span><span class="p">()</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">snapshot</span><span class="o">.</span><span class="n">live</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">snapshot</span><span class="o">.</span><span class="n">live_timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">clearing_currency</span> <span class="o">=</span> <span class="s1">&#39;EUR&#39;</span>
+
+<span class="c1"># Create first portfolio component for otc_csv</span>
+<span class="n">otc_csv_comp</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">BodyEstimatorPortfolioComponents</span><span class="p">()</span>
+
+<span class="c1"># upload data from csv file</span>
+<span class="n">otc_csv_comp</span><span class="o">.</span><span class="n">otc_csv</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">OtcCsv</span><span class="p">(</span><span class="n">csv</span><span class="o">=</span><span class="n">csv_to_str</span><span class="p">(</span><span class="s1">&#39;./data/requests/otc_csv.csv&#39;</span><span class="p">))</span>
+
+<span class="c1"># create second portfolio component for etd_portfolio</span>
+<span class="n">etd_p_comp</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">BodyEstimatorPortfolioComponents</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;etd_portfolio&#39;</span><span class="p">)</span>
+<span class="n">inx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">series</span> <span class="ow">in</span> <span class="n">series_list</span><span class="p">:</span>
+    <span class="n">inx</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># create etd_portfolio positions</span>
+    <span class="n">pc_etd</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">EtdPositionsInner</span><span class="p">()</span>
+    <span class="n">pc_etd</span><span class="o">.</span><span class="n">line_no</span> <span class="o">=</span> <span class="n">inx</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">pc_etd</span><span class="o">.</span><span class="n">iid</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="s1">&#39;iid&#39;</span><span class="p">]</span>
+    <span class="n">pc_etd</span><span class="o">.</span><span class="n">product_id</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="s1">&#39;product_id&#39;</span><span class="p">]</span>
+    <span class="n">pc_etd</span><span class="o">.</span><span class="n">net_ls_balance</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">inx</span>
+    <span class="n">etd_p_comp</span><span class="o">.</span><span class="n">etd_portfolio</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pc_etd</span><span class="p">)</span>
+
+<span class="c1"># aggregate portfolio components</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">portfolio_components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">otc_csv_comp</span><span class="p">)</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">portfolio_components</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">etd_p_comp</span><span class="p">)</span>
+<span class="n">es_body</span><span class="o">.</span><span class="n">fancy</span><span class="p">(</span><span class="n">line_text</span><span class="o">=</span><span class="s1">&#39;BODY:&#39;</span><span class="p">)</span>
+
+<span class="c1"># send request</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">estimator_post</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">es_body</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+
+<span class="c1"># show and save result message</span>
+<span class="n">fancy</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;RESP:&#39;</span><span class="p">)</span>
+<span class="n">json_to_file</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;./data/estimator_etd_otc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more information about manipulation with models/data classes see section <strong>How to use model library</strong></p>
+</section>
+<section id="tools-and-useful-functions">
+<h1>Tools and useful functions<a class="headerlink" href="#tools-and-useful-functions" title="Link to this heading"></a></h1>
+<p>The client library contains two moduls with useful function which speed up writing request scripts.</p>
+<section id="cpme-api-api-utils-module">
+<h2>cpme_api.api.utils module<a class="headerlink" href="#cpme-api-api-utils-module" title="Link to this heading"></a></h2>
+<p><strong>fancy(json_dict: dict, line_text: str = ‘’)</strong></p>
+<ul class="simple">
+<li><p>Pretty print of dict or list structure as a JSON format into stdout only!</p></li>
+</ul>
+<p><strong>json_to_file(data_dict: Union[dict, list], file_name: str, verbose=True, update=True) -&gt; str</strong></p>
+<ul>
+<li><p>Save dictionary structure into the JSON file.</p>
 <blockquote>
-<div><p>Cloud Prisma Margin Estimator (CPME) calculates margin for an uploaded portfolio according to Eurex PRISMA methodology. The application is available to both members and non-members of Eurex Clearing. It can be accessed via web user interface, see [CPME GUI](<a class="reference external" href="https://eurexmargins.prod.dbgservice.com">https://eurexmargins.prod.dbgservice.com</a>), or directly through API, described here.  The key request is <cite>/estimator</cite>, it is the only request you need to calculate the margin. Other requests provide lists or details of instruments, available dates etc. CPME supports also greek and stress price calculation - these analytical tools are not related to the margin.  Part of the API is also Cloud Default Fund Estimator (CPDE) which <em>estimates</em> Default Fund contribution for an uploaded portfolio according to Eurex methodology. Its key resource is <cite>/default_fund</cite>, similar <cite>/estimator</cite> up to the following differences: historical calculation is not possible for Default Fund; OTC portfolio support is planned only in future.  [FAQ](<a class="reference external" href="https://deutsche-boerse-risk.github.io/CloudPrismaMarginEstimator/">https://deutsche-boerse-risk.github.io/CloudPrismaMarginEstimator/</a>) ## API Key For API access please register at [Deutsche Boerse API website](<a class="reference external" href="https://console.developer.deutsche-boerse.com/apis">https://console.developer.deutsche-boerse.com/apis</a>).  There you create your project, subscribe to &quot;Prisma Margin Estimator&quot; API and get a key. Use the key in a request header as <cite>X-DBP-APIKEY</cite>, e.g.:  &lt;pre&gt; curl –header ‘X-DBP-APIKEY: your-key’ \   <a class="reference external" href="https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/products">https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/products</a> &lt;/pre&gt;  Requests from web API portals (Apiary, SwaggerHub) must contain the key as well. ## Example in Python The <strong>[crossmargining.py](https://github.com/Deutsche-Boerse-Risk/CloudPrismaMarginEstimator-API/blob/master/examples/python/crossmargining.py)</strong> generates a portfolio in CSV format. The portfolio consists of a 10Y EUR interest rate swap starting two days from today and a short position in Euro-Bund futures. Initial margin is calculated with and without cross margining (xm = True and xm = False, respectively) and results are printed. Replace xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx by your API key (see above).  ## Compressing request and response Both requests and responses can be compressed by gzip which can reduce response time for large requests and bypass request size limits. Use of compression in submitted request is indicated by <cite>Content-Encoding: gzip</cite> header. Compressed response is requested by <cite>Accept-Encoding: gzip</cite> header. For example:  &lt;pre&gt;echo ‘{&quot;portfolio_components&quot;:[{&quot;type&quot;:&quot;etd_portfolio&quot;,&quot;etd_portfolio&quot;:[{&quot;line_no&quot;:1,&quot;product_id&quot;:&quot;FEXD&quot;,&quot;contract_date&quot;:20301220,&quot;net_ls_balance&quot;:1}]}]}’ \   | gzip \   | curl -s -H &quot;X-DBP-APIKEY: your-key&quot; -H &quot;Content-Type: application/json&quot; \     <a class="reference external" href="https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator">https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator</a> \     –data-binary &#64;- -H &quot;Content-Encoding: gzip&quot; -H &quot;Accept-Encoding: gzip&quot; \   | gunzip &lt;/pre&gt;  It is also possible to use compression only for request or only for response. ## Business date and time The requests can contain optional business date and time attributes. The application finds the latest snapshot from the requested business date with timestamp equal or smaller than the requested time. If time is not given then the latest timestamp of the business date is used.  It takes several minutes to start the instance for a specified snapshot, That instance can then serve subsequent requests for the same snapshot. After some inactive time the instance is shutdown. It is recommended not to specify a date and time and calculate current margin or margin as of last end-of-day, see below.  Example of requesting the latest snapshot of given date, in GET and POST type of request:  &lt;pre&gt;curl -H ‘X-DBP-APIKEY: your-key’ \   ‘<a class="reference external" href="https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/series?products=FGBM&amp;business_date=20190307">https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/series?products=FGBM&amp;business_date=20190307</a>’ echo ‘{&quot;snapshot&quot;:{&quot;business_date&quot;:20190307},&quot;portfolio_components&quot;:[{&quot;type&quot;:&quot;etd_portfolio&quot;,&quot;etd_portfolio&quot;:[{&quot;line_no&quot;:1,&quot;product_id&quot;:&quot;FEXD&quot;,&quot;contract_date&quot;:20301220,&quot;net_ls_balance&quot;:1}]}]}’ \   | curl -H ‘X-DBP-APIKEY: your-key’ \     ‘<a class="reference external" href="https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator">https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0/estimator</a>’ \     –data-binary &#64;- &lt;/pre&gt;  If business date is not given, the latest business date is used. If only live=False is specified, last end-of-day is used. Calculation instance for these two requests is always up, you should not experience any delay.  Response contains identification of the selected snapshot, see attributes <cite>business_date</cite>, <cite>live</cite> and <cite>live_timestamp</cite>. ## Change log - 7.0.0 OTC portfolio can be submitted also as CC233 sensitivities report - 6.8.0 Security Basket ISIN, errors explained, upgrade to OpenAPI 3.0 description format - 6.5.0 ETD maturity specified preferably by contract_date - 6.3.1 Indicative margin resource - 6.2.0 Cash Market Repo, ETD CP005 and ETD CSV added to API v2 - 6.1.1 default 1T payment period for inflation swaps, ignore unknown calendars - 5.7.0 support for inflation swaps - 5.2.0 request with live=false without date means last end-of-day - 4.2.2 list of snapshots can be requested, OTC sensitivities - 4.2.1 OTC trade details resource and also included in estimator response - 4.1.1 historical snapshots also for list of products, series and currencies  # noqa: E501</p>
-<p>OpenAPI spec version: 2.0</p>
-<p>Generated by: <a class="reference external" href="https://github.com/swagger-api/swagger-codegen.git">https://github.com/swagger-api/swagger-codegen.git</a></p>
+<div><ul class="simple">
+<li><p>data_dict: dictionary object of json response</p></li>
+<li><p>file_name: The file_name can be string with absolute (‘/.’) or relative (‘./’) path or just a file name.</p></li>
+<li><p>verbose:  if False disable information messages</p></li>
+<li><p>update: if True it overwrites already existing file</p></li>
+<li><p>return: absolute path of file_name</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>csv_to_str(path: str) -&gt; str</strong></p>
+<ul class="simple">
+<li><p>Returns content of csv file as a string.</p></li>
+</ul>
+<p><strong>list_to_csv(rows: list, file_name: str)</strong></p>
+<ul class="simple">
+<li><p>Save list of dict into the file_name.</p></li>
+</ul>
+<p><strong>load_json_file(file_dir: str = ‘’, file_name: str = ‘’, path: str = None, verbose: bool = False) -&gt; dict</strong></p>
+<ul class="simple">
+<li><p>Load JSON data into dict.</p></li>
+</ul>
+</section>
+<section id="cpme-api-api-tools-modules">
+<h2>cpme_api.api.tools modules<a class="headerlink" href="#cpme-api-api-tools-modules" title="Link to this heading"></a></h2>
+<p><strong>get_business_date(prev=False, all_dates=False, api: CpmeApi = None) -&gt; Union[int, List[int]]:</strong></p>
+<ul class="simple">
+<li><p>returns current business date as default if no optional parameters</p></li>
+<li><p>all_dates = True returns list of all business dates</p></li>
+<li><p>prev = True returns previous business date</p></li>
+<li><p>api is user instance of CpmeApi with proper configuration</p></li>
+</ul>
+<p><strong>get_live_snapshot(date: int, ts_only=False, random_flag=False, api: CpmeApi = None) -&gt; Union[dict, int]:</strong></p>
+<ul class="simple">
+<li><p>api is user instance of CpmeApi with proper configuration</p></li>
+<li><p>date YYYYMMDD</p></li>
+<li><p>When ts_only=True and random_flag=True = return only one timestamp</p></li>
+<li><p>When ts_only=False and random_flag=True = return list of timestamps</p></li>
+<li><p>otherwise it returns live_snapshot records, eg:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">business_date</span><span class="p">,</span><span class="n">cash_available</span><span class="p">,</span><span class="n">live</span><span class="p">,</span><span class="n">live_timestamp</span><span class="p">,</span><span class="n">otc_available</span>
+<span class="mi">20220906</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">True</span>
+<span class="mi">20220906</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="mi">1662423998525</span><span class="p">,</span><span class="kc">True</span>
+</pre></div>
+</div>
+<p><strong>get_series(prod_ids, date, max_len, max_tte, futures_only, options_only, flex, api, verbose)</strong></p>
+<ul>
+<li><p>Returns filtered series of the market with conditions.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>prod_ids: list of product eg. (‘ODAX’, ‘FDAX’)</p></li>
+<li><p>date: business date as int YYYYMMDD</p></li>
+<li><p>max_len: Then number of returned series</p></li>
+<li><p>max_tte: Filter series with time_to_expiration &lt;= max_tte</p></li>
+<li><p>futures_only: bool Returns only futures instruments.</p></li>
+<li><p>options_only: bool Returns only options instruments.</p></li>
+<li><p>flex: bool assume flex instruments</p></li>
+<li><p>api is user instance of CpmeApi with proper configuration</p></li>
+<li><p>verbose: bool disable notification of progress to stdout</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+<section id="parallel-requests">
+<h1>Parallel requests<a class="headerlink" href="#parallel-requests" title="Link to this heading"></a></h1>
+<p>The client support asynchronous request with optional parameter <strong>async_req</strong>. The called function returns thread with auto assign id.
+There is thread attribute ready() which is True if the response is fetched.</p>
+<p>You can follow example script for more information <a class="reference external" href="../../../../example/async_examples.py">script</a></p>
+</section>
+<section id="how-to-use-model-library">
+<h1>How to use model library<a class="headerlink" href="#how-to-use-model-library" title="Link to this heading"></a></h1>
+<blockquote>
+<div><p>TODO</p>
 </div></blockquote>
 </section>
 
@@ -110,14 +487,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to comet’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="config.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to python Margin Estimator API documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lib_api.html" class="btn btn-neutral float-right" title="Module cpme_api" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+    <p>&#169; Copyright 2024, cpME team, author Miroslav Paris.</p>
   </div>
 
    

@@ -3,6 +3,7 @@ import multiprocessing
 import sys
 import urllib3
 from http.client import HTTPConnection
+from cpme_api import __version__
 
 NAME = "CPME-client"
 
@@ -42,8 +43,7 @@ class Configuration(object):
         # Debug switch
         self._debug = False
         # SSL/TLS verification
-        # Set this to False to skip verifying SSL certificate when calling API
-        # from https server.
+        # Set this to False to skip verifying SSL certificate when calling API from https server.
         self._verify_ssl = False
         # Set this to customize the certificate file to verify the peer.
         self._ssl_ca_cert = None
@@ -62,7 +62,6 @@ class Configuration(object):
         # Proxy URL
         self._proxy = None
         self._verbose = None
-        self._timeout = None
         self._env = "PROD"
         self._request_timeout = None
         self._return_json = True
@@ -140,10 +139,12 @@ class Configuration(object):
 
     @property
     def proxy(self):
+        """Proxy URL:PORT"""
         return self._proxy
 
     @proxy.setter
     def proxy(self, value):
+        """Proxy URL:PORT"""
         self._proxy = value
 
     @property
@@ -161,14 +162,6 @@ class Configuration(object):
     @url.setter
     def url(self, value):
         self._url = value
-
-    @property
-    def timeout(self):
-        return self._timeout
-
-    @timeout.setter
-    def timeout(self, value):
-        self._timeout = value
 
     @property
     def api_key(self):
@@ -348,6 +341,7 @@ class Configuration(object):
             # if debug status is True, turn on debug logging
             for _, logger in self.loggers.items():
                 logger.setLevel(logging.DEBUG)
+            self.loggers['package_logger'].debug(self.to_debug_report())
             # turn on httplib debug
             HTTPConnection.debuglevel = 1
             self.info()
@@ -405,9 +399,8 @@ class Configuration(object):
 
         :return: The report for debugging.
         """
-        return "Python SDK Debug Report:\n"\
-               "OS: {env}\n"\
-               "Python Version: {pyversion}\n"\
-               "Version of the API: 2.0\n"\
-               "SDK Package Version: 1.0.0".\
-               format(env=sys.platform, pyversion=sys.version)
+        return ("Python Debug Report: "\
+                "OS = {env}; "\
+                "Python Version = {pyversion}; "\
+                "Version of the API = {api_ver}".
+                format(env=sys.platform, pyversion=sys.version, api_ver=__version__))

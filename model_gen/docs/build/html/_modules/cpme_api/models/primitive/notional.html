@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cpme_api.models.primitive.notional &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+  <title>cpme_api.models.primitive.notional &mdash; Margin Estimator Api Client 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_size.css?v=3b072d6b" />
@@ -16,7 +16,7 @@
   
         <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -35,7 +35,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            COMET - Cloud Margin Estimator api Test tool
+            Margin Estimator Api Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -47,21 +47,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../cli.html">1. Command Line Interface usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../library.html">2. Library usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../scenarios.html">Scenarios Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html">Margin Estimator API Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#sending-request">Sending request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#get-requests">Get Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#post-requests">Post Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#tools-and-useful-functions">Tools and useful functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#parallel-requests">Parallel requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#how-to-use-model-library">How to use model library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cli.html">Command Line Interface usage</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Library API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html">API features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#api-models">API models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html">Module cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.configuration">Module configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.feature">Module features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.tools.tools">Module tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
 <ul>
@@ -77,7 +79,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">COMET - Cloud Margin Estimator api Test tool</a>
+          <a href="../../../../index.html">Margin Estimator Api Client</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -123,7 +125,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+    <p>&#169; Copyright 2024, cpME team, author Miroslav Paris.</p>
   </div>
 
    

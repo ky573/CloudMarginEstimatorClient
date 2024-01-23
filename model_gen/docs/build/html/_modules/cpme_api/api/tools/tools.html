@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cpme_api.api.tools.tools &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+  <title>cpme_api.api.tools.tools &mdash; Margin Estimator Api Client 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/sphinx_rtd_size.css?v=3b072d6b" />
@@ -16,7 +16,7 @@
   
         <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../../_static/documentation_options.js?v=8d563738"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -35,7 +35,7 @@
           
           
           <a href="../../../../index.html" class="icon icon-home">
-            COMET - Cloud Margin Estimator api Test tool
+            Margin Estimator Api Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -47,25 +47,29 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../cli.html">1. Command Line Interface usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../library.html">2. Library usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../scenarios.html">Scenarios Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html">Margin Estimator API Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#sending-request">Sending request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#get-requests">Get Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#post-requests">Post Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#tools-and-useful-functions">Tools and useful functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#parallel-requests">Parallel requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../get_start.html#how-to-use-model-library">How to use model library</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Library API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html">API features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#api-models">API models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html">Module cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.configuration">Module configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.feature">Module features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../lib_api.html#module-cpme_api.api.tools.tools">Module tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html">Array or Dict Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html#module-cpme_api.models.primitive">Primitive Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html#module-cpme_api.models.request_body">Request Body Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../models.html#module-cpme_api.models.responses">Responses Data Classes</a></li>
 </ul>
 
         </div>
@@ -74,7 +78,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../../index.html">COMET - Cloud Margin Estimator api Test tool</a>
+          <a href="../../../../index.html">Margin Estimator Api Client</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -98,6 +102,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
 <span class="kn">from</span> <span class="nn">cpme_api.api</span> <span class="kn">import</span> <span class="n">CpmeApi</span><span class="p">,</span> <span class="n">Configuration</span>
+<span class="kn">from</span> <span class="nn">cpme_api.models</span> <span class="kn">import</span> <span class="n">RespSeriesListSeries</span>
 
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;cpme_api&#39;</span><span class="p">)</span>
@@ -118,17 +123,16 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;snapshots&#39;</span><span class="p">]</span>
     <span class="n">bd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;business_date&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">res</span><span class="p">))]</span>
+    <span class="n">bd_list</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">all_dates</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">bd_list</span>
     <span class="k">if</span> <span class="n">prev</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">bd_list</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bd_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">bd_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">bd_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 
-<div class="viewcode-block" id="get_series">
-<a class="viewcode-back" href="../../../../lib_api.html#cpme_api.api.tools.tools.get_series">[docs]</a>
 <span class="k">def</span> <span class="nf">get_series</span><span class="p">(</span><span class="n">prod_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(),</span>
                <span class="n">date</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                <span class="n">max_len</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -137,8 +141,8 @@
                <span class="n">options_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                <span class="n">flex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                <span class="n">api</span><span class="p">:</span> <span class="n">CpmeApi</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-               <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;add filter_f = lambda x: x[&#39;days_to_expiration&#39;] == 0)&quot;&quot;&quot;</span>
+               <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">RespSeriesListSeries</span><span class="p">]:</span>
+    <span class="c1"># add filter_f = lambda x: x[&#39;days_to_expiration&#39;] == 0)</span>
     <span class="k">assert</span> <span class="n">max_len</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_len</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="s2">&quot;max_len must be int&quot;</span>
     <span class="k">assert</span> <span class="p">(</span><span class="n">date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="s2">&quot;date must be int&quot;</span>
     <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_tte</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="s2">&quot;max_tte must be int&quot;</span>
@@ -168,8 +172,7 @@
         <span class="n">series</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">series</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;call_put_flag&#39;</span><span class="p">)]</span>
     <span class="k">if</span> <span class="n">max_tte</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">series</span> <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;days_to_expiration&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">max_tte</span><span class="p">][:</span><span class="n">max_len</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">series</span><span class="p">[:</span><span class="n">max_len</span><span class="p">]</span></div>
-
+    <span class="k">return</span> <span class="n">series</span><span class="p">[:</span><span class="n">max_len</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="get_live_snapshot">
@@ -212,7 +215,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+    <p>&#169; Copyright 2024, cpME team, author Miroslav Paris.</p>
   </div>
 
    

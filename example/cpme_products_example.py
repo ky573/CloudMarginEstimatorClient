@@ -53,8 +53,6 @@ if __name__ == '__main__':
     config.enable_logging = True
     config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
     # config.request_timeout = 5
-    # config.debug = True
-    config.logger_file = 'debug_log5.log'
     api = CpmeApi(configuration=config)
     example(api)
     api.close()

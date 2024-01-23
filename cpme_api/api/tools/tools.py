@@ -3,6 +3,7 @@ import random
 import logging
 from itertools import groupby
 from cpme_api.api import CpmeApi, Configuration
+from cpme_api.models import RespSeriesListSeries
 
 
 log = logging.getLogger('cpme_api')
@@ -38,8 +39,8 @@ def get_series(prod_ids: List[str] = tuple(),
                options_only=False,
                flex=False,
                api: CpmeApi = None,
-               verbose=True) -> List[dict]:
-    """add filter_f = lambda x: x['days_to_expiration'] == 0)"""
+               verbose=True) -> List[RespSeriesListSeries]:
+    # add filter_f = lambda x: x['days_to_expiration'] == 0)
     assert max_len is None or isinstance(max_len, int), "max_len must be int"
     assert (date is None) or isinstance(date, int), "date must be int"
     assert isinstance(max_tte, int), "max_tte must be int"

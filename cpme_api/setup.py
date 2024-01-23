@@ -9,9 +9,10 @@
 """
 from os import path
 from setuptools import setup, find_packages
+from cpme_api import __version__
 
 NAME = "cpme-api-client"
-VERSION = "2.0.0"
+VERSION = __version__
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file

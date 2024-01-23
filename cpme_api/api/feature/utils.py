@@ -82,7 +82,7 @@ def json_to_file(data_dict: Union[dict, list], file_name: str, verbose=True, upd
 
 
 def load_json_file(file_dir: str = '', file_name: str = '', path: str = None, verbose: bool = False) -> dict:
-    """
+    """Load JSON data into dict.
 
     :param file_dir:
     :param file_name:
@@ -90,7 +90,6 @@ def load_json_file(file_dir: str = '', file_name: str = '', path: str = None, ve
     :param verbose:
     :return:
     """
-    """Load JSON data into dict."""
     if path is None:
         path = os.path.join(file_dir, file_name)
     path = os.path.abspath(path)

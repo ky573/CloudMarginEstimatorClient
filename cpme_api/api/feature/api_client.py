@@ -1,11 +1,11 @@
 from multiprocessing.pool import ThreadPool
-from multiprocessing.dummy import Pool as ThreadPool
+# from multiprocessing.dummy import Pool as ThreadPool
 from cpme_api.api.feature import rest
 from cpme_api.api.configuration import Configuration
 
 
 HEADER = {'Content-Type': 'application/json'}
-USER_AGENT = {'User-Agent': 'CometApi/3.0.0/python'}
+USER_AGENT = {'User-Agent': 'cpME-api/3.0.0/python'}
 
 
 class ApiClient(object):

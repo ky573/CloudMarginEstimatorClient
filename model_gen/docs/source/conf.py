@@ -11,10 +11,10 @@ import sys
 sys.path.insert(0, os.path.abspath('/cpme_api/'))
 sys.setrecursionlimit(1000)
 
-project = 'COMET - Cloud Margin Estimator api Test tool'
-copyright = '2023, cpME team, author Miroslav Paris'
+project = 'Margin Estimator Api Client'
+copyright = '2024, cpME team, author Miroslav Paris'
 author = 'Miroslav Paris'
-release = '1.1.0'
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

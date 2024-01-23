@@ -44,15 +44,15 @@ def example_for_actual_instruments(api: CpmeApi):
     greeks.fancy(line_text='BODY:')
     # send request
     response = api.greeks_post(body=greeks.to_dict())
-    json_to_file(response, './example/greeks')
+    json_to_file(response, './data/greeks')
 
 
 if __name__ == '__main__':
     config = Configuration()
     config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-    config.url = "https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0"
-    config.enable_logging = True
-    config.return_json = True
+    config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
+    # config.enable_logging = True
+    config.logger_file = './data/only-file.log'
     api = CpmeApi(configuration=config)
     # example_instruments_from_file(api)
     example_for_actual_instruments(api)

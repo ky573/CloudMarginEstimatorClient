@@ -155,6 +155,8 @@ class BaseContent(object):
         self._check_reference()
         self._check_required()
         self._check_attribute(**kwargs)
+        # initialization of predefined nested attributes/classes
+        self.init_tree()
 
     # def get_properties(self) -> List[str]:
     #    return [x.lstrip('_') for x in self.__dict__.keys()]

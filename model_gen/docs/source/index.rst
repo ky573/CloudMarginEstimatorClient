@@ -1,12 +1,11 @@
-Welcome to comet's documentation!
-=================================
+Welcome to python Margin Estimator API   documentation!
+=======================================================
 
 .. toctree::
     :caption: Contents:
     :titlesonly:
 
     get_start
-    config
     cli
     library
     scenarios
@@ -33,6 +32,3 @@ This shows search
 
 * :ref:`genindex`
 * :ref:`modindex`
-
-
-

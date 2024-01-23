@@ -1,4 +1,6 @@
 from __future__ import absolute_import
+
+import copy
 import io
 import json
 import re
@@ -40,6 +42,15 @@ def shorten_body(body: dict) -> str:
     if (size := len(str_body)) > 300:
         str_body = '[' + str(size) + 'bytes]' + str_body[0:150] + '...' + str_body[-150:]
     return str_body
+
+
+def anonymize_api_key(header: dict) ->dict:
+    header_ = copy.copy(header)
+    key = 'X-DBP-APIKEY'
+    if key in header_:
+        val = header[key]
+        header_[key] = val[:9] + '?..'
+    return header_
 
 
 class RESTClientObject(object):
@@ -205,7 +216,7 @@ class RESTClientObject(object):
             msg = "{0}\n{1}".format(type(e).__name__, str(e))
             raise ApiException(status=0, reason=msg)
 
-        if _preload_content and ('application/json' in resp.headers['Content-Type']):
+        if _preload_content and ('application/json' in resp.headers.get('Content-Type', {})):
             resp = RESTResponse(resp)
             # log response body
             self.log.debug(f"{method} url: {url} headers: {resp.headers} response_body: {resp.data}")
@@ -228,7 +239,7 @@ class RESTClientObject(object):
             else:
                 url_q = url
 
-            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url_q} {msg_timeout}")
+            self.log.info(f"{endpoint}\tHEADER:{anonymize_api_key(headers)} PARAMS:{query_params} URL:{url_q} {msg_timeout}")
         return self.request("GET", url,
                             headers=headers,
                             _preload_content=_preload_content,
@@ -270,7 +281,7 @@ class RESTClientObject(object):
             if _request_timeout:
                 msg_timeout = f'Timeout = {_request_timeout}'
 
-            self.log.info(f"{endpoint}\tHEADER:{headers} PARAMS:{query_params} URL:{url} {msg_timeout}")
+            self.log.info(f"{endpoint}\tHEADER:{anonymize_api_key(headers)} PARAMS:{query_params} URL:{url} {msg_timeout}")
 
         return self.request("POST", url,
                             headers=headers,

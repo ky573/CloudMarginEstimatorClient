@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cpme_api.api.configuration &mdash; COMET - Cloud Margin Estimator api Test tool 1.1.0 documentation</title>
+  <title>cpme_api.api.configuration &mdash; Margin Estimator Api Client 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/sphinx_rtd_size.css?v=3b072d6b" />
@@ -16,7 +16,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../_static/documentation_options.js?v=8d563738"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -35,7 +35,7 @@
           
           
           <a href="../../../index.html" class="icon icon-home">
-            COMET - Cloud Margin Estimator api Test tool
+            Margin Estimator Api Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -47,25 +47,29 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html">Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#cloud-prisma-margin-estimator-api">Cloud Prisma Margin Estimator API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">1. Command Line Interface usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../library.html">2. Library usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../scenarios.html">Scenarios Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html">Margin Estimator API Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#sending-request">Sending request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#get-requests">Get Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#post-requests">Post Requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#tools-and-useful-functions">Tools and useful functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#parallel-requests">Parallel requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_start.html#how-to-use-model-library">How to use model library</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Library API</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html">API features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.tools.tools">API tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.cpme_api">API cpme_api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.configuration">API configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#api-models">API models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#useful-2-explicit-members">useful #2 – explicit members</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html">Module cpme_api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.configuration">Module configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.feature">Module features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../lib_api.html#module-cpme_api.api.tools.tools">Module tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../models.html">API features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html">Array or Dict Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html#module-cpme_api.models.primitive">Primitive Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html#module-cpme_api.models.request_body">Request Body Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../models.html#module-cpme_api.models.responses">Responses Data Classes</a></li>
 </ul>
 
         </div>
@@ -74,7 +78,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">COMET - Cloud Margin Estimator api Test tool</a>
+          <a href="../../../index.html">Margin Estimator Api Client</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -93,13 +97,12 @@
            <div itemprop="articleBody">
              
   <h1>Source code for cpme_api.api.configuration</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">urllib3</span>
 <span class="kn">from</span> <span class="nn">http.client</span> <span class="kn">import</span> <span class="n">HTTPConnection</span>
+<span class="kn">from</span> <span class="nn">cpme_api</span> <span class="kn">import</span> <span class="n">__version__</span>
 
 <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;CPME-client&quot;</span>
 
@@ -114,7 +117,9 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor&quot;&quot;&quot;</span>
         <span class="c1"># Default Base url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="s2">&quot;https://cpme.risk.dev.ams.gcp.dbgcloud.io/api/v2.0&quot;</span>
+        <span class="c1"># self._url = &quot;https://eurexmargins.prod.dbgservice.com/api/v2.0&quot;</span>
+        <span class="c1"># self._url = &quot;https://api.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-2-0-0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="s2">&quot;https://risk.developer.deutsche-boerse.com/prisma-margin-estimator-2-0-0&quot;</span>
         <span class="c1"># Temp file folder for downloading files</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">temp_folder_path</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Authentication Settings</span>
@@ -139,8 +144,7 @@
         <span class="c1"># Debug switch</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_debug</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># SSL/TLS verification</span>
-        <span class="c1"># Set this to false to skip verifying SSL certificate when calling API</span>
-        <span class="c1"># from https server.</span>
+        <span class="c1"># Set this to False to skip verifying SSL certificate when calling API from https server.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verify_ssl</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># Set this to customize the certificate file to verify the peer.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ssl_ca_cert</span> <span class="o">=</span> <span class="kc">None</span>
@@ -149,24 +153,27 @@
         <span class="c1"># client key file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_key_file</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Set this to True/False to enable/disable SSL hostname verification.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assert_hostname</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_hostname</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># urllib3 connection pool&#39;s maximum number of connections saved</span>
         <span class="c1"># per pool. urllib3 uses 1 connection as default value, but this is</span>
         <span class="c1"># not the best value when you are making a lot of possibly parallel</span>
         <span class="c1"># requests to the same host, which is often the case here.</span>
         <span class="c1"># cpu_count * 5 is used as default value to increase performance.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">connection_pool_maxsize</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_pool_maxsize</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">*</span> <span class="mi">5</span>
         <span class="c1"># Proxy URL</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="c1"># Safe chars for path_param</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_pooling</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pool_size</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_max_size</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_env</span> <span class="o">=</span> <span class="s2">&quot;PROD&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_timeout</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_return_json</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_return_json</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">assert_hostname</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assert_hostname</span>
+
+    <span class="nd">@assert_hostname</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">assert_hostname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assert_hostname</span><span class="p">,</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">return_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -233,10 +240,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Proxy URL:PORT&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span>
 
     <span class="nd">@proxy</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">proxy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Proxy URL:PORT&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_proxy</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
@@ -254,14 +263,6 @@
     <span class="nd">@url</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_url</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span>
-
-    <span class="nd">@timeout</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">api_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -302,30 +303,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_timeout</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pool_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">connection_pool_maxsize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of pools of urrllib connector</span>
 
 <span class="sd">        :param value:</span>
 <span class="sd">        :type: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pool_size</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_pool_maxsize</span>
 
-    <span class="nd">@pool_size</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">pool_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="nd">@connection_pool_maxsize</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">connection_pool_maxsize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of pools of urrllib connector</span>
 
 <span class="sd">        :param value:</span>
 <span class="sd">        :type: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pool_size</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_size</span>
-
-    <span class="nd">@max_size</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">max_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_max_size</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_pool_maxsize</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">verify_ssl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -334,14 +327,6 @@
     <span class="nd">@verify_ssl</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">verify_ssl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_verify_ssl</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">enable_pooling</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enable_pooling</span>
-
-    <span class="nd">@enable_pooling</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">enable_pooling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_pooling</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">username</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -457,6 +442,7 @@
             <span class="c1"># if debug status is True, turn on debug logging</span>
             <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">logger</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loggers</span><span class="p">[</span><span class="s1">&#39;package_logger&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_debug_report</span><span class="p">())</span>
             <span class="c1"># turn on httplib debug</span>
             <span class="n">HTTPConnection</span><span class="o">.</span><span class="n">debuglevel</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -503,6 +489,9 @@
         <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;authorization&#39;</span><span class="p">)</span></div>
 
 
+    <span class="k">def</span> <span class="nf">get_loggger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">loggers</span><span class="p">[</span><span class="s1">&#39;package_logger&#39;</span><span class="p">]</span>
+
     <span class="k">def</span> <span class="nf">auth_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">{}</span>
 
@@ -516,12 +505,11 @@
 
 <span class="sd">        :return: The report for debugging.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;Python SDK Debug Report:</span><span class="se">\n</span><span class="s2">&quot;</span>\
-               <span class="s2">&quot;OS: </span><span class="si">{env}</span><span class="se">\n</span><span class="s2">&quot;</span>\
-               <span class="s2">&quot;Python Version: </span><span class="si">{pyversion}</span><span class="se">\n</span><span class="s2">&quot;</span>\
-               <span class="s2">&quot;Version of the API: 2.0</span><span class="se">\n</span><span class="s2">&quot;</span>\
-               <span class="s2">&quot;SDK Package Version: 1.0.0&quot;</span><span class="o">.</span>\
-               <span class="nb">format</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="n">pyversion</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;Python Debug Report: &quot;</span>\
+                <span class="s2">&quot;OS = </span><span class="si">{env}</span><span class="s2">; &quot;</span>\
+                <span class="s2">&quot;Python Version = </span><span class="si">{pyversion}</span><span class="s2">; &quot;</span>\
+                <span class="s2">&quot;Version of the API = </span><span class="si">{api_ver}</span><span class="s2">&quot;</span><span class="o">.</span>
+                <span class="nb">format</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="p">,</span> <span class="n">pyversion</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">api_ver</span><span class="o">=</span><span class="n">__version__</span><span class="p">))</span></div>
 </div>
 
 </pre></div>
@@ -533,7 +521,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, cpME team, author Miroslav Paris.</p>
+    <p>&#169; Copyright 2024, cpME team, author Miroslav Paris.</p>
   </div>
 
    
