@@ -4,8 +4,28 @@
 Margin Estimator API Client
 =================================
 
+API is the backend for the web application.
+REST client
+ - Uniform interface: This includes commons naming protocols, consistent retrievable patterns (HTTP methods like GET, PUT, PATCH), and single-URI resource identification.
+
+ - Client-server separation: The client applications and servers can evolve separately from each other.
+
+ - Therefore, API clients are popular with developers because they allow them to perform API testing (as well as document, mock, etc.) that does not depend on a specific programming language.
+
+API client tools is automation. They can automatically generate tests, requests, documentation, and libraries, bringing substantial time savings to teams working on maintaining or building APIs.
+
+It provide full access to cpme API with already prepared functions with all data models classes prepared in python.
+It helpd any protorype developnemt which uses cpME for margining and it enable to generate comlex portfolios to calculate margins in form of data class models.
+
+It is in form of simple linrary which contains adidtional tools for saving, loading and fetching snapshots from backend.
+Like fitelered series, loading data from json file, store messages into the json. XML, excel. (in case if indication ve margin for isntance.)
+
 Cloud Prisma Margin Estimator (CPME) calculates margin for an uploaded portfolio according to Eurex PRISMA methodology. The application is available to both members and non-members of Eurex Clearing. It can be accessed via web user interface, see `CPME GUI <https://eurexmargins.prod.dbgservice.com>`_, or directly through API, described here.
 API allows to combine more input files/formats into one request, e.g.report cp005 with productive postions plus csv with additional positions.
+
+Hint: Hint https://apispec.readthedocs.io/en/latest/api_core.html
+      github.com/marshmallow-code/apispec
+
 
 Installation
 ============
@@ -460,4 +480,19 @@ You can follow example script for more information `script <https://github.deuts
 
 How to use model library
 ========================
-TODO
+The library contains classes with properties and auto initialization of nested structures called models. The models are split into main three namespaces
+
+- primitive: data models of string, integers
+- request_body: data models of body messages
+- responses:
+
+The data models is located in .cpme_api/models and they can be acces with simple import cpme_api.models as spec
+There is access to request_body and responses namespace.
+
+If we want to see reponse structure of series
+
+There is two
+
+Every class contains theses functions:
+
+to_dict()

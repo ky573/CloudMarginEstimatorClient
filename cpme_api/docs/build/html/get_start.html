@@ -63,16 +63,16 @@
 <p class="caption" role="heading"><span class="caption-text">Library API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="lib_api.html">Module cpme_api</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.configuration">Module configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.feature">Module features</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-cpme_api.api.tools.tools">Module tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-configuration">Module configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-features">Module features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lib_api.html#module-tools">Module tools</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Data Models</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="models.html">Array or Dict Data Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.primitive">Primitive Data Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.request_body">Request Body Data Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="models.html#module-cpme_api.models.responses">Responses Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#primitive-data-classes">Primitive Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#request-body-data-classes">Request Body Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html#responses-data-classes">Responses Data Classes</a></li>
 </ul>
 
         </div>
@@ -100,8 +100,26 @@
              
   <section id="margin-estimator-api-client">
 <h1>Margin Estimator API Client<a class="headerlink" href="#margin-estimator-api-client" title="Link to this heading"></a></h1>
+<p>API is the backend for the web application.
+REST client</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Uniform interface: This includes commons naming protocols, consistent retrievable patterns (HTTP methods like GET, PUT, PATCH), and single-URI resource identification.</p></li>
+<li><p>Client-server separation: The client applications and servers can evolve separately from each other.</p></li>
+<li><p>Therefore, API clients are popular with developers because they allow them to perform API testing (as well as document, mock, etc.) that does not depend on a specific programming language.</p></li>
+</ul>
+</div></blockquote>
+<p>API client tools is automation. They can automatically generate tests, requests, documentation, and libraries, bringing substantial time savings to teams working on maintaining or building APIs.</p>
+<p>It provide full access to cpme API with already prepared functions with all data models classes prepared in python.
+It helpd any protorype developnemt which uses cpME for margining and it enable to generate comlex portfolios to calculate margins in form of data class models.</p>
+<p>It is in form of simple linrary which contains adidtional tools for saving, loading and fetching snapshots from backend.
+Like fitelered series, loading data from json file, store messages into the json. XML, excel. (in case if indication ve margin for isntance.)</p>
 <p>Cloud Prisma Margin Estimator (CPME) calculates margin for an uploaded portfolio according to Eurex PRISMA methodology. The application is available to both members and non-members of Eurex Clearing. It can be accessed via web user interface, see <a class="reference external" href="https://eurexmargins.prod.dbgservice.com">CPME GUI</a>, or directly through API, described here.
 API allows to combine more input files/formats into one request, e.g.report cp005 with productive postions plus csv with additional positions.</p>
+<dl class="simple">
+<dt>Hint: Hint <a class="reference external" href="https://apispec.readthedocs.io/en/latest/api_core.html">https://apispec.readthedocs.io/en/latest/api_core.html</a></dt><dd><p>github.com/marshmallow-code/apispec</p>
+</dd>
+</dl>
 </section>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
@@ -479,7 +497,18 @@ There is thread attribute ready() which is True if the response is fetched.</p>
 </section>
 <section id="how-to-use-model-library">
 <h1>How to use model library<a class="headerlink" href="#how-to-use-model-library" title="Link to this heading"></a></h1>
-<p>TODO</p>
+<p>The library contains classes with properties and auto initialization of nested structures called models. The models are split into main three namespaces</p>
+<ul class="simple">
+<li><p>primitive: data models of string, integers</p></li>
+<li><p>request_body: data models of body messages</p></li>
+<li><p>responses:</p></li>
+</ul>
+<p>The data models is located in .cpme_api/models and they can be acces with simple import cpme_api.models as spec
+There is access to request_body and responses namespace.</p>
+<p>If we want to see reponse structure of series</p>
+<p>There is two</p>
+<p>Every class contains theses functions:</p>
+<p>to_dict()</p>
 </section>
 
 
