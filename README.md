@@ -57,9 +57,9 @@ To exit the environment:
 
 - activate your virtual environment
 
-- enter to the downloaded sub folder cpme_api
+- enter to the downloaded folder
 
-``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient\cpme_api``
+``cd <local_folder>/DAVe-MarginEstimator-PythonAPIClient``
 
 - and run
 
