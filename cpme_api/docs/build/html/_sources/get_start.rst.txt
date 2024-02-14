@@ -6,11 +6,12 @@ Margin Estimator API Client
 
 API is the backend for the web application.
 REST client
- - Uniform interface: This includes commons naming protocols, consistent retrievable patterns (HTTP methods like GET, PUT, PATCH), and single-URI resource identification.
 
- - Client-server separation: The client applications and servers can evolve separately from each other.
+- Uniform interface: This includes commons naming protocols, consistent retrievable patterns (HTTP methods like GET, PUT, PATCH), and single-URI resource identification.
 
- - Therefore, API clients are popular with developers because they allow them to perform API testing (as well as document, mock, etc.) that does not depend on a specific programming language.
+- Client-server separation: The client applications and servers can evolve separately from each other.
+
+- Therefore, API clients are popular with developers because they allow them to perform API testing (as well as document, mock, etc.) that does not depend on a specific programming language.
 
 API client tools is automation. They can automatically generate tests, requests, documentation, and libraries, bringing substantial time savings to teams working on maintaining or building APIs.
 
