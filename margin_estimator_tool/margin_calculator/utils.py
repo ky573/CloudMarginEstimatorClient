@@ -4,8 +4,6 @@ from typing import Dict, List, Union, Tuple
 from datetime import datetime, timedelta
 import os
 import click
-from cpme_api.models import set_data_validation
-from cpme_api.api import Configuration, CpmeApi
 
 
 def is_business_day(current_date: datetime) -> bool:
@@ -58,14 +56,3 @@ def check_click_arguments(date_from: str, date_to: str, export_dir: str) -> None
 
     if not os.path.exists(export_dir):
         raise click.BadParameter(f"Export directory '{export_dir}' not found.")
-
-
-def setup_api() -> CpmeApi:
-    """Sets up and returns the API for requests"""
-    set_data_validation(False)
-    config = Configuration()
-    config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-    config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
-    config.enable_logging = True
-    api = CpmeApi(configuration=config)
-    return api
