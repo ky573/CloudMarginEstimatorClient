@@ -1,0 +1,43 @@
+[project]
+name = "margin-estimator-tool"
+version = "0.9"
+description = "Demo tool for CPME"
+readme = "README.md"
+long_description_content_type = "text/markdown"
+authors = [
+    { name = "Daniel Lopata", email = "daniel.lopata@deutsche-boerse.com" }
+]
+requires-python = ">=3.8,<3.11"
+keywords = ["margining", "risk", "estimator", "marginestimator", "tool"]
+classifiers = [
+    "Development Status :: 5 - Production",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+homepage = "https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient"
+
+[project.dependencies]
+python = [">=3.8,<3.11"]
+
+# The dependencies from the requirements.txt
+dependencies = [
+    "wheel>=0.34.2",
+    "pyyaml>=6.0",
+    "pprintjson >= 1.4.2",
+    "openpyxl >= 3.1.5",
+    "urllib3 >= 1.15",
+    "plotly==5.24.1"
+    "kaleido==0.1.0post1",
+    "click>=8.1.7",
+    "certifi",
+    "pprintjson"
+]
+
+[build-system]
+requires = ["setuptools>=59.0", "wheel"]
+build-backend = "setuptools.build_meta"
