@@ -9,7 +9,7 @@ from typing import List, Dict, Any
 import json
 from datetime import datetime
 import click
-from .request_handler import RequestHandler
+from .estimator_request_handler import EstimatorRequestHandler
 from .graph_exporter import GraphExporter
 from .excel_exporter import ExcelExporter
 from .utils import collect_business_days
@@ -21,7 +21,7 @@ class MarginCalculator:
 
     def __init__(self, portfolio: str):
         self.portfolio = portfolio
-        self.handler = RequestHandler()
+        self.handler = EstimatorRequestHandler()
         self.initial_margins: List[float] = []
         self.dates: List[int] = []
         self.margin_details: List[Dict[str, Any]] = []
@@ -43,7 +43,7 @@ class MarginCalculator:
     def _run_post_requests(self, business_days: List[int]) -> None:
         """Runs POST requests to estimator endpoint."""
         for business_day in business_days:
-            data = self.handler.post_request(business_day, self.portfolio)
+            data = self.handler.send_request(business_day, self.portfolio)
             print(json.dumps(data, indent=4))
             if data:
                 self._extract_data(data)
