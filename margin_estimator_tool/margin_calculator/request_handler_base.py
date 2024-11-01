@@ -6,7 +6,9 @@ sending requests to the API.
 from typing import Dict, Any
 from abc import ABC, abstractmethod
 from cpme_api.api import CpmeApi, Configuration
-from cpme_api.models import set_data_validation, BodyEstimator
+from cpme_api.models import set_data_validation
+import click
+import requests
 
 
 class RequestHandler(ABC):
@@ -17,7 +19,15 @@ class RequestHandler(ABC):
     @abstractmethod
     def send_request(self, *args, **kwargs) -> Dict[str, Any]:
         """Abstract method for sending a request; to be implemented by subclasses."""
-        pass
+
+    def _handle_request_error(self, error: Exception) -> None:
+        """Handles request-related errors by printing a message to the user."""
+        if isinstance(error, requests.exceptions.HTTPError):
+            click.echo(f"HTTP Error: {error}", err=True)
+        elif isinstance(error, requests.exceptions.RequestException):
+            click.echo(f"Error sending request: {error}", err=True)
+        else:
+            click.echo(f"Error: {error}", err=True)
 
     def _setup_api(self) -> CpmeApi:
         """Sets up and returns the API for requests."""

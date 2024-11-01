@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from typing import Dict, Any, Optional, List
 from margin_estimator_tool.margin_calculator.export_strategy.export_context import ExportContext
@@ -5,8 +6,7 @@ from margin_estimator_tool.margin_calculator.export_strategy.csv_export_strategy
 from margin_estimator_tool.margin_calculator.export_strategy.excel_export_strategy import ExcelExportStrategy
 from margin_estimator_tool.margin_calculator.export_strategy.json_export_strategy import JSONExportStrategy
 from .request_handler_base import RequestHandler
-import requests
-import click
+
 
 EXTRAFIELDS = ['product', 'instrument_type', 'clearing_house', 'prod_name', 'prod_isin',
                'underlying_isin', 'currency', 'product_type', 'extended_product_type',
@@ -18,54 +18,57 @@ EXTRAFIELDS = ['product', 'instrument_type', 'clearing_house', 'prod_name', 'pro
 class ProductsRequestHandler(RequestHandler):
     """Handler for sending requests to the /products endpoint and exporting data."""
 
-    def __init__(self, date: Optional[str], version: Optional[str], filters: Optional[str], to_excel: bool,
-                 to_json: bool, export_dir: str):
+    def __init__(self, date=None, version=None, to_excel=False, export_dir=None, to_json=False, filters=None):
         super().__init__()
-        self.date = date
-        self.version = self._parse_version(version)
-        self.filters = self._parse_filters(filters)
+        self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')  # if version == SOD the date needs to be yesterday!
+        self.version = version == "LIVE"
         self.to_excel = to_excel
         self.to_json = to_json
         self.export_dir = export_dir
+        self.filters = self._parse_filters(filters)
 
     def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, str]:
         """Parses the filter string into a dictionary."""
+        filters = {}
         if filter_str:
-            return dict(f.split(':') for f in filter_str.split(','))
-        return {}
+            for f in filter_str.split(','):
+                key, value = f.split(':')
+                if key == "product_tick_size" or key == "product_tick_value":
+                    filters[key] = int(value)
+                elif key == "xm_eligibility":
+                    filters[key] = False if value == "false" else True
+                else:
+                    filters[key] = value
 
-    def _parse_version(self, version: str) -> bool:
-        """Parses the version from CLI"""
-        if version == "SOD":
-            return False
-        else:
-            return True
+        return filters
 
     def _filter_response(self, products: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Filters products based on extrafields values defined in self.filters."""
         filtered_products = []
 
         for product in products:
-            if product.get("instrument_type") == "future":
+            match = True
+            for key, value in self.filters.items():
+                if product.get(key) != value:
+                    match = False
+                    break
+
+            if match:
                 filtered_products.append(product)
 
         return filtered_products
 
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to the /products endpoint with optional filters, date, and version."""
-        extrafields = list(self.filters.keys())
-        business_day = int(self.date)
-
         try:
-            response = self.api.products_get(extrafields=extrafields, business_day=business_day, live=self.version)
+            response = self.api.products_get(extrafields=EXTRAFIELDS,
+                                             business_date=self.business_date,
+                                             live=self.version)
             response = response.get("products", [])
+            print(response[0])
             return response
-        except requests.exceptions.HTTPError as e:
-            click.echo(f"HTTP Error: {e}", err=True)
-        except requests.exceptions.RequestException as e:
-            click.echo(f"Error sending request: {e}", err=True)
         except Exception as e:
-            click.echo(f"Error: {e}", err=True)
+            self._handle_request_error(e)
         return []
 
     def process_and_export(self) -> None:
@@ -73,7 +76,7 @@ class ProductsRequestHandler(RequestHandler):
         products = self.send_request()
 
         filtered_products = self._filter_response(products)
-        print(filtered_products)
+        print(len(filtered_products))
 
         context = ExportContext()
 

@@ -1,8 +1,6 @@
-from typing import Dict, Any
-import requests
-import click
-from cpme_api.models import BodyEstimator
 from .request_handler_base import RequestHandler
+from typing import Dict, Any
+from cpme_api.models import BodyEstimator
 import cpme_api.models as spec
 
 
@@ -16,12 +14,8 @@ class EstimatorRequestHandler(RequestHandler):
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
             return response
-        except requests.exceptions.HTTPError as e:
-            click.echo(f"HTTP Error: {e}", err=True)
-        except requests.exceptions.RequestException as e:
-            click.echo(f"Error sending request: {e}", err=True)
         except Exception as e:
-            click.echo(f"Error: {e}", err=True)
+            self._handle_request_error(e)
         return {}
 
     def _setup_request_body(self, business_day: int, portfolio: str) -> BodyEstimator:
@@ -29,6 +23,7 @@ class EstimatorRequestHandler(RequestHandler):
         request_body = BodyEstimator()
         request_body.snapshot = spec.Snapshot()
         request_body.snapshot.live = True
+        request_body.snapshot.business_date = business_day
         request_body.clearing_currency = 'EUR'
 
         etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
