@@ -1,6 +1,6 @@
 """Utility functions for the margin_calculator package."""
 
-from typing import Dict, List, Union, Tuple
+from typing import Dict, List, Union, Tuple, Optional
 from datetime import datetime, timedelta
 import os
 import click
@@ -46,11 +46,23 @@ def flatten_dict(
     return dict(items)
 
 
-def check_click_arguments(date_from: str, date_to: str, export_dir: str) -> None:
-    """Checks if the click arguments are valid."""
+def check_estimator_arguments(date_from: str, date_to: str, export_dir: str) -> None:
+    """Checks if the click arguments are valid for estimator."""
     try:
         datetime.strptime(date_from, "%Y%m%d")
         datetime.strptime(date_to, "%Y%m%d")
+    except ValueError as e:
+        raise click.BadParameter("Date format must be YYYYMMDD.") from e
+
+    if not os.path.exists(export_dir):
+        raise click.BadParameter(f"Export directory '{export_dir}' not found.")
+
+
+def check_products_arguments(date: Optional[str], export_dir: str) -> None:
+    """Checks if the click arguments are valid for products."""
+    try:
+        if date:
+            datetime.strptime(date, "%Y%m%d")
     except ValueError as e:
         raise click.BadParameter("Date format must be YYYYMMDD.") from e
 

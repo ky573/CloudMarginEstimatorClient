@@ -1,0 +1,17 @@
+import csv
+from .export_strategy import ExportStrategy
+from typing import Dict, Any, List
+
+
+class CSVExportStrategy(ExportStrategy):
+    """Concrete strategy for exporting to CSV."""
+
+    def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
+        version_path = "LIVE" if version else "SOD"
+
+        out_path = f'{output_path}/{date}_{version_path}_products.csv'
+        keys = products[0].keys()
+        with open(out_path, 'w', newline='') as output_file:
+            dict_writer = csv.DictWriter(output_file, fieldnames=keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(products)

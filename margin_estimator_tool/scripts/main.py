@@ -1,7 +1,8 @@
 import click
-from margin_estimator_tool.margin_calculator.products_request_handler import ProductsRequestHandler
-from margin_estimator_tool.margin_calculator.estimator_request_handler import EstimatorRequestHandler
-from margin_estimator_tool.margin_calculator.request_handler_base import RequestHandler
+from margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
+from margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
+from margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.core.utils import check_estimator_arguments, check_products_arguments
 from typing import Optional
 
 
@@ -17,11 +18,12 @@ def cli():
 @click.option('--export_dir', required=True, type=click.Path(), help="Directory to save output.")
 def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
     """Run estimator endpoint."""
+    check_estimator_arguments(date_from, date_to, export_dir)
     handler = EndpointHandlerFactory.get_handler("post_estimator",
                                                  date_from=date_from,
                                                  date_to=date_to,
                                                  export_dir=export_dir)
-    handler.send_request()
+    handler.process_and_export()
 
 
 @cli.command(name="get_products")
@@ -36,8 +38,10 @@ def get_products(date: Optional[str],
                  to_excel: Optional[bool],
                  to_json: Optional[bool],
                  export_dir: Optional[str],
-                 filter: Optional[str]) -> None:
+                 filter: Optional[str]
+                 ) -> None:
     """Fetch products from the products endpoint."""
+    check_products_arguments(date, export_dir)
     handler = EndpointHandlerFactory.get_handler("get_products",
                                                  date=date,
                                                  version=version,
@@ -45,8 +49,6 @@ def get_products(date: Optional[str],
                                                  to_json=to_json,
                                                  export_dir=export_dir,
                                                  filters=filter)
-
-    # so far works just because of python ducktyping and only for products, needs a rework of structure
     handler.process_and_export()
 
 

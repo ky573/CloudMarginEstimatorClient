@@ -1,3 +1,5 @@
+from typing import Dict, Any, List
+
 class ExportContext:
     """Context for using the export strategy."""
 
@@ -7,8 +9,8 @@ class ExportContext:
     def set_strategy(self, strategy):
         self.strategy = strategy
 
-    def export_data(self, products, output_path):
+    def export_data(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
         if self.strategy:
-            self.strategy.export(products, output_path)
+            self.strategy.export(date, version, products, output_path)
         else:
             print("No export strategy defined.")
