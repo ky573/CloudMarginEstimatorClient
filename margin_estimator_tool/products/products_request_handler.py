@@ -1,8 +1,7 @@
 from datetime import datetime
 from typing import Dict, Any, Optional, List
-
 import click
-
+import os
 from margin_estimator_tool.export_strategy.export_context import ExportContext
 from margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
 from margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
@@ -26,7 +25,7 @@ class ProductsRequestHandler(RequestHandler):
         self.version = version == "LIVE"
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir
+        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         self.filters = self._parse_filters(filters)
 
     def process_and_export(self) -> None:

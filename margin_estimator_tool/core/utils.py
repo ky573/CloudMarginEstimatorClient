@@ -58,7 +58,7 @@ def check_estimator_arguments(date_from: str, date_to: str, export_dir: str) -> 
         raise click.BadParameter(f"Export directory '{export_dir}' not found.")
 
 
-def check_products_arguments(date: Optional[str], export_dir: str) -> None:
+def check_products_arguments(date: Optional[str], export_dir: Optional[str]) -> None:
     """Checks if the click arguments are valid for products."""
     try:
         if date:
@@ -66,5 +66,6 @@ def check_products_arguments(date: Optional[str], export_dir: str) -> None:
     except ValueError as e:
         raise click.BadParameter("Date format must be YYYYMMDD.") from e
 
-    if not os.path.exists(export_dir):
-        raise click.BadParameter(f"Export directory '{export_dir}' not found.")
+    if export_dir:
+        if not os.path.exists(export_dir):
+            raise click.BadParameter(f"Export directory '{export_dir}' not found.")
