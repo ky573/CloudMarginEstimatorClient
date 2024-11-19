@@ -10,7 +10,7 @@ class CSVExportStrategy(ExportStrategy):
     def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
         version_path = "LIVE" if version else "SOD"
 
-        out_path = f'{date}_{version_path}_products.csv'
+        out_path = f'{date}_{version_path}_{self.type}.csv'
         file_path = os.path.join(output_path, out_path)
         keys = products[0].keys()
         with open(file_path, 'w', newline='') as output_file:

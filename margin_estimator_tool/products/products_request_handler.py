@@ -37,11 +37,11 @@ class ProductsRequestHandler(RequestHandler):
         context = ExportContext()
 
         if self.to_excel:
-            context.set_strategy(ExcelExportStrategy())
+            context.set_strategy(ExcelExportStrategy("products"))
         elif self.to_json:
-            context.set_strategy(JSONExportStrategy())
+            context.set_strategy(JSONExportStrategy("products"))
         else:
-            context.set_strategy(CSVExportStrategy())
+            context.set_strategy(CSVExportStrategy("products"))
 
         context.export_data(str(self.business_date), self.version, filtered_products, self.export_dir)
 

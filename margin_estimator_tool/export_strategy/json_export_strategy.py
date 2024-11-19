@@ -10,7 +10,7 @@ class JSONExportStrategy(ExportStrategy):
     def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
         version_path = "LIVE" if version else "SOD"
 
-        out_path = f'{date}_{version_path}_products.json'
+        out_path = f'{date}_{version_path}_{self.type}.json'
         file_path = os.path.join(output_path, out_path)
         with open(file_path, 'w') as output_file:
             json.dump(products, output_file, indent=4)

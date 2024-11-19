@@ -88,6 +88,7 @@ def get_series(date: Optional[str],
 
     handler.process_and_export()
 
+
 class EndpointHandlerFactory:
     """Factory for creating desired request handler based on CLI."""
 
