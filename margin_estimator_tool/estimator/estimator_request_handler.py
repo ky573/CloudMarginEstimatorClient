@@ -23,7 +23,7 @@ class EstimatorRequestHandler(RequestHandler):
         self.portfolio = PortfolioLoader().load_portfolio()
         self.extractor = Extractor()
 
-    def process_and_export(self) -> None:
+    def process_and_provide_output(self) -> None:
         """Main method to process and export margin data."""
         business_days = self._collect_business_days()
         margin_data = self._fetch_margin_data(business_days)

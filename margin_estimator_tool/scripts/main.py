@@ -2,6 +2,7 @@ import click
 from margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
 from margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
 from margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
+from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
 from margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.core.utils import check_estimator_arguments, check_products_arguments
 from typing import Optional
@@ -24,7 +25,7 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
                                                  date_from=date_from,
                                                  date_to=date_to,
                                                  export_dir=export_dir)
-    handler.process_and_export()
+    handler.process_and_provide_output()
 
 
 @cli.command(name="get_products")
@@ -50,7 +51,7 @@ def get_products(date: Optional[str],
                                                  to_json=to_json,
                                                  export_dir=export_dir,
                                                  filters=filter)
-    handler.process_and_export()
+    handler.process_and_provide_output()
 
 
 @cli.command(name="get_series")
@@ -86,7 +87,15 @@ def get_series(date: Optional[str],
                                                  type=type,
                                                  filters=filter)
 
-    handler.process_and_export()
+    handler.process_and_provide_output()
+
+
+@cli.command(name="get_live_snapshots")
+@click.option('--date', type=str, help='Fetch live snapshots from a specific date (YYYYMMDD).')
+def get_live_snapshots(date: Optional[str]) -> None:
+    """Fetch live snapshots and display information."""
+    handler = EndpointHandlerFactory.get_handler("get_live_snapshots", date=date)
+    handler.process_and_provide_output()
 
 
 class EndpointHandlerFactory:
@@ -101,6 +110,8 @@ class EndpointHandlerFactory:
             return ProductsRequestHandler(**kwargs)
         elif endpoint == "get_series":
             return SeriesRequestHandler(**kwargs)
+        elif endpoint == "get_live_snapshots":
+            return LiveSnapshotRequestHandler(**kwargs)
         else:
             raise ValueError(f"No handler defined for endpoint: {endpoint}")
 

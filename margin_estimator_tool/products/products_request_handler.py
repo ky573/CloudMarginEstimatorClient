@@ -28,7 +28,7 @@ class ProductsRequestHandler(RequestHandler):
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         self.filters = self._parse_filters(filters)
 
-    def process_and_export(self) -> None:
+    def process_and_provide_output(self) -> None:
         """Processes the data from /products and exports it according to the specified format."""
         products = self.send_request()
 

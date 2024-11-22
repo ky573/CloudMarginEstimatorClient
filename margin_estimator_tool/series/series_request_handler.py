@@ -39,7 +39,7 @@ class SeriesRequestHandler(RequestHandler):
         self.type = type
         self.filters = self._parse_filters(filters)
 
-    def process_and_export(self) -> None:
+    def process_and_provide_output(self) -> None:
         """Processes the data from /series and exports it according to the specified format."""
         series = self.send_request()
 

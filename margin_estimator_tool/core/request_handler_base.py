@@ -17,7 +17,7 @@ class RequestHandler(ABC):
         self.api: CpmeApi = self._setup_api()
 
     @abstractmethod
-    def process_and_export(self) -> None:
+    def process_and_provide_output(self) -> None:
         """Abstract method for sending a request and exporting data; to be implemented by subclasses."""
 
     def _handle_request_error(self, error: Exception) -> None:
