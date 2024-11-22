@@ -3,6 +3,7 @@ from margin_estimator_tool.products.products_request_handler import ProductsRequ
 from margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
 from margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
 from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
+from margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
 from margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.core.utils import check_estimator_arguments, check_products_arguments
 from typing import Optional
@@ -98,6 +99,15 @@ def get_live_snapshots(date: Optional[str]) -> None:
     handler.process_and_provide_output()
 
 
+@cli.command(name="get_snapshots")
+@click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format.')
+@click.option('--date_to', type=str, help='End date in YYYYMMDD format. Defaults to the current date.')
+def get_snapshots(date_from: str, date_to: Optional[str]) -> None:
+    """Fetch SOD snapshots (non-live) for the specified date range."""
+    handler = EndpointHandlerFactory.get_handler("get_snapshots", date_from=date_from, date_to=date_to)
+    handler.process_and_provide_output()
+
+
 class EndpointHandlerFactory:
     """Factory for creating desired request handler based on CLI."""
 
@@ -112,6 +122,8 @@ class EndpointHandlerFactory:
             return SeriesRequestHandler(**kwargs)
         elif endpoint == "get_live_snapshots":
             return LiveSnapshotRequestHandler(**kwargs)
+        elif endpoint == "get_snapshots":
+            return SnapshotRequestHandler(**kwargs)
         else:
             raise ValueError(f"No handler defined for endpoint: {endpoint}")
 
