@@ -1,13 +1,19 @@
-import csv
-from .export_strategy import ExportStrategy
-from typing import Dict, Any, List
+"""
+This module defines strategy for CSV exporting.
+"""
+
+
 import os
+import csv
+from typing import Dict, Any, List
+from .export_strategy import ExportStrategy
 
 
 class CSVExportStrategy(ExportStrategy):
     """Concrete strategy for exporting to CSV."""
 
     def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
+        """Concrete implementation for exporting into CSV."""
         version_path = "LIVE" if version else "SOD"
 
         out_path = f'{date}_{version_path}_{self.type}.csv'

@@ -1,3 +1,9 @@
+"""
+This module is responsible for retrieving the information about
+live snapshots from estimator.
+"""
+
+
 from datetime import datetime
 from typing import Dict, Any, List
 import click
@@ -12,13 +18,13 @@ class LiveSnapshotRequestHandler(RequestHandler):
         self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')
 
     def process_and_provide_output(self) -> None:
-        """Processes the data from /live_snapshot and outputs it according to the specified format."""
+        """Processes the data from /live_snapshots and outputs it according to specified format."""
         live_snapshots = self.send_request()
 
         self._print_output(live_snapshots)
 
     def send_request(self) -> List[Dict[str, Any]]:
-        """Sends a GET request to the /live_snapshot endpoint."""
+        """Sends a GET request to the /live_snapshots endpoint."""
         try:
             response = self.api.live_snapshots_get(business_date=self.business_date)
             response = response.get("snapshots", [])

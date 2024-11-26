@@ -1,3 +1,9 @@
+"""
+This module defines an interface for export strategy, so that modules can
+use it for exporting data to various formats.
+"""
+
+
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List
 
@@ -9,5 +15,10 @@ class ExportStrategy(ABC):
         self.type = type
 
     @abstractmethod
-    def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str) -> None:
-        pass
+    def export(self,
+               date: str,
+               version: bool,
+               products: List[Dict[str, Any]],
+               output_path: str
+               ) -> None:
+        """Abstract method to be implemented by subclasses."""

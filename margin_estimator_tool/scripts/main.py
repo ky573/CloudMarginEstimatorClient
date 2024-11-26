@@ -1,4 +1,10 @@
+"""
+Main module of the application, contains the starting point.
+"""
+
+
 import click
+from typing import Optional
 from margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
 from margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
 from margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
@@ -6,7 +12,6 @@ from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import 
 from margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
 from margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.core.utils import check_estimator_arguments, check_products_arguments
-from typing import Optional
 
 
 @click.group()

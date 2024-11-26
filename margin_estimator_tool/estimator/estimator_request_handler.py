@@ -1,15 +1,18 @@
-import json
+"""
+This module is responsible for sending the request to estimator endpoint,
+fetching the results and exporting them.
+"""
 
+from typing import Dict, Any, List
+from datetime import datetime
+from cpme_api.models import BodyEstimator
+import cpme_api.models as spec
 from margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.estimator.extractor import Extractor
 from margin_estimator_tool.estimator.portfolio_loader import PortfolioLoader
 from margin_estimator_tool.estimator.graph_exporter import GraphExporter
 from margin_estimator_tool.estimator.excel_exporter import ExcelExporter
 from margin_estimator_tool.core.utils import collect_business_days
-from typing import Dict, Any, List
-from datetime import datetime
-from cpme_api.models import BodyEstimator
-import cpme_api.models as spec
 
 
 class EstimatorRequestHandler(RequestHandler):

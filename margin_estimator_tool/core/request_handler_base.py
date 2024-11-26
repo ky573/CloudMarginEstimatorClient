@@ -1,9 +1,8 @@
 """
-This module contains the RequestHandler class which is responsible for
+This module contains the RequestHandler base class which is responsible for
 sending requests to the API.
 """
 
-from typing import Dict, Any
 from abc import ABC, abstractmethod
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
@@ -18,7 +17,7 @@ class RequestHandler(ABC):
 
     @abstractmethod
     def process_and_provide_output(self) -> None:
-        """Abstract method for sending a request and exporting data; to be implemented by subclasses."""
+        """Abstract method for sending a request and exporting data; implemented by subclasses."""
 
     def _handle_request_error(self, error: Exception) -> None:
         """Handles request-related errors by printing a message to the user."""

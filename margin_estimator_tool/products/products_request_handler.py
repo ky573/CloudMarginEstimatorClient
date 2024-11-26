@@ -1,7 +1,13 @@
+"""
+This module contains logic for retrieving information about products from
+endpoint and then outputting them in desired form.
+"""
+
+
 from datetime import datetime
-from typing import Dict, Any, Optional, List
-import click
+from typing import Dict, Any, Optional, List, Union
 import os
+import click
 from margin_estimator_tool.export_strategy.export_context import ExportContext
 from margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
 from margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
@@ -19,7 +25,14 @@ EXTRAFIELDS = ['product', 'instrument_type', 'clearing_house', 'prod_name', 'pro
 class ProductsRequestHandler(RequestHandler):
     """Handler for sending requests to the /products endpoint and exporting data."""
 
-    def __init__(self, date=None, version=None, to_excel=False, export_dir=None, to_json=False, filters=None):
+    def __init__(self,
+                 date=None,
+                 version=None,
+                 to_excel=False,
+                 export_dir=None,
+                 to_json=False,
+                 filters=None
+                 ):
         super().__init__()
         self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')  # if version == SOD the date needs to be yesterday!
         self.version = version == "LIVE"
@@ -43,10 +56,13 @@ class ProductsRequestHandler(RequestHandler):
         else:
             context.set_strategy(CSVExportStrategy("products"))
 
-        context.export_data(str(self.business_date), self.version, filtered_products, self.export_dir)
+        context.export_data(str(self.business_date),
+                            self.version,
+                            filtered_products,
+                            self.export_dir)
 
     def send_request(self) -> List[Dict[str, Any]]:
-        """Sends a GET request to the /products endpoint with optional filters, date, and version."""
+        """Sends a GET request to /products endpoint with optional filters, date, and version."""
         try:
             response = self.api.products_get(extrafields=EXTRAFIELDS,
                                              business_date=self.business_date,
@@ -57,9 +73,9 @@ class ProductsRequestHandler(RequestHandler):
             self._handle_request_error(e)
         return []
 
-    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, str]:
+    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str | int]]:
         """Parses the filter string into a dictionary."""
-        filters = {}
+        filters: Dict[str, Union[str, int]] = {}
         if filter_str:
             for f in filter_str.split(','):
                 key, value = f.split(':')
@@ -68,7 +84,7 @@ class ProductsRequestHandler(RequestHandler):
                     click.echo("No such extrafield")
                     continue
 
-                if key == "product_tick_size" or key == "product_tick_value":
+                if key in ("product_tick_size", "product_tick_value"):
                     filters[key] = int(value)
                 elif key == "xm_eligibility":
                     filters[key] = False if value == "false" else True

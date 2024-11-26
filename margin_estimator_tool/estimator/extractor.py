@@ -1,3 +1,5 @@
+"""This module contains class to extract data from response sent back from estimator."""
+
 from typing import List, Dict, Any
 
 

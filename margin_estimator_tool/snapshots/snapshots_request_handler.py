@@ -1,7 +1,13 @@
-from margin_estimator_tool.core.request_handler_base import RequestHandler
+"""
+This module contains logic for retrieving information about currently
+available snapshots for range of dates and then outputs it.
+"""
+
+
 from datetime import datetime
-import click
 from typing import Optional, List, Dict, Any
+import click
+from margin_estimator_tool.core.request_handler_base import RequestHandler
 
 
 class SnapshotRequestHandler(RequestHandler):
@@ -23,7 +29,8 @@ class SnapshotRequestHandler(RequestHandler):
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to the /snapshots endpoint."""
         try:
-            response = self.api.snapshots_get(business_date_from=self.date_from, business_date_to=self.date_to)
+            response = self.api.snapshots_get(business_date_from=self.date_from,
+                                              business_date_to=self.date_to)
             response = response.get("snapshots", [])
             return response
         except Exception as e:

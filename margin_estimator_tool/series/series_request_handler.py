@@ -1,8 +1,14 @@
+"""
+This module contains logic for retrieving data about series and giving
+output to the user.
+"""
+
+
 import json
 from datetime import datetime
-from typing import Dict, Any, Optional, List
-import click
+from typing import Dict, Any, Optional, List, Union
 import os
+import click
 from margin_estimator_tool.export_strategy.export_context import ExportContext
 from margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
 from margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
@@ -10,8 +16,13 @@ from margin_estimator_tool.export_strategy.json_export_strategy import JSONExpor
 from margin_estimator_tool.core.request_handler_base import RequestHandler
 
 EXTRAFIELDS = ['product_id', 'contract_date', 'contract_maturity', 'expiry_maturity',
-               'call_put_flag', 'exercies_price', 'version_number', 'iid', 'act_trade_unit_no',
-               'days_to_expiration', 'trade_unit_value', 'exercise_style_flag', 'contract_frequency']
+               'call_put_flag', 'exercies_price', 'version_number', 'iid',
+               'act_trade_unit_no', 'days_to_expiration', 'trade_unit_value',
+               'exercise_style_flag', 'contract_frequency']
+
+INT_VALUES = ['contract_date', 'contract_maturity', 'expiry_maturity',
+              'exercise_price', 'iid', 'act_trade_unit_no',
+              'days_to_expiration', 'trade_unit_value']
 
 
 class SeriesRequestHandler(RequestHandler):
@@ -70,9 +81,9 @@ class SeriesRequestHandler(RequestHandler):
             self._handle_request_error(e)
         return []
 
-    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, str]:
+    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int]]:
         """Parses the filter string into a dictionary."""
-        filters = {}
+        filters: Dict[str, Union[str, int]] = {}
         if filter_str:
             for f in filter_str.split(','):
                 key, value = f.split(':')
@@ -81,14 +92,7 @@ class SeriesRequestHandler(RequestHandler):
                     click.echo("No such extrafield")
                     continue
 
-                if (key == "contract_date" or
-                        key == "contract_maturity" or
-                        key == "expiry_maturity" or
-                        key == "exercise_price" or
-                        key == "iid" or
-                        key == "act_trade_unit_no" or
-                        key == "days_to_expiration" or
-                        key == "trade_unit_value"):
+                if key in INT_VALUES:
                     filters[key] = int(value)
                 else:
                     filters[key] = value
