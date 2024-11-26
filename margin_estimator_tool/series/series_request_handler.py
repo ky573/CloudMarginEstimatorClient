@@ -67,6 +67,8 @@ class SeriesRequestHandler(RequestHandler):
 
         context.export_data(str(self.business_date), self.version, filtered_series, self.export_dir)
 
+        click.echo(f"Series exported to {self.export_dir}")
+
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to the /series endpoint with optional filters, date, and version."""
         try:
@@ -76,6 +78,7 @@ class SeriesRequestHandler(RequestHandler):
                                            live=self.version)
             print(json.dumps(response, indent=4))
             response = response.get("list_series", [])
+            click.echo("Request sent successfully.")
             return response
         except Exception as e:
             self._handle_request_error(e)

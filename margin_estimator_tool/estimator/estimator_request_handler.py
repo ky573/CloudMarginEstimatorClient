@@ -5,6 +5,7 @@ fetching the results and exporting them.
 
 from typing import Dict, Any, List
 from datetime import datetime
+import click
 from cpme_api.models import BodyEstimator
 import cpme_api.models as spec
 from margin_estimator_tool.core.request_handler_base import RequestHandler
@@ -33,6 +34,8 @@ class EstimatorRequestHandler(RequestHandler):
 
         if margin_data:
             self._export_results(margin_data)
+            click.echo(f"Margins exported to {self.export_dir}")
+
 
     def _fetch_margin_data(self, business_days: List[int]) -> List[Dict[str, Any]]:
         """Fetches and aggregates margin data for each business day."""
@@ -49,6 +52,7 @@ class EstimatorRequestHandler(RequestHandler):
         request_body = self._setup_request_body(business_date, portfolio)
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
+            click.echo("Request sent successfully.")
             return response
         except Exception as e:
             self._handle_request_error(e)

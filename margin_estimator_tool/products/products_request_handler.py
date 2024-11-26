@@ -61,6 +61,8 @@ class ProductsRequestHandler(RequestHandler):
                             filtered_products,
                             self.export_dir)
 
+        click.echo(f"Products exported to {self.export_dir}")
+
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to /products endpoint with optional filters, date, and version."""
         try:
@@ -68,6 +70,7 @@ class ProductsRequestHandler(RequestHandler):
                                              business_date=self.business_date,
                                              live=self.version)
             response = response.get("products", [])
+            click.echo("Request sent successfully.")
             return response
         except Exception as e:
             self._handle_request_error(e)
