@@ -11,7 +11,11 @@ from margin_estimator_tool.series.series_request_handler import SeriesRequestHan
 from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
 from margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
 from margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.core.utils import check_estimator_arguments, check_products_arguments
+from margin_estimator_tool.core.argument_validator import (GetProductsValidator,
+                                                           PostEstimatorValidator,
+                                                           GetSeriesValidator,
+                                                           GetLiveSnapshotsValidator,
+                                                           GetSnapshotsValidator)
 
 
 @click.group()
@@ -26,7 +30,9 @@ def cli():
 @click.option('--export_dir', required=True, type=click.Path(), help="Directory to save output.")
 def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
     """Run estimator endpoint."""
-    check_estimator_arguments(date_from, date_to, export_dir)
+    validator = PostEstimatorValidator()
+    validator.validate(date_from=date_from, date_to=date_to, export_dir=export_dir)
+
     handler = EndpointHandlerFactory.get_handler("post_estimator",
                                                  date_from=date_from,
                                                  date_to=date_to,
@@ -49,7 +55,9 @@ def get_products(date: Optional[str],
                  filter: Optional[str]
                  ) -> None:
     """Fetch products from the products endpoint."""
-    check_products_arguments(date, export_dir)
+    validator = GetProductsValidator()
+    validator.validate(date=date, export_dir=export_dir)
+
     handler = EndpointHandlerFactory.get_handler("get_products",
                                                  date=date,
                                                  version=version,
@@ -81,7 +89,9 @@ def get_series(date: Optional[str],
                filter: Optional[str]
                ) -> None:
     """Fetch series from the series endpoint."""
-    # checks_series_arguments(date, export_dir)
+    validator = GetSeriesValidator()
+    validator.validate(date=date, export_dir=export_dir)
+
     handler = EndpointHandlerFactory.get_handler("get_series",
                                                  date=date,
                                                  version=version,
@@ -100,6 +110,9 @@ def get_series(date: Optional[str],
 @click.option('--date', type=str, help='Fetch live snapshots from a specific date (YYYYMMDD).')
 def get_live_snapshots(date: Optional[str]) -> None:
     """Fetch live snapshots and display information."""
+    validator = GetLiveSnapshotsValidator()
+    validator.validate(date=date)
+
     handler = EndpointHandlerFactory.get_handler("get_live_snapshots", date=date)
     handler.process_and_provide_output()
 
@@ -109,6 +122,9 @@ def get_live_snapshots(date: Optional[str]) -> None:
 @click.option('--date_to', type=str, help='End date in YYYYMMDD format. Defaults to the current date.')
 def get_snapshots(date_from: str, date_to: Optional[str]) -> None:
     """Fetch SOD snapshots (non-live) for the specified date range."""
+    validator = GetSnapshotsValidator()
+    validator.validate(date_from=date_from, date_to=date_to)
+
     handler = EndpointHandlerFactory.get_handler("get_snapshots", date_from=date_from, date_to=date_to)
     handler.process_and_provide_output()
 
