@@ -2,9 +2,8 @@
 This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired form.
 """
-
-
-from datetime import datetime
+import json
+from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List, Union
 import os
 import click
@@ -34,7 +33,7 @@ class ProductsRequestHandler(RequestHandler):
                  filters=None
                  ):
         super().__init__()
-        self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')  # if version == SOD the date needs to be yesterday!
+        self.business_date = self._get_business_date(date, version)
         self.version = version == "LIVE"
         self.to_excel = to_excel
         self.to_json = to_json
@@ -69,6 +68,7 @@ class ProductsRequestHandler(RequestHandler):
             response = self.api.products_get(extrafields=EXTRAFIELDS,
                                              business_date=self.business_date,
                                              live=self.version)
+            print(json.dumps(response, indent=4))
             response = response.get("products", [])
             click.echo("Request sent successfully.")
             return response

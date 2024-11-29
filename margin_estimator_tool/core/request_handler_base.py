@@ -4,10 +4,13 @@ sending requests to the API.
 """
 
 from abc import ABC, abstractmethod
+from typing import Optional
+from datetime import datetime, timedelta
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
 import click
 import requests
+from margin_estimator_tool.core.utils import is_business_day
 
 
 class RequestHandler(ABC):
@@ -37,3 +40,24 @@ class RequestHandler(ABC):
         config.enable_logging = True
         api = CpmeApi(configuration=config)
         return api
+
+    def _get_business_date(self, date: Optional[str], version: Optional[str]) -> int:
+        """
+        Get the correct business date.
+        - If a date is provided, use it as is.
+        - If the version is 'SOD', return the latest business day before today.
+        - Otherwise, return today's date.
+        """
+        if date:
+            return int(date)
+
+        if version == "SOD":
+            current_date = datetime.today()
+            current_date -= timedelta(days=1)
+
+            while not is_business_day(current_date):
+                current_date -= timedelta(days=1)
+
+            return int(current_date.strftime('%Y%m%d'))
+
+        return int(datetime.today().strftime('%Y%m%d'))

@@ -40,9 +40,9 @@ class SeriesRequestHandler(RequestHandler):
                  filters=None
                  ):
         super().__init__()
-        self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')
+        self.business_date = self._get_business_date(date, version)
         self.version = version == "LIVE"
-        self.timestamp = timestamp
+        self.timestamp = timestamp if timestamp is not None else 0
         self.to_excel = to_excel
         self.to_json = to_json
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -75,6 +75,7 @@ class SeriesRequestHandler(RequestHandler):
             response = self.api.series_get(products=self.products,
                                            extrafields=EXTRAFIELDS,
                                            business_date=self.business_date,
+                                           live_timestamp=self.timestamp,
                                            live=self.version)
             print(json.dumps(response, indent=4))
             response = response.get("list_series", [])
