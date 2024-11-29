@@ -52,7 +52,7 @@ class EstimatorRequestHandler(RequestHandler):
         request_body = self._setup_request_body(business_date, portfolio)
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
-            click.echo("Request sent successfully.")
+            self._check_for_error_in_response(response)
             return response
         except Exception as e:
             self._handle_request_error(e)

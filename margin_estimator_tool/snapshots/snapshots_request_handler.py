@@ -31,6 +31,7 @@ class SnapshotRequestHandler(RequestHandler):
         try:
             response = self.api.snapshots_get(business_date_from=self.date_from,
                                               business_date_to=self.date_to)
+            self._check_for_error_in_response(response)
             response = response.get("snapshots", [])
             return response
         except Exception as e:

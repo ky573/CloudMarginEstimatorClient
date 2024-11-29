@@ -27,6 +27,7 @@ class LiveSnapshotRequestHandler(RequestHandler):
         """Sends a GET request to the /live_snapshots endpoint."""
         try:
             response = self.api.live_snapshots_get(business_date=self.business_date)
+            self._check_for_error_in_response(response)
             response = response.get("snapshots", [])
             return response
         except Exception as e:

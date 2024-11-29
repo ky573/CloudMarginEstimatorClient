@@ -3,8 +3,11 @@ This module contains the RequestHandler base class which is responsible for
 sending requests to the API.
 """
 
+
+import sys
+import json
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
@@ -61,3 +64,15 @@ class RequestHandler(ABC):
             return int(current_date.strftime('%Y%m%d'))
 
         return int(datetime.today().strftime('%Y%m%d'))
+
+    def _check_for_error_in_response(self, response: Dict[str | Any]) -> None:
+        """
+        Handles the response and checks for trace_id indicating errors despite a 200 status code.
+        If trace_id is present, the full response is printed and the program exits.
+        """
+        if "trace_id" in response:
+            click.echo("An error occurred in the request. Full response details:")
+            click.echo(json.dumps(response, indent=4))
+            sys.exit(1)
+
+        click.echo("Request successful.")

@@ -77,9 +77,8 @@ class SeriesRequestHandler(RequestHandler):
                                            business_date=self.business_date,
                                            live_timestamp=self.timestamp,
                                            live=self.version)
-            print(json.dumps(response, indent=4))
+            self._check_for_error_in_response(response)
             response = response.get("list_series", [])
-            click.echo("Request sent successfully.")
             return response
         except Exception as e:
             self._handle_request_error(e)

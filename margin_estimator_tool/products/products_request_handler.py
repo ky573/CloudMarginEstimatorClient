@@ -68,9 +68,8 @@ class ProductsRequestHandler(RequestHandler):
             response = self.api.products_get(extrafields=EXTRAFIELDS,
                                              business_date=self.business_date,
                                              live=self.version)
-            print(json.dumps(response, indent=4))
+            self._check_for_error_in_response(response)
             response = response.get("products", [])
-            click.echo("Request sent successfully.")
             return response
         except Exception as e:
             self._handle_request_error(e)
