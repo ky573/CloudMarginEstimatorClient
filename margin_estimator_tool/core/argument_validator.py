@@ -71,3 +71,13 @@ class GetSnapshotsValidator(BaseArgumentValidator):
         """Implementation of validate method for /snapshots endpoint."""
         self.validate_date(date_from)
         self.validate_date(date_to)
+
+
+class EtdPortfolioValidator(BaseArgumentValidator):
+    """Subclass to validate arguments for /estimator endpoint for sending portfolio."""
+    def validate(self, date: Optional[str], export_dir: Optional[str]) -> None:
+        """Implementation of validate method for /estimator endpoint."""
+        if date:
+            self.validate_date(date)
+        if export_dir:
+            self.validate_export_dir(export_dir)

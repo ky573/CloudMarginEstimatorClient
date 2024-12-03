@@ -11,11 +11,13 @@ from margin_estimator_tool.series.series_request_handler import SeriesRequestHan
 from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
 from margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
 from margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
 from margin_estimator_tool.core.argument_validator import (GetProductsValidator,
                                                            PostEstimatorValidator,
                                                            GetSeriesValidator,
                                                            GetLiveSnapshotsValidator,
-                                                           GetSnapshotsValidator)
+                                                           GetSnapshotsValidator,
+                                                           EtdPortfolioValidator)
 
 
 @click.group()
@@ -75,7 +77,7 @@ def get_products(date: Optional[str],
 @click.option('--to_excel', is_flag=True, help='Export as Excel file.')
 @click.option('--to_json', is_flag=True, help='Export as JSON file.')
 @click.option('--export_dir', type=click.Path(), help="Directory to save output.")
-@click.option('--products', type=str, help='Allows filtering series by product names.')
+@click.option('--products', type=str, required=True, help='Allows filtering series by product names.')
 @click.option('--type', type=click.Choice(['option', 'future']), help='Filters the series based on type.')
 @click.option('--filter', type=str, help='Filter series based on key:value pairs separated by comma.')
 def get_series(date: Optional[str],
@@ -129,6 +131,37 @@ def get_snapshots(date_from: str, date_to: Optional[str]) -> None:
     handler.process_and_provide_output()
 
 
+@cli.command(name="etd_portfolio")
+@click.option('--csv_file', required=True, type=click.Path(exists=True), help="Path to the ETD portfolio CSV file.")
+@click.option('--date', type=str, help="Specific business date (YYYYMMDD).")
+@click.option('--version', type=click.Choice(['SOD', 'LIVE']), help="Snapshot version.")
+@click.option('--timestamp', type=int, help="Timestamp for LIVE version.")
+@click.option('--to_excel', is_flag=True, help="Export results to an Excel file.")
+@click.option('--to_json', is_flag=True, help="Export results to a JSON file.")
+@click.option('--export_dir', type=click.Path(), help="Output directory for exported files.")
+def etd_portfolio(csv_file: str,
+                  date: Optional[str],
+                  version: Optional[str],
+                  timestamp: Optional[int],
+                  to_excel: Optional[bool],
+                  to_json: Optional[bool],
+                  export_dir: Optional[str]
+                  ) -> None:
+    """Uploads an ETD portfolio from a CSV file and processes it."""
+    validator = EtdPortfolioValidator()
+    validator.validate(date=date, export_dir=export_dir)
+
+    handler = EndpointHandlerFactory.get_handler("etd_portfolio",
+                                                 csv_file=csv_file,
+                                                 date=date,
+                                                 version=version,
+                                                 timestamp=timestamp,
+                                                 to_excel=to_excel,
+                                                 to_json=to_json,
+                                                 export_dir=export_dir)
+    handler.process_and_provide_output()
+
+
 class EndpointHandlerFactory:
     """Factory for creating desired request handler based on CLI."""
 
@@ -145,6 +178,8 @@ class EndpointHandlerFactory:
             return LiveSnapshotRequestHandler(**kwargs)
         elif endpoint == "get_snapshots":
             return SnapshotRequestHandler(**kwargs)
+        elif endpoint == "etd_portfolio":
+            return EtdPortfolioRequestHandler(**kwargs)
         else:
             raise ValueError(f"No handler defined for endpoint: {endpoint}")
 

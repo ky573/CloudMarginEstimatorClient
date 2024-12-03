@@ -36,7 +36,6 @@ class EstimatorRequestHandler(RequestHandler):
             self._export_results(margin_data)
             click.echo(f"Margins exported to {self.export_dir}")
 
-
     def _fetch_margin_data(self, business_days: List[int]) -> List[Dict[str, Any]]:
         """Fetches and aggregates margin data for each business day."""
         margin_data = []

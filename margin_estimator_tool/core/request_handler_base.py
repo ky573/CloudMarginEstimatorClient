@@ -65,7 +65,7 @@ class RequestHandler(ABC):
 
         return int(datetime.today().strftime('%Y%m%d'))
 
-    def _check_for_error_in_response(self, response: Dict[str | Any]) -> None:
+    def _check_for_error_in_response(self, response) -> None:
         """
         Handles the response and checks for trace_id indicating errors despite a 200 status code.
         If trace_id is present, the full response is printed and the program exits.
