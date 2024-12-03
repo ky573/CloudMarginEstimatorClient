@@ -2,8 +2,8 @@
 This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired form.
 """
-import json
-from datetime import datetime, timedelta
+
+
 from typing import Dict, Any, Optional, List, Union
 import os
 import click
@@ -28,8 +28,8 @@ class ProductsRequestHandler(RequestHandler):
                  date=None,
                  version=None,
                  to_excel=False,
-                 export_dir=None,
                  to_json=False,
+                 export_dir=None,
                  filters=None
                  ):
         super().__init__()
