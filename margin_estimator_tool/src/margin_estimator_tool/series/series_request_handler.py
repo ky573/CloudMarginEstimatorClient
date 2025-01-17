@@ -3,17 +3,14 @@ This module contains logic for retrieving data about series and giving
 output to the user.
 """
 
-
-import json
-from datetime import datetime
 from typing import Dict, Any, Optional, List, Union
 import os
 import click
-from margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
-from margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
-from margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
-from margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 
 EXTRAFIELDS = ['product_id', 'contract_date', 'contract_maturity', 'expiry_maturity',
                'call_put_flag', 'exercies_price', 'version_number', 'iid',

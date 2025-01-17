@@ -3,7 +3,7 @@
 from typing import List, Dict, Union, Tuple, Set
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from margin_estimator_tool.core.utils import flatten_dict
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 
 
 class ExcelExporter:

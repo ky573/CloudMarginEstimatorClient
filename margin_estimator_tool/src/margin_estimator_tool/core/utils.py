@@ -1,9 +1,8 @@
 """Utility functions for the margin_calculator package."""
 
-from typing import Dict, List, Union, Tuple, Optional
+
+from typing import Dict, List, Union, Tuple
 from datetime import datetime, timedelta
-import os
-import click
 
 
 def is_business_day(current_date: datetime) -> bool:
@@ -43,4 +42,5 @@ def flatten_dict(
                 items.append((new_key, str(v)))
         else:
             items.append((new_key, v))
+            
     return dict(items)

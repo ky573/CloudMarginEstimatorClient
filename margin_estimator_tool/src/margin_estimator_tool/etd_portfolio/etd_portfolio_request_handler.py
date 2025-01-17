@@ -2,26 +2,29 @@
 This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired form.
 """
+
+
 import csv
 import json
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any
 import os
 import click
 from cpme_api.models import BodyEstimator
 import cpme_api.models as spec
-from margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
-from margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
-from margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
-from margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 
 # study https://deutsche-boerse-risk.github.io/CloudPrismaMarginEstimator/docs/gui.html#prepare-etd-portfolio
 
 
 class EtdPortfolioRequestHandler(RequestHandler):
-    """Handler for sending requests to the /products endpoint and exporting data."""
+    """Handler for sending requests to the /estimator endpoint and exporting data."""
 
-    REQUIRED_HEADERS = "Product ID,Contract Date,Call Put Flag,Exercise Price, Version Number, Net LS Balance"
+    REQUIRED_HEADERS = "Product ID,Contract Date,Call Put Flag,Exercise Price,Version Number,Net LS Balance"
 
     def __init__(self,
                  csv_file,
@@ -47,7 +50,10 @@ class EtdPortfolioRequestHandler(RequestHandler):
             return
 
         portfolio = self.send_request()
-
+        # flatten_dict(portfolio)
+        #
+        # print(json.dumps(portfolio, indent=4))
+        #
         # context = ExportContext()
         #
         # if self.to_excel:
@@ -58,6 +64,28 @@ class EtdPortfolioRequestHandler(RequestHandler):
         #     context.set_strategy(CSVExportStrategy("portfolio"))
         #
         # context.export_data(str(self.business_date), self.version, portfolio, self.export_dir)
+
+        flattened_data = []
+        if isinstance(portfolio, dict):
+            # Handle single portfolio item
+            flattened_data.append(flatten_dict(portfolio))
+        elif isinstance(portfolio, list):
+            # Handle multiple portfolio items
+            flattened_data = [flatten_dict(item) for item in portfolio]
+        else:
+            click.echo("Error: Invalid portfolio data structure")
+            return
+
+        context = ExportContext()
+
+        if self.to_excel:
+            context.set_strategy(ExcelExportStrategy("portfolio"))
+        elif self.to_json:
+            context.set_strategy(JSONExportStrategy("portfolio"))
+        else:
+            context.set_strategy(CSVExportStrategy("portfolio"))
+
+        context.export_data(str(self.business_date), self.version, flattened_data, self.export_dir)
 
         click.echo(f"Portfolio exported to {self.export_dir}")
 

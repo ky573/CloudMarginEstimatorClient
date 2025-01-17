@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 """
 Main module of the application, contains the starting point.
 """
@@ -5,19 +7,19 @@ Main module of the application, contains the starting point.
 
 import click
 from typing import Optional
-from margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
-from margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
-from margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
-from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
-from margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
-from margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
-from margin_estimator_tool.core.argument_validator import (GetProductsValidator,
-                                                           PostEstimatorValidator,
-                                                           GetSeriesValidator,
-                                                           GetLiveSnapshotsValidator,
-                                                           GetSnapshotsValidator,
-                                                           EtdPortfolioValidator)
+from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.argument_validator import (GetProductsValidator,
+                                                                                     PostEstimatorValidator,
+                                                                                     GetSeriesValidator,
+                                                                                     GetLiveSnapshotsValidator,
+                                                                                     GetSnapshotsValidator,
+                                                                                     EtdPortfolioValidator)
 
 
 @click.group()
