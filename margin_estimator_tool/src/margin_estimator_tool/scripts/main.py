@@ -50,7 +50,23 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
 @click.option('--to_excel', is_flag=True, help='Export as Excel file.')
 @click.option('--to_json', is_flag=True, help='Export as JSON file.')
 @click.option('--export_dir', type=click.Path(), help="Directory to save output.")
-@click.option('--filter', type=str, help='Filter products based on key:value pairs separated by comma.')
+@click.option('--filter', type=str, help="""Filter products based on key:value pairs separated by comma.
+                                                        The extrafields with examples are:\n
+                                                        "clearing_house": "EUXCDEFF",\n
+                                                        "prod_name": "OPT ON SWISS MARKET INDEX",\n
+                                                        "prod_isin": "CH0008616382",\n
+                                                        "underlying_isin": "CH0009980894",\n
+                                                        "currency": "CHF",\n
+                                                        "product_type": "OINX",\n
+                                                        "extended_product_type": null,\n
+                                                        "margin_style_flag": "T",\n
+                                                        "exercise_style_flag": "E",\n
+                                                        "product_settlement_type": "CASH",\n
+                                                        "final_settlement_time": "09:00",\n
+                                                        "product_tick_size": 0.1,\n
+                                                        "product_tick_value": 1,\n
+                                                        "liquidation_group": "PEQ01",\n
+                                                        "xm_eligibility": false""")
 def get_products(date: Optional[str],
                  version: Optional[str],
                  to_excel: Optional[bool],
