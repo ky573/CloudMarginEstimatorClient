@@ -67,10 +67,12 @@ class GetLiveSnapshotsValidator(BaseArgumentValidator):
 
 class GetSnapshotsValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /snapshots endpoint."""
-    def validate(self, date_from: str, date_to: str) -> None:
+    def validate(self, date_from: Optional[str], date_to: Optional[str]) -> None:
         """Implementation of validate method for /snapshots endpoint."""
-        self.validate_date(date_from)
-        self.validate_date(date_to)
+        if date_from:
+            self.validate_date(date_from)
+        if date_to:
+            self.validate_date(date_to)
 
 
 class EtdPortfolioValidator(BaseArgumentValidator):

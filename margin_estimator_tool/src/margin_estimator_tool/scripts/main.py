@@ -111,8 +111,8 @@ def get_series(date: Optional[str],
 
 
 @cli.command(name="get_live_snapshots")
-@click.option('--date', type=str, help='Fetch live snapshots from a specific date (YYYYMMDD).')
-def get_live_snapshots(date: Optional[str]) -> None:
+@click.option('--date', required=True, type=str, help='Fetch live snapshots from a specific date (YYYYMMDD).')
+def get_live_snapshots(date: str) -> None:
     """Fetch live snapshots and display information."""
     validator = GetLiveSnapshotsValidator()
     validator.validate(date=date)
@@ -122,9 +122,9 @@ def get_live_snapshots(date: Optional[str]) -> None:
 
 
 @cli.command(name="get_snapshots")
-@click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format.')
+@click.option('--date_from', type=str, help='Start date in YYYYMMDD format.')
 @click.option('--date_to', type=str, help='End date in YYYYMMDD format. Defaults to the current date.')
-def get_snapshots(date_from: str, date_to: Optional[str]) -> None:
+def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
     """Fetch SOD snapshots (non-live) for the specified date range."""
     validator = GetSnapshotsValidator()
     validator.validate(date_from=date_from, date_to=date_to)
