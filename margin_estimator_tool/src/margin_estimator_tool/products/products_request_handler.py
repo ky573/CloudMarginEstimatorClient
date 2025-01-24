@@ -79,19 +79,31 @@ class ProductsRequestHandler(RequestHandler):
         """Parses the filter string into a dictionary."""
         filters: Dict[str, Union[str, int]] = {}
         if filter_str:
-            for f in filter_str.split(','):
-                key, value = f.split(':')
+            try:
+                for f in filter_str.split(','):
+                    parts = f.split(':', 1)
 
-                if key not in EXTRAFIELDS:
-                    click.echo("No such extrafield")
-                    continue
+                    if len(parts) != 2:
+                        raise ValueError(f"Invalid filter format: {f}. Expected 'key:value'")
 
-                if key in ("product_tick_size", "product_tick_value"):
-                    filters[key] = int(value)
-                elif key == "xm_eligibility":
-                    filters[key] = False if value == "false" else True
-                else:
-                    filters[key] = value
+                    key, value = parts
+
+                    if key not in EXTRAFIELDS:
+                        raise ValueError(f"Invalid filter key: {key}. Must be one of {EXTRAFIELDS}")
+
+                    if key in ("product_tick_size", "product_tick_value"):
+                        try:
+                            filters[key] = int(value)
+                        except ValueError:
+                            raise ValueError(f"Invalid integer value for {key}: {value}")
+                    elif key == "xm_eligibility":
+                        filters[key] = False if value.lower() == "false" else True
+                    else:
+                        filters[key] = value
+
+            except ValueError as e:
+                click.echo(str(e))
+                raise click.Abort()
 
         return filters
 
