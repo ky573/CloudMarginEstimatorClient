@@ -138,7 +138,7 @@ def get_live_snapshots(date: str) -> None:
 
 
 @cli.command(name="get_snapshots")
-@click.option('--date_from', type=str, help='Start date in YYYYMMDD format.')
+@click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format.')
 @click.option('--date_to', type=str, help='End date in YYYYMMDD format. Defaults to the current date.')
 def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
     """Fetch SOD snapshots (non-live) for the specified date range."""
