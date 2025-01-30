@@ -78,6 +78,7 @@ class SeriesRequestHandler(RequestHandler):
                                            live_timestamp=self.timestamp,
                                            live=self.version)
             self._check_for_error_in_response(response)
+            print(json.dumps(response, indent=4))
             response = response.get("list_series", [])
             return response
         except Exception as e:
@@ -88,18 +89,29 @@ class SeriesRequestHandler(RequestHandler):
         """Parses the filter string into a dictionary."""
         filters: Dict[str, Union[str, int]] = {}
         if filter_str:
-            for f in filter_str.split(','):
-                key, value = f.split(':')
+            try:
+                for f in filter_str.split(','):
+                    parts = f.split(':', 1)
 
-                if key not in EXTRAFIELDS:
-                    click.echo("No such extrafield")
-                    continue
+                    if len(parts) != 2:
+                        raise ValueError(f"Invalid filter format: {f}. Expected 'key:value'")
 
-                if key in INT_VALUES:
-                    filters[key] = int(value)
-                else:
-                    filters[key] = value
+                    key, value = parts
 
+                    if key not in EXTRAFIELDS:
+                        raise ValueError(f"Invalid filter key: {key}. Must be one of {EXTRAFIELDS}")
+
+                    if key in INT_VALUES:
+                        try:
+                            filters[key] = int(value)
+                        except ValueError:
+                            raise ValueError(f"Invalid integer value for {key}: {value}")
+                    else:
+                        filters[key] = value
+
+            except ValueError as e:
+                click.echo(str(e))
+                raise click.Abort()
         return filters
 
     def _filter_response(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -107,6 +119,12 @@ class SeriesRequestHandler(RequestHandler):
         filtered_series = []
 
         for series_ in series:
+            if self.call_put_flag:
+                if self.call_put_flag == "C" and series_.get("call_put_flag") != "C":
+                    continue
+                elif self.call_put_flag == "P" and series_.get("call_put_flag") != "P":
+                    continue
+
             match = True
             for key, value in self.filters.items():
                 if series_.get(key) != value:
