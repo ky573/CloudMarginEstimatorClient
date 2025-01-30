@@ -50,6 +50,7 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
 @click.option('--to_excel', is_flag=True, help='Export as Excel file.')
 @click.option('--to_json', is_flag=True, help='Export as JSON file.')
 @click.option('--export_dir', type=click.Path(), help="Directory to save output.")
+@click.option('--timestamp', type=int, help="This defines the timestamp for the products data for LIVE version.")
 @click.option('--filter', type=str, help="""Filter products based on key:value pairs separated by comma.
                                                         The extrafields with examples are:\n
                                                         "clearing_house": "EUXCDEFF",\n
@@ -66,12 +67,14 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
                                                         "product_tick_size": 0.1,\n
                                                         "product_tick_value": 1,\n
                                                         "liquidation_group": "PEQ01",\n
-                                                        "xm_eligibility": false""")
+                                                        "xm_eligibility": false
+                                                        """)
 def get_products(date: Optional[str],
                  version: Optional[str],
                  to_excel: Optional[bool],
                  to_json: Optional[bool],
                  export_dir: Optional[str],
+                 timestamp: Optional[int],
                  filter: Optional[str]
                  ) -> None:
     """Fetch products from the products endpoint."""
@@ -84,6 +87,7 @@ def get_products(date: Optional[str],
                                                  to_excel=to_excel,
                                                  to_json=to_json,
                                                  export_dir=export_dir,
+                                                 timestamp=timestamp,
                                                  filters=filter)
     handler.process_and_provide_output()
 
@@ -97,7 +101,23 @@ def get_products(date: Optional[str],
 @click.option('--export_dir', type=click.Path(), help="Directory to save output.")
 @click.option('--products', type=str, required=True, help='Allows filtering series by product names.')
 @click.option('--type', type=click.Choice(['option', 'future']), help='Filters the series based on type.')
-@click.option('--filter', type=str, help='Filter series based on key:value pairs separated by comma.')
+@click.option('--call_put_flag', type=click.Choice(['C', 'P']), help='Filters the series based on call/put.')
+@click.option('--filter', type=str, help="""Filter series based on key:value pairs separated by comma.
+                                                        The extrafields with examples are:\n
+                                                        "iid": 78490800,\n
+                                                        "product_id": "BMW",\n
+                                                        "contract_date": 20250321,\n
+                                                        "contract_maturity": 202503,\n
+                                                        "expiry_maturity": 202503,\n
+                                                        "version_number": "0",\n
+                                                        "act_trade_unit_no": 100.0,\n
+                                                        "days_to_expiration": 50,\n
+                                                        "trade_unit_value": 100.0,\n
+                                                        "contract_frequency": "MONTHLY",\n
+                                                        "call_put_flag": "P",\n
+                                                        "exercise_price": 91.0,\n
+                                                        "exercise_style_flag": "A"
+                                                        """)
 def get_series(date: Optional[str],
                version: Optional[str],
                timestamp: Optional[int],
@@ -106,6 +126,7 @@ def get_series(date: Optional[str],
                export_dir: Optional[str],
                products: Optional[str],
                type: Optional[str],
+               call_put_flag: Optional[str],
                filter: Optional[str]
                ) -> None:
     """Fetch series from the series endpoint."""
@@ -121,6 +142,7 @@ def get_series(date: Optional[str],
                                                  export_dir=export_dir,
                                                  products=products,
                                                  type=type,
+                                                 call_put_flag=call_put_flag,
                                                  filters=filter)
 
     handler.process_and_provide_output()

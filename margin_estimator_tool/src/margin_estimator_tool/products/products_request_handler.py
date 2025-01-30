@@ -30,6 +30,7 @@ class ProductsRequestHandler(RequestHandler):
                  to_excel=False,
                  to_json=False,
                  export_dir=None,
+                 timestamp=None,
                  filters=None
                  ):
         super().__init__()
@@ -38,6 +39,7 @@ class ProductsRequestHandler(RequestHandler):
         self.to_excel = to_excel
         self.to_json = to_json
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        self.timestamp = timestamp if timestamp is not None else 0
         self.filters = self._parse_filters(filters)
 
     def process_and_provide_output(self) -> None:
@@ -67,6 +69,7 @@ class ProductsRequestHandler(RequestHandler):
         try:
             response = self.api.products_get(extrafields=EXTRAFIELDS,
                                              business_date=self.business_date,
+                                             live_timestamp=self.timestamp,
                                              live=self.version)
             self._check_for_error_in_response(response)
             response = response.get("products", [])

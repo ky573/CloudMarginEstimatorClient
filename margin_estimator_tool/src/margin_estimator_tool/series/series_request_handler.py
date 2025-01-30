@@ -3,6 +3,7 @@ This module contains logic for retrieving data about series and giving
 output to the user.
 """
 
+import json
 from typing import Dict, Any, Optional, List, Union
 import os
 import click
@@ -13,7 +14,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 
 EXTRAFIELDS = ['product_id', 'contract_date', 'contract_maturity', 'expiry_maturity',
-               'call_put_flag', 'exercies_price', 'version_number', 'iid',
+               'call_put_flag', 'exercise_price', 'version_number', 'iid',
                'act_trade_unit_no', 'days_to_expiration', 'trade_unit_value',
                'exercise_style_flag', 'contract_frequency']
 
@@ -34,6 +35,7 @@ class SeriesRequestHandler(RequestHandler):
                  to_json=False,
                  products=None,
                  type=None,
+                 call_put_flag=None,
                  filters=None
                  ):
         super().__init__()
@@ -45,6 +47,7 @@ class SeriesRequestHandler(RequestHandler):
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         self.products = products.split(',')
         self.type = type
+        self.call_put_flag = call_put_flag
         self.filters = self._parse_filters(filters)
 
     def process_and_provide_output(self) -> None:
