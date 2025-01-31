@@ -39,7 +39,7 @@ class RequestHandler(ABC):
         set_data_validation(False)
         config = Configuration()
         config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-        config.proxy = 'http://webproxy.deutsche-boerse.de:8080'
+        config.proxy = 'http://squid-proxy.gcp.dbgcloud.io:3128'
         config.enable_logging = True
         api = CpmeApi(configuration=config)
         return api

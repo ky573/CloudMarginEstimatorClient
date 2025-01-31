@@ -18,11 +18,11 @@ class ExportContext:
     def export_data(self,
                     date: str,
                     version: bool,
-                    products: List[Dict[str, Any]],
+                    data: List[Dict[str, Any]] | Dict[str, Any],
                     output_path: str
                     ):
         """Exports the data in desired format."""
         if self.strategy:
-            self.strategy.export(date, version, products, output_path)
+            self.strategy.export(date, version, data, output_path)
         else:
             print("No export strategy defined.")
