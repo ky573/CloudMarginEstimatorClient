@@ -78,7 +78,6 @@ class SeriesRequestHandler(RequestHandler):
                                            live_timestamp=self.timestamp,
                                            live=self.version)
             self._check_for_error_in_response(response)
-            print(json.dumps(response, indent=4))
             response = response.get("list_series", [])
             return response
         except Exception as e:
