@@ -6,6 +6,9 @@ This module defines strategy for etd portfolio exporting into csv.
 import os
 import csv
 from typing import Dict, Any
+
+import click
+
 from .export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 
@@ -26,17 +29,24 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
         portfolio_margin_path = os.path.join(output_path, f"{date}_{version_path}_portfolio_portfolio_margin.csv")
 
         flattened_data = [flatten_dict(entry) for entry in portfolio_margin]
-        with open(portfolio_margin_path, 'w', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=flattened_data[0].keys())
-            writer.writeheader()
-            writer.writerows(flattened_data)
+
+        if flattened_data:
+            with open(portfolio_margin_path, 'w', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=flattened_data[0].keys())
+                writer.writeheader()
+                writer.writerows(flattened_data)
+        else:
+            click.echo("No portfolio margins found in response.")
 
     def _export_drilldowns(self, date: str, version_path: str, portfolio_data: Dict[str, Any], output_path: str) -> None:
         """Exports drilldowns into designated csv file."""
         drilldowns = portfolio_data.get("drilldowns", [])
         drilldowns_path = os.path.join(output_path, f"{date}_{version_path}_portfolio_drilldowns.csv")
 
-        with open(drilldowns_path, 'w', newline='') as file:
-            writer = csv.DictWriter(file, fieldnames=drilldowns[0].keys())
-            writer.writeheader()
-            writer.writerows(drilldowns)
+        if drilldowns:
+            with open(drilldowns_path, 'w', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=drilldowns[0].keys())
+                writer.writeheader()
+                writer.writerows(drilldowns)
+        else:
+            click.echo("No drilldowns found in response.")

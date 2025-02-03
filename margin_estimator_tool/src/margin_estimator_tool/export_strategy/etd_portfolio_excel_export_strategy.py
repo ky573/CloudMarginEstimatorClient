@@ -4,6 +4,7 @@ This module defines strategy for etd portfolio exporting into excel.
 
 
 import os
+import click
 import pandas as pd
 from typing import Dict, Any
 from .export_strategy import ExportStrategy
@@ -23,5 +24,10 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
             if portfolio_margin:
                 pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer, sheet_name='Portfolio Margin', index=False)
+            else:
+                click.echo("No portfolio margins found in response.")
+
             if drilldowns:
                 pd.DataFrame(drilldowns).to_excel(writer, sheet_name='Drilldowns', index=False)
+            else:
+                click.echo("No drilldowns found in response.")
