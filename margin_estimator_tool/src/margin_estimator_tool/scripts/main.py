@@ -7,6 +7,9 @@ Main module of the application, contains the starting point.
 
 import click
 from typing import Optional
+
+from pandas.core.dtypes.inference import is_float
+
 from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
@@ -118,6 +121,7 @@ def get_products(date: Optional[str],
                                                         "exercise_price": 91.0,\n
                                                         "exercise_style_flag": "A"
                                                         """)
+@click.option('--template', is_flag=True, help='Generate template for ETD portfolio.')
 def get_series(date: Optional[str],
                version: Optional[str],
                timestamp: Optional[int],
@@ -127,7 +131,8 @@ def get_series(date: Optional[str],
                products: Optional[str],
                type: Optional[str],
                call_put_flag: Optional[str],
-               filter: Optional[str]
+               filter: Optional[str],
+               template: Optional[bool]
                ) -> None:
     """Fetch series from the series endpoint."""
     validator = GetSeriesValidator()
@@ -143,7 +148,8 @@ def get_series(date: Optional[str],
                                                  products=products,
                                                  type=type,
                                                  call_put_flag=call_put_flag,
-                                                 filters=filter)
+                                                 filters=filter,
+                                                 template=template)
 
     handler.process_and_provide_output()
 

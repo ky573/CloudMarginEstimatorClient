@@ -3,6 +3,7 @@ This module contains logic for retrieving data about series and giving
 output to the user.
 """
 
+
 import json
 from typing import Dict, Any, Optional, List, Union
 import os
@@ -36,7 +37,8 @@ class SeriesRequestHandler(RequestHandler):
                  products=None,
                  type=None,
                  call_put_flag=None,
-                 filters=None
+                 filters=None,
+                 template=False
                  ):
         super().__init__()
         self.business_date = self._get_business_date(date, version)
@@ -49,6 +51,7 @@ class SeriesRequestHandler(RequestHandler):
         self.type = type
         self.call_put_flag = call_put_flag
         self.filters = self._parse_filters(filters)
+        self.template = template
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /series and exports it according to the specified format."""
@@ -69,6 +72,9 @@ class SeriesRequestHandler(RequestHandler):
 
         click.echo(f"Series exported to {self.export_dir}")
 
+        if self.template:
+            self._generate_etd_portfolio_template(filtered_series)
+
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to the /series endpoint with optional filters, date, and version."""
         try:
@@ -84,6 +90,30 @@ class SeriesRequestHandler(RequestHandler):
         except Exception as e:
             self._handle_request_error(e)
         return []
+
+    def _generate_etd_portfolio_template(self, filtered_series: List[Dict[str, Any]]) -> None:
+        """Generates an ETD portfolio template based on the filtered series."""
+        etd_portfolio = [
+            {
+                "Product ID": s["product_id"],
+                "Contract Date": s["contract_date"],
+                "Call Put Flag": s["call_put_flag"],
+                "Exercise Price": s["exercise_price"],
+                "Version Number": s["version_number"],
+                "Net LS Balance": "",  # Empty for manual input
+            }
+            for s in filtered_series
+        ]
+
+        context = ExportContext()
+
+        if self.to_excel:
+            context.set_strategy(ExcelExportStrategy("etd_portfolio_template"))
+        else:
+            context.set_strategy(CSVExportStrategy("etd_portfolio_template"))
+
+        context.export_data(str(self.business_date), self.version, etd_portfolio, self.export_dir)
+        click.echo(f"ETD portfolio template exported to {self.export_dir}")
 
     def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int]]:
         """Parses the filter string into a dictionary."""
