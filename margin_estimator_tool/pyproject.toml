@@ -35,6 +35,9 @@ classifiers = [
     "Operating System :: OS Independent"
 ]
 
+[project.optional-dependencies]
+dev = ["mypy", "pylint"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
