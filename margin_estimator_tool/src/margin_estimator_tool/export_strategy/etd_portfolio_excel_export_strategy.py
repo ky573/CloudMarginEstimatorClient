@@ -12,7 +12,7 @@ from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_d
 class EtdPortfolioExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting portfolio data to Excel."""
 
-    def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str):
+    def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str) -> None:
         """Exports portfolio data into an Excel file with two subsheets."""
         version_path = "LIVE" if version else "SOD"
         file_path = os.path.join(output_path, f"{date}_{version_path}_portfolio.xlsx")

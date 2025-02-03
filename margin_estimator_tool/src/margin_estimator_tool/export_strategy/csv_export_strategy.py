@@ -12,14 +12,14 @@ from .export_strategy import ExportStrategy
 class CSVExportStrategy(ExportStrategy):
     """Concrete strategy for exporting to CSV."""
 
-    def export(self, date: str, version: bool, products: List[Dict[str, Any]], output_path: str):
+    def export(self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str) -> None:
         """Concrete implementation for exporting into CSV."""
         version_path = "LIVE" if version else "SOD"
 
         out_path = f'{date}_{version_path}_{self.type}.csv'
         file_path = os.path.join(output_path, out_path)
-        keys = products[0].keys()
+        keys = data[0].keys()
         with open(file_path, 'w', newline='') as output_file:
             dict_writer = csv.DictWriter(output_file, fieldnames=keys)
             dict_writer.writeheader()
-            dict_writer.writerows(products)
+            dict_writer.writerows(data)

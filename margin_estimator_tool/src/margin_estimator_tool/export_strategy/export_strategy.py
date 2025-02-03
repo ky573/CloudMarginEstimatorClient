@@ -18,7 +18,7 @@ class ExportStrategy(ABC):
     def export(self,
                date: str,
                version: bool,
-               products: List[Dict[str, Any]],
+               data: List[Dict[str, Any]] | Dict[str, Any],
                output_path: str
                ) -> None:
         """Abstract method to be implemented by subclasses."""

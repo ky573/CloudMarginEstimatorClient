@@ -24,7 +24,7 @@ class BaseArgumentValidator:
         if not os.path.exists(export_dir):
             raise click.BadParameter(f"Export directory '{export_dir}' not found.")
 
-    def validate(self, **kwargs) -> None:
+    def validate(self, *args, **kwargs) -> None:
         """Override this method in subclasses to define specific validation logic."""
         raise NotImplementedError
 
