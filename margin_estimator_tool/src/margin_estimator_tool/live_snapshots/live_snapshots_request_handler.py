@@ -13,9 +13,9 @@ from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base i
 class LiveSnapshotRequestHandler(RequestHandler):
     """Handler for sending requests to the /live_snapshot endpoint."""
 
-    def __init__(self, date=None):
+    def __init__(self, date):
         super().__init__()
-        self.business_date = int(date) if date is not None else datetime.today().strftime('%Y%m%d')
+        self.business_date = int(date)
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /live_snapshots and outputs it according to specified format."""
