@@ -101,7 +101,6 @@ class EtdPortfolioRequestHandler(RequestHandler):
         request_body.clearing_currency = 'EUR'
 
         etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
-        print(self._load_portfolio())
         etd_csv_comp.etd_csv = spec.EtdCsv(csv=self._load_portfolio())
 
         request_body.portfolio_components.append(etd_csv_comp)
