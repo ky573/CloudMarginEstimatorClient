@@ -11,6 +11,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
 
 EXTRAFIELDS = ['product', 'instrument_type', 'clearing_house', 'prod_name', 'prod_isin',
@@ -39,13 +40,14 @@ class ProductsRequestHandler(RequestHandler):
         self.to_json = to_json
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         self.timestamp = timestamp if timestamp is not None else 0
-        self.filters = self._parse_filters(filters)
+        self.filter_handler = FilterHandler(EXTRAFIELDS, ["product_tick_size", "product_tick_value"])
+        self.filters = self.filter_handler.parse_filters(filters)
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /products and exports it according to the specified format."""
         products = self.send_request()
 
-        filtered_products = self._filter_response(products)
+        filtered_products = self.filter_handler.filter_response(products, self.filters)
 
         context = ExportContext()
 
@@ -78,51 +80,3 @@ class ProductsRequestHandler(RequestHandler):
         except Exception as e:
             self._handle_request_error(e)
         return []
-
-    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str | int]]:
-        """Parses the filter string into a dictionary."""
-        filters: Dict[str, Union[str, int]] = {}
-        if filter_str:
-            try:
-                for f in filter_str.split(','):
-                    parts = f.split(':', 1)
-
-                    if len(parts) != 2:
-                        raise ValueError(f"Invalid filter format: {f}. Expected 'key:value'")
-
-                    key, value = parts
-
-                    if key not in EXTRAFIELDS:
-                        raise ValueError(f"Invalid filter key: {key}. Must be one of {EXTRAFIELDS}")
-
-                    if key in ("product_tick_size", "product_tick_value"):
-                        try:
-                            filters[key] = int(value)
-                        except ValueError:
-                            raise ValueError(f"Invalid integer value for {key}: {value}")
-                    elif key == "xm_eligibility":
-                        filters[key] = False if value.lower() == "false" else True
-                    else:
-                        filters[key] = value
-
-            except ValueError as e:
-                click.echo(str(e))
-                raise click.Abort()
-
-        return filters
-
-    def _filter_response(self, products: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Filters products based on extrafields values defined in self.filters."""
-        filtered_products = []
-
-        for product in products:
-            match = True
-            for key, value in self.filters.items():
-                if product.get(key) != value:
-                    match = False
-                    break
-
-            if match:
-                filtered_products.append(product)
-
-        return filtered_products

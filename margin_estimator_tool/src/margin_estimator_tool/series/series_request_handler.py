@@ -13,6 +13,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
 EXTRAFIELDS = ['product_id', 'contract_date', 'contract_maturity', 'expiry_maturity',
                'call_put_flag', 'exercise_price', 'version_number', 'iid',
@@ -50,14 +51,23 @@ class SeriesRequestHandler(RequestHandler):
         self.products = products.split(',')
         self.type = type
         self.call_put_flag = call_put_flag
-        self.filters = self._parse_filters(filters)
+        self.filter_handler = FilterHandler(EXTRAFIELDS, INT_VALUES)
+        self.filters = self.filter_handler.parse_filters(filters)
         self.template = template
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /series and exports it according to the specified format."""
         series = self.send_request()
 
-        filtered_series = self._filter_response(series)
+        # def call_put_filter(series_: Dict[str, Any]) -> bool:
+        #     if not self.call_put_flag:
+        #         return True
+        #     return series_.get("call_put_flag") == self.call_put_flag
+        #
+        # custom_filters = {"call_put_flag": call_put_filter}
+        # filtered_series = self.filter_handler.filter_response(series, self.filters, custom_filters)
+
+        filtered_series = self._filter_series(series)
 
         context = ExportContext()
 
@@ -86,7 +96,6 @@ class SeriesRequestHandler(RequestHandler):
                                            live_timestamp=self.timestamp,
                                            live=self.version)
             self._check_for_error_in_response(response)
-            print(json.dumps(response, indent=4))
             response = response.get("list_series", [])
             return response
         except Exception as e:
@@ -117,53 +126,13 @@ class SeriesRequestHandler(RequestHandler):
         context.export_data(str(self.business_date), self.version, etd_portfolio, self.export_dir)
         click.echo(f"ETD portfolio template exported to {self.export_dir}")
 
-    def _parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int]]:
-        """Parses the filter string into a dictionary."""
-        filters: Dict[str, Union[str, int]] = {}
-        if filter_str:
-            try:
-                for f in filter_str.split(','):
-                    parts = f.split(':', 1)
+    def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        def call_put_filter(series_: Dict[str, Any]) -> bool:
+            if not self.call_put_flag:
+                return True
+            return series_.get("call_put_flag") == self.call_put_flag
 
-                    if len(parts) != 2:
-                        raise ValueError(f"Invalid filter format: {f}. Expected 'key:value'")
-
-                    key, value = parts
-
-                    if key not in EXTRAFIELDS:
-                        raise ValueError(f"Invalid filter key: {key}. Must be one of {EXTRAFIELDS}")
-
-                    if key in INT_VALUES:
-                        try:
-                            filters[key] = int(value)
-                        except ValueError:
-                            raise ValueError(f"Invalid integer value for {key}: {value}")
-                    else:
-                        filters[key] = value
-
-            except ValueError as e:
-                click.echo(str(e))
-                raise click.Abort()
-        return filters
-
-    def _filter_response(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Filters series based on extrafields values defined in self.filters."""
-        filtered_series = []
-
-        for series_ in series:
-            if self.call_put_flag:
-                if self.call_put_flag == "C" and series_.get("call_put_flag") != "C":
-                    continue
-                elif self.call_put_flag == "P" and series_.get("call_put_flag") != "P":
-                    continue
-
-            match = True
-            for key, value in self.filters.items():
-                if series_.get(key) != value:
-                    match = False
-                    break
-
-            if match:
-                filtered_series.append(series_)
+        custom_filters = {"call_put_flag": call_put_filter}
+        filtered_series = self.filter_handler.filter_response(series, self.filters, custom_filters)
 
         return filtered_series
