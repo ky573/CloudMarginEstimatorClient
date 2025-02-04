@@ -50,12 +50,14 @@ class EtdPortfolioRequestHandler(RequestHandler):
 
         context = ExportContext()
 
+        file_suffix = "portfolio"
+
         if self.to_excel:
-            context.set_strategy(EtdPortfolioExcelExportStrategy("portfolio"))
+            context.set_strategy(EtdPortfolioExcelExportStrategy(file_suffix))
         elif self.to_json:
-            context.set_strategy(JSONExportStrategy("portfolio"))
+            context.set_strategy(JSONExportStrategy(file_suffix))
         else:
-            context.set_strategy(EtdPortfolioCSVExportStrategy("portfolio"))
+            context.set_strategy(EtdPortfolioCSVExportStrategy(file_suffix))
 
         context.export_data(str(self.business_date), self.version, portfolio, self.export_dir)
 

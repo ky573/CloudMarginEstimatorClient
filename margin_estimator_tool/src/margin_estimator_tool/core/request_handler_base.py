@@ -7,7 +7,7 @@ sending requests to the API.
 import sys
 import json
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
@@ -65,7 +65,7 @@ class RequestHandler(ABC):
 
         return int(datetime.today().strftime('%Y%m%d'))
 
-    def _check_for_error_in_response(self, response) -> None:
+    def _check_for_error_in_response(self, response: Dict[str, Any]) -> None:
         """
         Handles the response and checks for trace_id indicating errors despite a 200 status code.
         If trace_id is present, the full response is printed and the program exits.

@@ -2,8 +2,7 @@
 This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired form.
 """
-
-
+import json
 from typing import Dict, Any, Optional, List, Union
 import os
 import click
@@ -50,12 +49,14 @@ class ProductsRequestHandler(RequestHandler):
 
         context = ExportContext()
 
+        file_suffix = "products"
+
         if self.to_excel:
-            context.set_strategy(ExcelExportStrategy("products"))
+            context.set_strategy(ExcelExportStrategy(file_suffix))
         elif self.to_json:
-            context.set_strategy(JSONExportStrategy("products"))
+            context.set_strategy(JSONExportStrategy(file_suffix))
         else:
-            context.set_strategy(CSVExportStrategy("products"))
+            context.set_strategy(CSVExportStrategy(file_suffix))
 
         context.export_data(str(self.business_date),
                             self.version,
@@ -71,6 +72,7 @@ class ProductsRequestHandler(RequestHandler):
                                              business_date=self.business_date,
                                              live_timestamp=self.timestamp,
                                              live=self.version)
+            print(json.dumps(response, indent=4))
             self._check_for_error_in_response(response)
             response = response.get("products", [])
             return response

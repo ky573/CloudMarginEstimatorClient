@@ -61,12 +61,14 @@ class SeriesRequestHandler(RequestHandler):
 
         context = ExportContext()
 
+        file_suffix = "series"
+
         if self.to_excel:
-            context.set_strategy(ExcelExportStrategy("series"))
+            context.set_strategy(ExcelExportStrategy(file_suffix))
         elif self.to_json:
-            context.set_strategy(JSONExportStrategy("series"))
+            context.set_strategy(JSONExportStrategy(file_suffix))
         else:
-            context.set_strategy(CSVExportStrategy("series"))
+            context.set_strategy(CSVExportStrategy(file_suffix))
 
         context.export_data(str(self.business_date), self.version, filtered_series, self.export_dir)
 
