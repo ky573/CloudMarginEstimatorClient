@@ -31,7 +31,7 @@ def cli():
 @cli.command(name="post_estimator")
 @click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format')
 @click.option('--date_to', required=True, type=str, help='End date in YYYYMMDD format')
-@click.option('--export_dir', required=True, type=click.Path(), help="Directory to save output.")
+@click.option('--export_dir', required=True, type=click.Path(resolve_path=True), help="Directory to save output.")
 def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
     """Run estimator endpoint."""
     validator = PostEstimatorValidator()
@@ -49,7 +49,7 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
 @click.option('--version', type=click.Choice(['SOD', 'LIVE']), help='Fetch products based on version.')
 @click.option('--to_excel', is_flag=True, help='Export as Excel file.')
 @click.option('--to_json', is_flag=True, help='Export as JSON file.')
-@click.option('--export_dir', type=click.Path(), help="Directory to save output.")
+@click.option('--export_dir', type=click.Path(resolve_path=True), help="Directory to save output.")
 @click.option('--timestamp', type=int, help="This defines the timestamp for the products data for LIVE version.")
 @click.option('--filter', type=str, help="""Filter products based on key:value pairs separated by comma.
                                                         The extrafields with examples are:\n
@@ -98,7 +98,7 @@ def get_products(date: Optional[str],
 @click.option('--timestamp', type=int, help='This defines the timestamp for the series data.')
 @click.option('--to_excel', is_flag=True, help='Export as Excel file.')
 @click.option('--to_json', is_flag=True, help='Export as JSON file.')
-@click.option('--export_dir', type=click.Path(), help="Directory to save output.")
+@click.option('--export_dir', type=click.Path(resolve_path=True), help="Directory to save output.")
 @click.option('--products', type=str, required=True, help='Allows filtering series by product names.')
 @click.option('--type', type=click.Choice(['option', 'future']), help='Filters the series based on type.')
 @click.option('--call_put_flag', type=click.Choice(['C', 'P']), help='Filters the series based on call/put.')
@@ -175,13 +175,13 @@ def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
 
 
 @cli.command(name="etd_portfolio")
-@click.option('--csv_file', required=True, type=click.Path(exists=True), help="Path to the ETD portfolio CSV file.")
+@click.option('--csv_file', required=True, type=click.Path(resolve_path=True), help="Path to the ETD portfolio CSV file.")
 @click.option('--date', type=str, help="Specific business date (YYYYMMDD).")
 @click.option('--version', type=click.Choice(['SOD', 'LIVE']), help="Snapshot version.")
 @click.option('--timestamp', type=int, help="Timestamp for LIVE version.")
 @click.option('--to_excel', is_flag=True, help="Export results to an Excel file.")
 @click.option('--to_json', is_flag=True, help="Export results to a JSON file.")
-@click.option('--export_dir', type=click.Path(), help="Output directory for exported files.")
+@click.option('--export_dir', type=click.Path(resolve_path=True), help="Output directory for exported files.")
 def etd_portfolio(csv_file: str,
                   date: Optional[str],
                   version: Optional[str],
@@ -192,7 +192,7 @@ def etd_portfolio(csv_file: str,
                   ) -> None:
     """Uploads an ETD portfolio from a CSV file and processes it."""
     validator = EtdPortfolioValidator()
-    validator.validate(date=date, export_dir=export_dir)
+    validator.validate(csv_file=csv_file, date=date, export_dir=export_dir)
 
     handler = EndpointHandlerFactory.get_handler("etd_portfolio",
                                                  csv_file=csv_file,

@@ -19,8 +19,8 @@ class BaseArgumentValidator:
         except ValueError as e:
             raise click.BadParameter("Date format must be YYYYMMDD.") from e
 
-    def validate_export_dir(self, export_dir: str) -> None:
-        """Checks that export directory exists."""
+    def validate_dir(self, export_dir: str) -> None:
+        """Checks that directory exists."""
         if not os.path.exists(export_dir):
             raise click.BadParameter(f"Export directory '{export_dir}' not found.")
 
@@ -35,7 +35,7 @@ class PostEstimatorValidator(BaseArgumentValidator):
         """Implementation of validate method for /estimator endpoint."""
         self.validate_date(date_from)
         self.validate_date(date_to)
-        self.validate_export_dir(export_dir)
+        self.validate_dir(export_dir)
 
 
 class GetProductsValidator(BaseArgumentValidator):
@@ -45,7 +45,7 @@ class GetProductsValidator(BaseArgumentValidator):
         if date:
             self.validate_date(date)
         if export_dir:
-            self.validate_export_dir(export_dir)
+            self.validate_dir(export_dir)
 
 
 class GetSeriesValidator(BaseArgumentValidator):
@@ -55,7 +55,7 @@ class GetSeriesValidator(BaseArgumentValidator):
         if date:
             self.validate_date(date)
         if export_dir:
-            self.validate_export_dir(export_dir)
+            self.validate_dir(export_dir)
 
 
 class GetLiveSnapshotsValidator(BaseArgumentValidator):
@@ -77,9 +77,10 @@ class GetSnapshotsValidator(BaseArgumentValidator):
 
 class EtdPortfolioValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /estimator endpoint for sending portfolio."""
-    def validate(self, date: Optional[str], export_dir: Optional[str]) -> None:
+    def validate(self, csv_file: str, date: Optional[str], export_dir: Optional[str]) -> None:
         """Implementation of validate method for /estimator endpoint."""
+        self.validate_dir(csv_file)
         if date:
             self.validate_date(date)
         if export_dir:
-            self.validate_export_dir(export_dir)
+            self.validate_dir(export_dir)
