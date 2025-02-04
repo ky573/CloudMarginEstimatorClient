@@ -72,7 +72,6 @@ class ProductsRequestHandler(RequestHandler):
                                              business_date=self.business_date,
                                              live_timestamp=self.timestamp,
                                              live=self.version)
-            print(json.dumps(response, indent=4))
             self._check_for_error_in_response(response)
             response = response.get("products", [])
             return response
