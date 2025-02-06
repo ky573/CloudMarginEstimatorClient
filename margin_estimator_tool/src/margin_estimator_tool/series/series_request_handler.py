@@ -39,7 +39,9 @@ class SeriesRequestHandler(RequestHandler):
                  type=None,
                  call_put_flag=None,
                  filters=None,
-                 template=False
+                 template=False,
+                 max_tte=None,
+                 min_tte=None
                  ):
         super().__init__()
         self.business_date = self._get_business_date(date, version)
@@ -54,18 +56,12 @@ class SeriesRequestHandler(RequestHandler):
         self.filter_handler = FilterHandler(EXTRAFIELDS, INT_VALUES)
         self.filters = self.filter_handler.parse_filters(filters)
         self.template = template
+        self.max_tte = max_tte
+        self.min_tte = min_tte
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /series and exports it according to the specified format."""
         series = self.send_request()
-
-        # def call_put_filter(series_: Dict[str, Any]) -> bool:
-        #     if not self.call_put_flag:
-        #         return True
-        #     return series_.get("call_put_flag") == self.call_put_flag
-        #
-        # custom_filters = {"call_put_flag": call_put_filter}
-        # filtered_series = self.filter_handler.filter_response(series, self.filters, custom_filters)
 
         filtered_series = self._filter_series(series)
 
@@ -127,12 +123,41 @@ class SeriesRequestHandler(RequestHandler):
         click.echo(f"ETD portfolio template exported to {self.export_dir}")
 
     def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Filters the series based on various criteria."""
+
         def call_put_filter(series_: Dict[str, Any]) -> bool:
+            """Filter for call_put_flag."""
             if not self.call_put_flag:
                 return True
             return series_.get("call_put_flag") == self.call_put_flag
 
-        custom_filters = {"call_put_flag": call_put_filter}
+        def type_filter(series_: Dict[str, Any]) -> bool:
+            """Filter for 'type' - options or futures."""
+            if self.type == "option":
+                return series_.get("call_put_flag") is not None
+            if self.type == "future":
+                return series_.get("call_put_flag") is None
+            return True
+
+        def tte_filter(series_: Dict[str, Any]) -> bool:
+            """Filter for 'days_to_expiration'."""
+            days_to_expiration = series_.get("days_to_expiration")
+            if days_to_expiration is None:
+                return False
+
+            if self.max_tte is not None and days_to_expiration > self.max_tte:
+                return False
+            if self.min_tte is not None and days_to_expiration < self.min_tte:
+                return False
+
+            return True
+
+        custom_filters = {
+            "call_put_flag": call_put_filter,
+            "type": type_filter,
+            "tte": tte_filter
+        }
+
         filtered_series = self.filter_handler.filter_response(series, self.filters, custom_filters)
 
         return filtered_series

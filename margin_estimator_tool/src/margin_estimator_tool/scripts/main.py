@@ -102,6 +102,9 @@ def get_products(date: Optional[str],
 @click.option('--products', type=str, required=True, help='Allows filtering series by product names.')
 @click.option('--type', type=click.Choice(['option', 'future']), help='Filters the series based on type.')
 @click.option('--call_put_flag', type=click.Choice(['C', 'P']), help='Filters the series based on call/put.')
+@click.option('--template', is_flag=True, help='Generate template for ETD portfolio.')
+@click.option('--max_tte', type=int, help='Filters based on the days_to_expiration (time to expiry).')
+@click.option('--min_tte', type=int, help='Filters based on the days_to_expiration (time to expiry).')
 @click.option('--filter', type=str, help="""Filter series based on key:value pairs separated by comma.
                                                         The extrafields with examples are:\n
                                                         "iid": 78490800,\n
@@ -118,7 +121,6 @@ def get_products(date: Optional[str],
                                                         "exercise_price": 91.0,\n
                                                         "exercise_style_flag": "A"
                                                         """)
-@click.option('--template', is_flag=True, help='Generate template for ETD portfolio.')
 def get_series(date: Optional[str],
                version: Optional[str],
                timestamp: Optional[int],
@@ -129,7 +131,9 @@ def get_series(date: Optional[str],
                type: Optional[str],
                call_put_flag: Optional[str],
                filter: Optional[str],
-               template: Optional[bool]
+               template: Optional[bool],
+               max_tte: Optional[int],
+               min_tte: Optional[int]
                ) -> None:
     """Fetch series from the series endpoint."""
     validator = GetSeriesValidator()
@@ -146,7 +150,9 @@ def get_series(date: Optional[str],
                                                  type=type,
                                                  call_put_flag=call_put_flag,
                                                  filters=filter,
-                                                 template=template)
+                                                 template=template,
+                                                 max_tte=max_tte,
+                                                 min_tte=min_tte)
 
     handler.process_and_provide_output()
 
