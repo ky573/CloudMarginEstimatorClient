@@ -29,9 +29,9 @@ def cli():
 
 
 @cli.command(name="post_estimator")
-@click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format')
-@click.option('--date_to', required=True, type=str, help='End date in YYYYMMDD format')
-@click.option('--export_dir', required=True, type=click.Path(resolve_path=True), help="Directory to save output.")
+@click.option("--date_from", required=True, type=str, help="Start date in YYYYMMDD format")
+@click.option("--date_to", required=True, type=str, help="End date in YYYYMMDD format")
+@click.option("--export_dir", required=True, type=click.Path(resolve_path=True), help="Directory to save output.")
 def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
     """Run estimator endpoint."""
     validator = PostEstimatorValidator()
@@ -45,13 +45,13 @@ def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
 
 
 @cli.command(name="get_products")
-@click.option('--date', type=str, help='Fetch products from a specific date (YYYYMMDD).')
-@click.option('--version', type=click.Choice(['SOD', 'LIVE']), help='Fetch products based on version.')
-@click.option('--to_excel', is_flag=True, help='Export as Excel file.')
-@click.option('--to_json', is_flag=True, help='Export as JSON file.')
-@click.option('--export_dir', type=click.Path(resolve_path=True), help="Directory to save output.")
-@click.option('--timestamp', type=int, help="This defines the timestamp for the products data for LIVE version.")
-@click.option('--filter', type=str, help="""Filter products based on key:value pairs separated by comma.
+@click.option("--date", type=str, help="Fetch products from a specific date (YYYYMMDD).")
+@click.option("--version", type=click.Choice(["SOD", "LIVE"]), help="Fetch products based on version.")
+@click.option("--to_excel", is_flag=True, help="Export as Excel file.")
+@click.option("--to_json", is_flag=True, help="Export as JSON file.")
+@click.option("--export_dir", type=click.Path(resolve_path=True), help="Directory to save output.")
+@click.option("--timestamp", type=int, help="This defines the timestamp for the products data for LIVE version.")
+@click.option("--filter", type=str, help="""Filter products based on key:value pairs separated by comma.
                                                         The extrafields with examples are:\n
                                                         "clearing_house": "EUXCDEFF",\n
                                                         "prod_name": "OPT ON SWISS MARKET INDEX",\n
@@ -93,19 +93,19 @@ def get_products(date: Optional[str],
 
 
 @cli.command(name="get_series")
-@click.option('--date', type=str, help='Fetch products from a specific date (YYYYMMDD).')
-@click.option('--version', type=click.Choice(['SOD', 'LIVE']), help='Fetch products based on version.')
-@click.option('--timestamp', type=int, help='This defines the timestamp for the series data.')
-@click.option('--to_excel', is_flag=True, help='Export as Excel file.')
-@click.option('--to_json', is_flag=True, help='Export as JSON file.')
-@click.option('--export_dir', type=click.Path(resolve_path=True), help="Directory to save output.")
-@click.option('--products', type=str, required=True, help='Allows filtering series by product names.')
-@click.option('--type', type=click.Choice(['option', 'future']), help='Filters the series based on type.')
-@click.option('--call_put_flag', type=click.Choice(['C', 'P']), help='Filters the series based on call/put.')
-@click.option('--template', is_flag=True, help='Generate template for ETD portfolio.')
-@click.option('--max_tte', type=int, help='Filters based on the days_to_expiration (time to expiry).')
-@click.option('--min_tte', type=int, help='Filters based on the days_to_expiration (time to expiry).')
-@click.option('--filter', type=str, help="""Filter series based on key:value pairs separated by comma.
+@click.option("--date", type=str, help="Fetch products from a specific date (YYYYMMDD).")
+@click.option("--version", type=click.Choice(["SOD", "LIVE"]), help="Fetch products based on version.")
+@click.option("--timestamp", type=int, help="This defines the timestamp for the series data.")
+@click.option("--to_excel", is_flag=True, help="Export as Excel file.")
+@click.option("--to_json", is_flag=True, help="Export as JSON file.")
+@click.option("--export_dir", type=click.Path(resolve_path=True), help="Directory to save output.")
+@click.option("--products", type=str, required=True, help="Allows filtering series by product names.")
+@click.option("--type", type=click.Choice(["option", "future"]), help="Filters the series based on type.")
+@click.option("--call_put_flag", type=click.Choice(["C", "P"]), help="Filters the series based on call/put.")
+@click.option("--template", is_flag=True, help="Generate template for ETD portfolio.")
+@click.option("--max_tte", type=int, help="Filters based on the days_to_expiration (time to expiry).")
+@click.option("--min_tte", type=int, help="Filters based on the days_to_expiration (time to expiry).")
+@click.option("--filter", type=str, help="""Filter series based on key:value pairs separated by comma.
                                                         The extrafields with examples are:\n
                                                         "iid": 78490800,\n
                                                         "product_id": "BMW",\n
@@ -158,7 +158,7 @@ def get_series(date: Optional[str],
 
 
 @cli.command(name="get_live_snapshots")
-@click.option('--date', required=True, type=str, help='Fetch live snapshots from a specific date (YYYYMMDD).')
+@click.option("--date", required=True, type=str, help="Fetch live snapshots from a specific date (YYYYMMDD).")
 def get_live_snapshots(date: str) -> None:
     """Fetch live snapshots and display information."""
     validator = GetLiveSnapshotsValidator()
@@ -169,8 +169,8 @@ def get_live_snapshots(date: str) -> None:
 
 
 @cli.command(name="get_snapshots")
-@click.option('--date_from', required=True, type=str, help='Start date in YYYYMMDD format.')
-@click.option('--date_to', type=str, help='End date in YYYYMMDD format. Defaults to the current date.')
+@click.option("--date_from", required=True, type=str, help="Start date in YYYYMMDD format.")
+@click.option("--date_to", type=str, help="End date in YYYYMMDD format. Defaults to the current date.")
 def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
     """Fetch SOD snapshots (non-live) for the specified date range."""
     validator = GetSnapshotsValidator()
@@ -181,13 +181,13 @@ def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
 
 
 @cli.command(name="etd_portfolio")
-@click.option('--csv_file', required=True, type=click.Path(resolve_path=True), help="Path to the ETD portfolio CSV file.")
-@click.option('--date', type=str, help="Specific business date (YYYYMMDD).")
-@click.option('--version', type=click.Choice(['SOD', 'LIVE']), help="Snapshot version.")
-@click.option('--timestamp', type=int, help="Timestamp for LIVE version.")
-@click.option('--to_excel', is_flag=True, help="Export results to an Excel file.")
-@click.option('--to_json', is_flag=True, help="Export results to a JSON file.")
-@click.option('--export_dir', type=click.Path(resolve_path=True), help="Output directory for exported files.")
+@click.option("--csv_file", required=True, type=click.Path(resolve_path=True), help="Path to the ETD portfolio CSV file.")
+@click.option("--date", type=str, help="Specific business date (YYYYMMDD).")
+@click.option("--version", type=click.Choice(["SOD", "LIVE"]), help="Snapshot version.")
+@click.option("--timestamp", type=int, help="Timestamp for LIVE version.")
+@click.option("--to_excel", is_flag=True, help="Export results to an Excel file.")
+@click.option("--to_json", is_flag=True, help="Export results to a JSON file.")
+@click.option("--export_dir", type=click.Path(resolve_path=True), help="Output directory for exported files.")
 def etd_portfolio(csv_file: str,
                   date: Optional[str],
                   version: Optional[str],
@@ -233,5 +233,5 @@ class EndpointHandlerFactory:
             raise ValueError(f"No handler defined for endpoint: {endpoint}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()
