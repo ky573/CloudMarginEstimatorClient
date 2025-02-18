@@ -4,14 +4,10 @@ output to the user.
 """
 
 
-import json
-from typing import Dict, Any, Optional, List, Union
+from typing import Dict, Any, List
 import os
 import click
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
@@ -65,20 +61,8 @@ class SeriesRequestHandler(RequestHandler):
 
         filtered_series = self._filter_series(series)
 
-        context = ExportContext()
-
-        file_suffix = "series"
-
-        if self.to_excel:
-            context.set_strategy(ExcelExportStrategy(file_suffix))
-        elif self.to_json:
-            context.set_strategy(JSONExportStrategy(file_suffix))
-        else:
-            context.set_strategy(CSVExportStrategy(file_suffix))
-
-        context.export_data(str(self.business_date), self.version, filtered_series, self.export_dir)
-
-        click.echo(f"Series exported to {self.export_dir}")
+        DataExporter.export(filtered_series, "Series", self.export_dir, self.to_excel, self.to_json,
+                            str(self.business_date), self.version)
 
         if self.template:
             self._generate_etd_portfolio_template(filtered_series)
@@ -112,15 +96,8 @@ class SeriesRequestHandler(RequestHandler):
             for s in filtered_series
         ]
 
-        context = ExportContext()
-
-        if self.to_excel:
-            context.set_strategy(ExcelExportStrategy("etd_portfolio_template"))
-        else:
-            context.set_strategy(CSVExportStrategy("etd_portfolio_template"))
-
-        context.export_data(str(self.business_date), self.version, etd_portfolio, self.export_dir)
-        click.echo(f"ETD portfolio template exported to {self.export_dir}")
+        DataExporter.export(etd_portfolio, "Template", self.export_dir, self.to_excel, self.to_json,
+                            str(self.business_date), self.version)
 
     def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Filters the series based on various criteria."""

@@ -5,17 +5,15 @@ endpoint and then outputting them in desired form.
 
 
 import csv
-import json
 from typing import Dict, Any
 import os
 import click
 from cpme_api.models import BodyEstimator
 import cpme_api.models as spec
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import EtdPortfolioCSVExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import EtdPortfolioExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+
+# dodelat tridu na mapping do POrtfolioInner
 
 
 class EtdPortfolioRequestHandler(RequestHandler):
@@ -47,21 +45,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
             return
 
         portfolio = self.send_request()
-
-        context = ExportContext()
-
-        file_suffix = "portfolio"
-
-        if self.to_excel:
-            context.set_strategy(EtdPortfolioExcelExportStrategy(file_suffix))
-        elif self.to_json:
-            context.set_strategy(JSONExportStrategy(file_suffix))
-        else:
-            context.set_strategy(EtdPortfolioCSVExportStrategy(file_suffix))
-
-        context.export_data(str(self.business_date), self.version, portfolio, self.export_dir)
-
-        click.echo(f"Portfolio exported to {self.export_dir}")
+        DataExporter.export(portfolio, "Portfolio", self.export_dir, self.to_excel, self.to_json, str(self.business_date), self.version)
 
     def send_request(self) -> Dict[str, Any]:
         """Sends a POST request to /estimator endpoint with provided portfolio."""

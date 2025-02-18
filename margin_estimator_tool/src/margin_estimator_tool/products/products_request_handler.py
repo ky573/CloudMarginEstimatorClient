@@ -2,14 +2,10 @@
 This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired form.
 """
-import json
-from typing import Dict, Any, Optional, List, Union
+
+from typing import Dict, Any, List
 import os
-import click
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
@@ -49,23 +45,8 @@ class ProductsRequestHandler(RequestHandler):
 
         filtered_products = self.filter_handler.filter_response(products, self.filters)
 
-        context = ExportContext()
-
-        file_suffix = "products"
-
-        if self.to_excel:
-            context.set_strategy(ExcelExportStrategy(file_suffix))
-        elif self.to_json:
-            context.set_strategy(JSONExportStrategy(file_suffix))
-        else:
-            context.set_strategy(CSVExportStrategy(file_suffix))
-
-        context.export_data(str(self.business_date),
-                            self.version,
-                            filtered_products,
-                            self.export_dir)
-
-        click.echo(f"Products exported to {self.export_dir}")
+        DataExporter.export(filtered_products, "Products", self.export_dir, self.to_excel, self.to_json,
+                            str(self.business_date), self.version)
 
     def send_request(self) -> List[Dict[str, Any]]:
         """Sends a GET request to /products endpoint with optional filters, date, and version."""
