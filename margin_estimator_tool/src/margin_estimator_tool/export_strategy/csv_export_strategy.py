@@ -19,7 +19,7 @@ class CSVExportStrategy(ExportStrategy):
         """Concrete implementation for exporting into CSV."""
         if data:
             version_path = "LIVE" if version else "SOD"
-            out_path = f'{date}_{version_path}_{self.type}.csv'
+            out_path = f"{date}_{version_path}_{self.type}.csv"
             file_path = os.path.join(output_path, out_path)
             keys = data[0].keys()
             with open(file_path, 'w', newline='') as output_file:

@@ -38,8 +38,8 @@ class LiveSnapshotRequestHandler(RequestHandler):
         """Prints the output in desired format."""
         click.echo(f"Available live snapshots for {self.business_date}:")
         for idx, snapshot in enumerate(live_snapshots, start=1):
-            timestamp = snapshot.get('live_timestamp', 'N/A')
-            time = datetime.fromtimestamp(int(timestamp) / 1000).strftime('%H:%M:%S') if timestamp != 0 else 0
-            otc = "YES" if snapshot.get('otc_available', 'N/A') is True else "NO"
-            cash = "YES" if snapshot.get('cash_available', 'N/A') is True else "NO"
+            timestamp = snapshot.get("live_timestamp", "N/A")
+            time = datetime.fromtimestamp(int(timestamp) / 1000).strftime("%H:%M:%S") if timestamp != 0 else 0
+            otc = "YES" if snapshot.get("otc_available", "N/A") is True else "NO"
+            cash = "YES" if snapshot.get("cash_available", "N/A") is True else "NO"
             click.echo(f"  [{idx:02d}] time: {time} ts:{timestamp} OTC={otc}, CASH={cash}")

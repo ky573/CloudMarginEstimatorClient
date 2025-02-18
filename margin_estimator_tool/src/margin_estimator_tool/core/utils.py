@@ -27,7 +27,7 @@ def flatten_dict(
         d: Dict[str, Union[Dict, List, str]],
         parent_key: str = '',
         sep: str = '_'
-) -> Dict[str, Union[Dict, List, str]]:
+        ) -> Dict[str, Union[Dict, List, str]]:
     """Flattens nested dictionaries and lists into a single-level dictionary."""
     items: List[Tuple[str, Union[Dict, List, str]]] = []
     for k, v in d.items():
@@ -37,7 +37,7 @@ def flatten_dict(
         elif isinstance(v, list):
             if len(v) > 0 and isinstance(v[0], dict):
                 for idx, sub_item in enumerate(v):
-                    items.extend(flatten_dict(sub_item, f'{new_key}_{idx + 1}', sep=sep).items())
+                    items.extend(flatten_dict(sub_item, f"{new_key}_{idx + 1}", sep=sep).items())
             else:
                 items.append((new_key, str(v)))
         else:

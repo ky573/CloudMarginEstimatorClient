@@ -6,9 +6,7 @@ This module defines strategy for etd portfolio exporting into csv.
 import os
 import csv
 from typing import Dict, Any
-
 import click
-
 from .export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 

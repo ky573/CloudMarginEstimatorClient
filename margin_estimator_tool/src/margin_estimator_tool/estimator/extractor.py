@@ -1,5 +1,6 @@
 """This module contains class to extract data from response sent back from estimator."""
 
+
 from typing import List, Dict, Any
 
 
@@ -14,8 +15,8 @@ class Extractor:
 
     def extract_data(self, data: Dict[str, Any]) -> None:
         """Extracts and aggregates initial margin data from the API response."""
-        business_date = int(data['business_date'])
-        initial_margin = data['portfolio_margin'][self.INITIAL_MARGIN_INDEX]['initial_margin']
+        business_date = int(data["business_date"])
+        initial_margin = data["portfolio_margin"][self.INITIAL_MARGIN_INDEX]["initial_margin"]
 
         self.dates.append(business_date)
         self.initial_margins.append(float(initial_margin))

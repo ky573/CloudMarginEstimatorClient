@@ -37,7 +37,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         self.timestamp = timestamp
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /estimator and exports it according to the specified format."""
@@ -45,7 +45,13 @@ class EtdPortfolioRequestHandler(RequestHandler):
             return
 
         portfolio = self.send_request()
-        DataExporter.export(portfolio, "Portfolio", self.export_dir, self.to_excel, self.to_json, str(self.business_date), self.version)
+        DataExporter.export(portfolio,
+                            "Portfolio",
+                            self.export_dir,
+                            self.to_excel,
+                            self.to_json,
+                            str(self.business_date),
+                            self.version)
 
     def send_request(self) -> Dict[str, Any]:
         """Sends a POST request to /estimator endpoint with provided portfolio."""
@@ -61,7 +67,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
     def _validate_header(self) -> bool:
         """Validates the CSV file headers against the required format."""
         try:
-            with open(self.csv_file, mode='r', newline='', encoding='utf-8') as csvfile:
+            with open(self.csv_file, mode='r', newline='', encoding="utf-8") as csvfile:
                 reader = csv.reader(csvfile)
                 headers = next(reader, None)
                 if headers is None:
@@ -84,7 +90,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         request_body.snapshot.live = self.version
         request_body.snapshot.business_date = self.business_date
         request_body.snapshot.live_timestamp = self.timestamp
-        request_body.clearing_currency = 'EUR'
+        request_body.clearing_currency = "EUR"
 
         etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
         etd_csv_comp.etd_csv = spec.EtdCsv(csv=self._load_portfolio())
@@ -94,5 +100,5 @@ class EtdPortfolioRequestHandler(RequestHandler):
 
     def _load_portfolio(self) -> str:
         """Loads and returns the portfolio as a string."""
-        with open(self.csv_file, 'r', encoding='utf-8') as f:
+        with open(self.csv_file, 'r', encoding="utf-8") as f:
             return f.read()

@@ -39,7 +39,14 @@ class DataExporter:
     }
 
     @staticmethod
-    def export(data: List[Dict[str, Any]] | Dict[str, Any], export_name: str, export_dir: str, to_excel: bool, to_json: bool, business_date: str, version: bool) -> None:
+    def export(data: List[Dict[str, Any]] | Dict[str, Any],
+               export_name: str,
+               export_dir: str,
+               to_excel: bool,
+               to_json: bool,
+               business_date: str,
+               version: bool
+               ) -> None:
         """Exports data based on the requested format, using endpoint-specific strategies."""
         context = ExportContext()
 

@@ -2,6 +2,7 @@
 Class to handle filter parsing for products and series endpoint.
 """
 
+
 from typing import Dict, Any, Optional, List, Union, Callable
 import click
 

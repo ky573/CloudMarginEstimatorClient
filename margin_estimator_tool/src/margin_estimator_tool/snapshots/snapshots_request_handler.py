@@ -41,7 +41,7 @@ class SnapshotRequestHandler(RequestHandler):
     def _print_output(self, filtered_snapshots):
         """Prints the output in desired format."""
         for idx, snapshot in enumerate(filtered_snapshots, start=1):
-            date = snapshot.get('business_date')
-            otc = "YES" if snapshot.get('otc_available', 'N/A') is True else "NO"
-            cash = "YES" if snapshot.get('cash_available', 'N/A') is True else "NO"
+            date = snapshot.get("business_date")
+            otc = "YES" if snapshot.get("otc_available", "N/A") is True else "NO"
+            cash = "YES" if snapshot.get("cash_available", "N/A") is True else "NO"
             click.echo(f"  [{idx:02d}] date: {date} OTC={otc}, CASH={cash}")

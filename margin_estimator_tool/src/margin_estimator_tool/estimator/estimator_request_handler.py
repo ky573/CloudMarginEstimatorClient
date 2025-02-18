@@ -3,6 +3,7 @@ This module is responsible for sending the request to estimator endpoint,
 fetching the results and exporting them.
 """
 
+
 from typing import Dict, Any, List
 from datetime import datetime
 import click
@@ -63,7 +64,7 @@ class EstimatorRequestHandler(RequestHandler):
         request_body.snapshot = spec.Snapshot()
         request_body.snapshot.live = True
         request_body.snapshot.business_date = business_day
-        request_body.clearing_currency = 'EUR'
+        request_body.clearing_currency = "EUR"
 
         etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
         etd_csv_comp.etd_csv = spec.EtdCsv(csv=portfolio)

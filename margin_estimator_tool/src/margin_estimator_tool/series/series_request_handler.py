@@ -6,23 +6,22 @@ output to the user.
 
 from typing import Dict, Any, List
 import os
-import click
 from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
-EXTRAFIELDS = ['product_id', 'contract_date', 'contract_maturity', 'expiry_maturity',
-               'call_put_flag', 'exercise_price', 'version_number', 'iid',
-               'act_trade_unit_no', 'days_to_expiration', 'trade_unit_value',
-               'exercise_style_flag', 'contract_frequency']
-
-INT_VALUES = ['contract_date', 'contract_maturity', 'expiry_maturity',
-              'exercise_price', 'iid', 'act_trade_unit_no',
-              'days_to_expiration', 'trade_unit_value']
-
 
 class SeriesRequestHandler(RequestHandler):
     """Handler for sending requests to the /series endpoint and exporting data."""
+
+    EXTRAFIELDS = ["product_id", "contract_date", "contract_maturity", "expiry_maturity",
+                   "call_put_flag", "exercise_price", "version_number", "iid",
+                   "act_trade_unit_no", "days_to_expiration", "trade_unit_value",
+                   "exercise_style_flag", "contract_frequency"]
+
+    INT_VALUES = ["contract_date", "contract_maturity", "expiry_maturity",
+                  "exercise_price", "iid", "act_trade_unit_no",
+                  "days_to_expiration", "trade_unit_value"]
 
     def __init__(self,
                  date=None,
@@ -45,11 +44,11 @@ class SeriesRequestHandler(RequestHandler):
         self.timestamp = timestamp if timestamp is not None else 0
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
         self.products = products.split(',')
         self.type = type
         self.call_put_flag = call_put_flag
-        self.filter_handler = FilterHandler(EXTRAFIELDS, INT_VALUES)
+        self.filter_handler = FilterHandler(self.EXTRAFIELDS, self.INT_VALUES)
         self.filters = self.filter_handler.parse_filters(filters)
         self.template = template
         self.max_tte = max_tte
@@ -58,11 +57,14 @@ class SeriesRequestHandler(RequestHandler):
     def process_and_provide_output(self) -> None:
         """Processes the data from /series and exports it according to the specified format."""
         series = self.send_request()
-
         filtered_series = self._filter_series(series)
-
-        DataExporter.export(filtered_series, "Series", self.export_dir, self.to_excel, self.to_json,
-                            str(self.business_date), self.version)
+        DataExporter.export(filtered_series,
+                            "Series",
+                            self.export_dir,
+                            self.to_excel,
+                            self.to_json,
+                            str(self.business_date),
+                            self.version)
 
         if self.template:
             self._generate_etd_portfolio_template(filtered_series)
@@ -71,7 +73,7 @@ class SeriesRequestHandler(RequestHandler):
         """Sends a GET request to the /series endpoint with optional filters, date, and version."""
         try:
             response = self.api.series_get(products=self.products,
-                                           extrafields=EXTRAFIELDS,
+                                           extrafields=self.EXTRAFIELDS,
                                            business_date=self.business_date,
                                            live_timestamp=self.timestamp,
                                            live=self.version)
@@ -96,8 +98,13 @@ class SeriesRequestHandler(RequestHandler):
             for s in filtered_series
         ]
 
-        DataExporter.export(etd_portfolio, "Template", self.export_dir, self.to_excel, self.to_json,
-                            str(self.business_date), self.version)
+        DataExporter.export(etd_portfolio,
+                            "Template",
+                            self.export_dir,
+                            self.to_excel,
+                            self.to_json,
+                            str(self.business_date),
+                            self.version)
 
     def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Filters the series based on various criteria."""

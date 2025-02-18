@@ -39,7 +39,7 @@ class RequestHandler(ABC):
         set_data_validation(False)
         config = Configuration()
         config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-        config.proxy = 'http://squid-proxy.gcp.dbgcloud.io:3128'
+        config.proxy = "http://squid-proxy.gcp.dbgcloud.io:3128"
         config.enable_logging = True
         api = CpmeApi(configuration=config)
         return api
@@ -61,9 +61,9 @@ class RequestHandler(ABC):
             while not is_business_day(current_date):
                 current_date -= timedelta(days=1)
 
-            return int(current_date.strftime('%Y%m%d'))
+            return int(current_date.strftime("%Y%m%d"))
 
-        return int(datetime.today().strftime('%Y%m%d'))
+        return int(datetime.today().strftime("%Y%m%d"))
 
     def _check_for_error_in_response(self, response: Dict[str, Any]) -> None:
         """

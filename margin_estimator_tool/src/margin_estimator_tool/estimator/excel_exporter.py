@@ -1,5 +1,6 @@
 """Module to handle exporting margin details to an Excel file."""
 
+
 from typing import List, Dict, Union, Tuple, Set
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
@@ -49,7 +50,7 @@ class ExcelExporter:
             for item in detail[key]:
                 flat_item = flatten_dict(item)
                 headers.update(flat_item.keys())
-        headers_list = ['business_date'] + sorted(list(headers))
+        headers_list = ["business_date"] + sorted(list(headers))
         return headers_list
 
     def _populate_sheet(self, ws: Worksheet, headers: List[str], data_key: str) -> None:

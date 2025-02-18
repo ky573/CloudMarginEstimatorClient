@@ -18,9 +18,9 @@ class ExcelExportStrategy(ExportStrategy):
         if data:
             version_path = "LIVE" if version else "SOD"
 
-            out_path = f'{date}_{version_path}_{self.type}.xlsx'
+            out_path = f"{date}_{version_path}_{self.type}.xlsx"
             file_path = os.path.join(output_path, out_path)
             df = pd.DataFrame(data)
-            df.to_excel(file_path, sheet_name='products', index=False)
+            df.to_excel(file_path, sheet_name="products", index=False)
         else:
             click.echo("No data found.")

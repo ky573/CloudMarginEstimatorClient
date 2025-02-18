@@ -1,5 +1,6 @@
 """Module to handle exporting margin details to an Excel file."""
 
+
 from typing import List
 from datetime import datetime
 import plotly.graph_objects as go  # type: ignore
@@ -25,15 +26,15 @@ class GraphExporter:
 
         fig = go.Figure(data=go.Scatter(x=formatted_dates,
                                         y=self.initial_margins,
-                                        mode='lines+markers')
+                                        mode="lines+markers")
                         )
         fig.update_layout(
-            title='Initial Margin Over Time',
-            xaxis_title='Date',
-            yaxis_title='Initial Margin (EUR)',
+            title="Initial Margin Over Time",
+            xaxis_title="Date",
+            yaxis_title="Initial Margin (EUR)",
             xaxis={
-                "tickformat": '%Y-%m-%d',
-                "type": 'date'
+                "tickformat": "%Y-%m-%d",
+                "type": "date"
             }
         )
 

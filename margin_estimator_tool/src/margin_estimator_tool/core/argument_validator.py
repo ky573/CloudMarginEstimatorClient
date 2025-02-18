@@ -3,6 +3,7 @@ This module contains logic for argument validation for CLI interface.
 Implemented by Template Method design pattern.
 """
 
+
 from datetime import datetime
 from typing import Optional
 import os

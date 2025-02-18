@@ -10,6 +10,7 @@ from typing import Dict, Any
 from .export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 
+
 class EtdPortfolioExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting portfolio data to Excel."""
 
@@ -21,13 +22,13 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         portfolio_margin = portfolio_data.get("portfolio_margin", [])
         drilldowns = portfolio_data.get("drilldowns", [])
 
-        with pd.ExcelWriter(file_path, engine='openpyxl') as writer:
+        with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
             if portfolio_margin:
-                pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer, sheet_name='Portfolio Margin', index=False)
+                pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer, sheet_name="Portfolio Margin", index=False)
             else:
                 click.echo("No portfolio margins found in response.")
 
             if drilldowns:
-                pd.DataFrame(drilldowns).to_excel(writer, sheet_name='Drilldowns', index=False)
+                pd.DataFrame(drilldowns).to_excel(writer, sheet_name="Drilldowns", index=False)
             else:
                 click.echo("No drilldowns found in response.")
