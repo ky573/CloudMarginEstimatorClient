@@ -8,10 +8,9 @@ import csv
 from typing import Dict, Any
 import os
 import click
-from cpme_api.models import BodyEstimator
-import cpme_api.models as spec
 from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import setup_estimator_request_body
 
 # dodelat tridu na mapping do POrtfolioInner
 
@@ -55,7 +54,10 @@ class EtdPortfolioRequestHandler(RequestHandler):
 
     def send_request(self) -> Dict[str, Any]:
         """Sends a POST request to /estimator endpoint with provided portfolio."""
-        request_body = self._setup_request_body()
+        request_body = setup_estimator_request_body(self.business_date,
+                                                    self._load_portfolio(),
+                                                    self.version,
+                                                    self.timestamp)
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
             self._check_for_error_in_response(response)
@@ -82,21 +84,6 @@ class EtdPortfolioRequestHandler(RequestHandler):
         except (ValueError, FileNotFoundError) as e:
             click.echo(f"Error validating CSV headers: {e}")
             return False
-
-    def _setup_request_body(self) -> BodyEstimator:
-        """Sets up the body for the POST request to /estimator endpoint."""
-        request_body = BodyEstimator()
-        request_body.snapshot = spec.Snapshot()
-        request_body.snapshot.live = self.version
-        request_body.snapshot.business_date = self.business_date
-        request_body.snapshot.live_timestamp = self.timestamp
-        request_body.clearing_currency = "EUR"
-
-        etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
-        etd_csv_comp.etd_csv = spec.EtdCsv(csv=self._load_portfolio())
-
-        request_body.portfolio_components.append(etd_csv_comp)
-        return request_body
 
     def _load_portfolio(self) -> str:
         """Loads and returns the portfolio as a string."""

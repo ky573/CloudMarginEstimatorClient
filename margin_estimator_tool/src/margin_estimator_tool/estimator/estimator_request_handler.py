@@ -7,14 +7,13 @@ fetching the results and exporting them.
 from typing import Dict, Any, List
 from datetime import datetime
 import click
-from cpme_api.models import BodyEstimator
-import cpme_api.models as spec
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.estimator.extractor import Extractor
 from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_loader import PortfolioLoader
 from margin_estimator_tool.src.margin_estimator_tool.estimator.graph_exporter import GraphExporter
 from margin_estimator_tool.src.margin_estimator_tool.estimator.excel_exporter import ExcelExporter
-from margin_estimator_tool.src.margin_estimator_tool.core.utils import collect_business_days
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import (collect_business_days,
+                                                                        setup_estimator_request_body)
 
 
 class EstimatorRequestHandler(RequestHandler):
@@ -49,7 +48,7 @@ class EstimatorRequestHandler(RequestHandler):
 
     def send_request(self, business_date: int, portfolio: str) -> Dict[str, Any]:
         """Sends a POST request to the /estimator endpoint with the specified data."""
-        request_body = self._setup_request_body(business_date, portfolio)
+        request_body = setup_estimator_request_body(business_date, portfolio)
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
             self._check_for_error_in_response(response)
@@ -57,20 +56,6 @@ class EstimatorRequestHandler(RequestHandler):
         except Exception as e:
             self._handle_request_error(e)
         return {}
-
-    def _setup_request_body(self, business_day: int, portfolio: str) -> BodyEstimator:
-        """Sets up the body for the POST request to /estimator endpoint."""
-        request_body = BodyEstimator()
-        request_body.snapshot = spec.Snapshot()
-        request_body.snapshot.live = True
-        request_body.snapshot.business_date = business_day
-        request_body.clearing_currency = "EUR"
-
-        etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
-        etd_csv_comp.etd_csv = spec.EtdCsv(csv=portfolio)
-
-        request_body.portfolio_components.append(etd_csv_comp)
-        return request_body
 
     def _collect_business_days(self) -> List[int]:
         """Collects the list of business days for the calculation period."""

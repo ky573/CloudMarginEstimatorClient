@@ -3,6 +3,8 @@
 
 from typing import Dict, List, Union, Tuple
 from datetime import datetime, timedelta
+from cpme_api.models import BodyEstimator
+import cpme_api.models as spec
 
 
 def is_business_day(current_date: datetime) -> bool:
@@ -44,3 +46,23 @@ def flatten_dict(
             items.append((new_key, v))
             
     return dict(items)
+
+
+def setup_estimator_request_body(business_day: int,
+                                 portfolio: str,
+                                 version: bool = True,
+                                 timestamp: int = 0
+                                 ) -> BodyEstimator:
+    """Sets up the body for the POST request to /estimator endpoint."""
+    request_body = BodyEstimator()
+    request_body.snapshot = spec.Snapshot()
+    request_body.snapshot.live = version
+    request_body.snapshot.business_date = business_day
+    request_body.snapshot.live_timestamp = timestamp
+    request_body.clearing_currency = "EUR"
+
+    etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
+    etd_csv_comp.etd_csv = spec.EtdCsv(csv=portfolio)
+
+    request_body.portfolio_components.append(etd_csv_comp)
+    return request_body
