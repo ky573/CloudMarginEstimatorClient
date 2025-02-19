@@ -25,7 +25,8 @@ class RequestHandler(ABC):
     def process_and_provide_output(self) -> None:
         """Abstract method for sending a request and exporting data; implemented by subclasses."""
 
-    def _handle_request_error(self, error: Exception) -> None:
+    @staticmethod
+    def _handle_request_error(error: Exception) -> None:
         """Handles request-related errors by printing a message to the user."""
         if isinstance(error, requests.exceptions.HTTPError):
             click.echo(f"HTTP Error: {error}", err=True)
@@ -34,7 +35,8 @@ class RequestHandler(ABC):
         else:
             click.echo(f"Error: {error}", err=True)
 
-    def _setup_api(self) -> CpmeApi:
+    @staticmethod
+    def _setup_api() -> CpmeApi:
         """Sets up and returns the API for requests."""
         set_data_validation(False)
         config = Configuration()
@@ -44,12 +46,13 @@ class RequestHandler(ABC):
         api = CpmeApi(configuration=config)
         return api
 
-    def _get_business_date(self, date: Optional[str], version: Optional[str]) -> int:
+    @staticmethod
+    def _get_business_date(date: Optional[str], version: Optional[str]) -> int:
         """
         Get the correct business date.
-        - If a date is provided, use it as is.
-        - If the version is 'SOD', return the latest business day before today.
-        - Otherwise, return today's date.
+        If a date is provided, use it as is.
+        If the version is 'SOD', return the latest business day before today.
+        Otherwise, return today's date.
         """
         if date:
             return int(date)
@@ -65,10 +68,12 @@ class RequestHandler(ABC):
 
         return int(datetime.today().strftime("%Y%m%d"))
 
-    def _check_for_error_in_response(self, response: Dict[str, Any]) -> None:
+    @staticmethod
+    def _check_for_error_in_response(response: Dict[str, Any]) -> None:
         """
         Handles the response and checks for trace_id indicating errors despite a 200 status code.
         If trace_id is present, the full response is printed and the program exits.
+        Otherwise, user gets informed about successful request.
         """
         if "trace_id" in response:
             click.echo("An error occurred in the request. Full response details:")

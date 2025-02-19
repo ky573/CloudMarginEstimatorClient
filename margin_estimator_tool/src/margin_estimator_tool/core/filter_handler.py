@@ -11,11 +11,30 @@ class FilterHandler:
     """Handles parsing and applying filters to a dataset."""
 
     def __init__(self, extrafields: List[str], int_values: Optional[List[str]] = None):
+        """
+        Initializes the FilterHandler instance.
+
+        Args:
+            extrafields: extrafields to be checked in parsing
+            int_values: values from extrafields to be converted to int
+        """
         self.extrafields = set(extrafields)
         self.int_values = set(int_values) if int_values else set()
 
     def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, bool]]:
-        """Parses a filter string into a dictionary."""
+        """
+        Parses a filter string into a dictionary to be later used for
+        filtering of the response. Correct types are assigned to values.
+
+        If format is malformed (i.e., not a key:value pair), or one of the
+        keys is not in extrafields, or it contains a wrong type, exception is thrown.
+
+        Args:
+            filter_str: string to be parsed.
+
+        Returns:
+            A dictionary containing correct key:value pairs in proper type mapping
+        """
         filters: Dict[str, Union[str, int, bool]] = {}
         if not filter_str:
             return filters
@@ -46,12 +65,23 @@ class FilterHandler:
 
         return filters
 
-    def filter_response(self,
-                        data: List[Dict[str, Any]],
+    @staticmethod
+    def filter_response(data: List[Dict[str, Any]],
                         filters: Dict[str, Union[str, int, bool]],
                         custom_filters: Optional[Dict[str, Callable[[Dict[str, Any]], bool]]] = None
                         ) -> List[Dict[str, Any]]:
-        """Filters a list of dictionaries based on the given filters."""
+        """
+        Filters a list of dictionaries based on the given filters.
+        Custom filters in form of callables can also be applied.
+
+        Args:
+            data: data from request to be filtered
+            filters: dictionary of key:value pairs to be used for filtering
+            custom_filters: additional custom filters in form of functions
+
+        Returns:
+            A list of filtered data
+        """
         custom_filters = custom_filters or {}
 
         filtered_data = []

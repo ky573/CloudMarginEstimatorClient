@@ -8,12 +8,29 @@ import cpme_api.models as spec
 
 
 def is_business_day(current_date: datetime) -> bool:
-    """Check if the current date is a weekend."""
+    """
+    Check if the current date is a weekend day.
+
+    Args:
+        current_date: date to be checked
+
+    Returns:
+        True if the day is not a weekend, false otherwise
+    """
     return current_date.weekday() not in [5, 6]
 
 
 def collect_business_days(start_date: datetime, end_date: datetime) -> List[int]:
-    """Collects all business days within the date range."""
+    """
+    Collects all business days within the date range.
+
+    Args:
+        start_date: starting date of the range
+        end_date: ending date if the range
+
+    Returns:
+        A list of business days in desired range
+    """
     current_date = start_date
     business_days: List[int] = []
 
@@ -26,14 +43,25 @@ def collect_business_days(start_date: datetime, end_date: datetime) -> List[int]
 
 
 def flatten_dict(
-        d: Dict[str, Union[Dict, List, str]],
+        dictionary: Dict[str, Union[Dict, List, str]],
         parent_key: str = '',
         sep: str = '_'
         ) -> Dict[str, Union[Dict, List, str]]:
-    """Flattens nested dictionaries and lists into a single-level dictionary."""
+    """
+    Flattens nested dictionaries and lists into a single-level dictionary.
+
+    Args:
+        dictionary: dictionary to be flattened
+        parent_key: key from previous level
+        sep: separator between levels
+
+    Returns:
+        Dictionary which was flattened into a single level, i.e. doesn't contain any
+        other dictionaries
+    """
     items: List[Tuple[str, Union[Dict, List, str]]] = []
-    for k, v in d.items():
-        new_key = f'{parent_key}{sep}{k}' if parent_key else k
+    for k, v in dictionary.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
         if isinstance(v, dict):
             items.extend(flatten_dict(v, new_key, sep=sep).items())
         elif isinstance(v, list):
@@ -53,7 +81,18 @@ def setup_estimator_request_body(business_day: int,
                                  version: bool = True,
                                  timestamp: int = 0
                                  ) -> BodyEstimator:
-    """Sets up the body for the POST request to /estimator endpoint."""
+    """
+    Sets up the body for the POST request to /estimator endpoint.
+
+    Args:
+        business_day: required business date
+        portfolio: portfolio to be sent to endpoint
+        version: desired version
+        timestamp: desired timestamp
+
+    Returns:
+        Estimator body to be used in request and sent to endpoint
+    """
     request_body = BodyEstimator()
     request_body.snapshot = spec.Snapshot()
     request_body.snapshot.live = version

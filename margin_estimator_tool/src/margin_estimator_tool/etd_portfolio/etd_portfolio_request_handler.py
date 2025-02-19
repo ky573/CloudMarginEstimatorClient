@@ -5,7 +5,7 @@ endpoint and then outputting them in desired form.
 
 
 import csv
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import os
 import click
 from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
@@ -21,25 +21,40 @@ class EtdPortfolioRequestHandler(RequestHandler):
     REQUIRED_HEADERS = "Product ID,Contract Date,Call Put Flag,Exercise Price,Version Number,Net LS Balance"
 
     def __init__(self,
-                 csv_file,
-                 date=None,
-                 version=None,
-                 timestamp=None,
-                 to_excel=False,
-                 to_json=False,
-                 export_dir=None,
-                 ):
+                 csv_file: str,
+                 date: Optional[str] = None,
+                 version: Optional[str] = None,
+                 timestamp: Optional[int] = None,
+                 to_excel: Optional[bool] = False,
+                 to_json: Optional[bool] = False,
+                 export_dir: Optional[str] = None,
+                 ) -> None:
+        """
+        Initializes the EtdPortfolioRequestHandler instance.
+
+        Args:
+            csv_file: path to csv file containing portfolio
+            date: desired business date, decided by method get_business_date
+            version: desired version, defaults to SOD
+            timestamp: timestamp for request, defaults to 0
+            to_excel: whether to export to excel
+            to_json: whether to export to json
+            export_dir: directory where data will be exported, defaults to project's root
+        """
         super().__init__()
         self.csv_file = csv_file
         self.business_date = self._get_business_date(date, version)
         self.version = version == "LIVE"
-        self.timestamp = timestamp
+        self.timestamp = timestamp if timestamp is not None else 0
         self.to_excel = to_excel
         self.to_json = to_json
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     def process_and_provide_output(self) -> None:
-        """Processes the data from /estimator and exports it according to the specified format."""
+        """
+        Processes the data from /estimator and exports it according to the specified format.
+        If the header is not validated properly, it returns immediately.
+        """
         if not self._validate_header():
             return
 
@@ -53,7 +68,13 @@ class EtdPortfolioRequestHandler(RequestHandler):
                             self.version)
 
     def send_request(self) -> Dict[str, Any]:
-        """Sends a POST request to /estimator endpoint with provided portfolio."""
+        """
+        Sends a POST request to /estimator endpoint with provided portfolio.
+
+        Returns:
+            response: Response returned from the endpoint containing data about portoflio.
+                      If an error is encountered during the request, it returns an empty dictionary.
+        """
         request_body = setup_estimator_request_body(self.business_date,
                                                     self._load_portfolio(),
                                                     self.version,

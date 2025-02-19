@@ -52,7 +52,7 @@ class SnapshotRequestHandler(RequestHandler):
         return []
 
     @staticmethod
-    def _print_output(filtered_snapshots):
+    def _print_output(filtered_snapshots: List[Dict[str, Any]]) -> None:
         """Prints the output in desired format."""
         for idx, snapshot in enumerate(filtered_snapshots, start=1):
             date = snapshot.get("business_date")

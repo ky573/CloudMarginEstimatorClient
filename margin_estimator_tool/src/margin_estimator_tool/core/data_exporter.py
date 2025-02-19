@@ -13,6 +13,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_expor
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import EtdPortfolioCSVExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import EtdPortfolioExcelExportStrategy
 
+
 class DataExporter:
     """Class to handle exporting of data into various formats."""
     EXPORT_STRATEGIES = {
@@ -47,7 +48,18 @@ class DataExporter:
                business_date: str,
                version: bool
                ) -> None:
-        """Exports data based on the requested format, using endpoint-specific strategies."""
+        """
+        Exports data based on the requested format, using endpoint-specific strategies.
+
+        Args:
+            data: data from the request to be exported
+            export_name: defines what kind of endpoint-specific strategies to pick from in EXPORT_STRATEGIES
+            export_dir: directory where the data should be exported
+            to_excel: whether to export to excel
+            to_json: whether to export to json
+            business_date: desired business date, to be used in file name
+            version: desired version, to be used in file name
+        """
         context = ExportContext()
 
         if export_name in DataExporter.EXPORT_STRATEGIES:
