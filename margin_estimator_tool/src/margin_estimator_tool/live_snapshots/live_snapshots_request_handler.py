@@ -13,7 +13,13 @@ from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base i
 class LiveSnapshotRequestHandler(RequestHandler):
     """Handler for sending requests to the /live_snapshot endpoint."""
 
-    def __init__(self, date):
+    def __init__(self, date: str):
+        """
+        Initializes the LiveSnapshotsRequestHandler instance
+
+        Args:
+            date: desired date
+        """
         super().__init__()
         self.business_date = int(date)
 
@@ -24,7 +30,14 @@ class LiveSnapshotRequestHandler(RequestHandler):
         self._print_output(live_snapshots)
 
     def send_request(self) -> List[Dict[str, Any]]:
-        """Sends a GET request to the /live_snapshots endpoint."""
+        """
+        Sends a GET request to the /live_snapshots endpoint.
+        It also checks for erros in the response.
+
+        Returns:
+            response: list of data from the live_snapshots endpoint.
+                      Returns an empty list in case of an error in the request.
+        """
         try:
             response = self.api.live_snapshots_get(business_date=self.business_date)
             self._check_for_error_in_response(response)
@@ -34,7 +47,7 @@ class LiveSnapshotRequestHandler(RequestHandler):
             self._handle_request_error(e)
         return []
 
-    def _print_output(self, live_snapshots):
+    def _print_output(self, live_snapshots: List[Dict[str, Any]]) -> None:
         """Prints the output in desired format."""
         click.echo(f"Available live snapshots for {self.business_date}:")
         for idx, snapshot in enumerate(live_snapshots, start=1):

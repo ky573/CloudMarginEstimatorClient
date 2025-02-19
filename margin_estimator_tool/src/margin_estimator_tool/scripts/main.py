@@ -212,11 +212,20 @@ def etd_portfolio(csv_file: str,
 
 
 class EndpointHandlerFactory:
-    """Factory for creating desired request handler based on CLI."""
+    """Simple Factory for creating desired request handler based on CLI."""
 
     @staticmethod
     def get_handler(endpoint: str, **kwargs) -> RequestHandler:
-        """Creates and returns desired handler."""
+        """
+        Creates and returns desired handler.
+
+        Args:
+            endpoint: desired enpoint for which the concrete request handler will be created
+            **kwargs: arguments from the CLI
+
+        Returns:
+            RequestHandler: concrete instance of the request handler
+        """
         if endpoint == "post_estimator":
             return EstimatorRequestHandler(**kwargs)
         elif endpoint == "get_products":
