@@ -20,5 +20,5 @@ class ExportStrategy(ABC):
                version: bool,
                data: List[Dict[str, Any]] | Dict[str, Any],
                output_path: str
-               ) -> None:
+               ) -> bool:
         """Abstract method to be implemented by subclasses."""

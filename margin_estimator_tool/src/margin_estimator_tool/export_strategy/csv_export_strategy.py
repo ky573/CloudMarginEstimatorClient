@@ -6,16 +6,13 @@ This module defines strategy for CSV exporting.
 import os
 import csv
 from typing import Dict, Any, List
-
-import click
-
 from .export_strategy import ExportStrategy
 
 
 class CSVExportStrategy(ExportStrategy):
     """Concrete strategy for exporting to CSV."""
 
-    def export(self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str) -> None:
+    def export(self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str) -> bool:
         """Concrete implementation for exporting into CSV."""
         if data:
             version_path = "LIVE" if version else "SOD"
@@ -26,5 +23,7 @@ class CSVExportStrategy(ExportStrategy):
                 dict_writer = csv.DictWriter(output_file, fieldnames=keys)
                 dict_writer.writeheader()
                 dict_writer.writerows(data)
+
+            return True
         else:
-            click.echo("No data found.")
+            return False

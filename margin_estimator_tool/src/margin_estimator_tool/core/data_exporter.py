@@ -72,7 +72,9 @@ class DataExporter:
             else:
                 context.set_strategy(strategies["csv"])
 
-            context.export_data(str(business_date), version, data, export_dir)
-            click.echo(f"{export_name} exported to {export_dir}")
+            if context.export_data(str(business_date), version, data, export_dir):
+                click.echo(f"{export_name} exported to {export_dir}")
+            else:
+                click.echo("No data found.")
         else:
             raise ValueError(f"Unknown export name: {export_name}")

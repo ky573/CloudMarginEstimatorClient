@@ -14,7 +14,7 @@ from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_d
 class EtdPortfolioExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting portfolio data to Excel."""
 
-    def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str) -> None:
+    def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str) -> bool:
         """Exports portfolio data into an Excel file with two subsheets."""
         version_path = "LIVE" if version else "SOD"
         file_path = os.path.join(output_path, f"{date}_{version_path}_portfolio.xlsx")
@@ -24,11 +24,19 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
 
         with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
             if portfolio_margin:
-                pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer, sheet_name="Portfolio Margin", index=False)
+                pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer,
+                                                                                           sheet_name="Portfolio Margin",
+                                                                                           index=False)
+                margin_success = True
             else:
                 click.echo("No portfolio margins found in response.")
+                margin_success = False
 
             if drilldowns:
                 pd.DataFrame(drilldowns).to_excel(writer, sheet_name="Drilldowns", index=False)
+                drilldowns_success = True
             else:
                 click.echo("No drilldowns found in response.")
+                drilldowns_success = False
+
+        return margin_success or drilldowns_success
