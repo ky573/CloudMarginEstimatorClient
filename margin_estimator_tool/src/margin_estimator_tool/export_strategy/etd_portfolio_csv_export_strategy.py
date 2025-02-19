@@ -15,7 +15,18 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
     """Concrete strategy for exporting portfolio data to CSV."""
 
     def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str) -> bool:
-        """Exports portfolio data into separate CSV files for portfolio_margin and drilldowns."""
+        """
+        Exports portfolio data into separate CSV files for portfolio_margin and drilldowns.
+
+        Args:
+            date: date to be included in file name
+            version: version to be included in file name
+            portfolio_data: data from response to be exported
+            output_path: directory where data will be exported
+
+        Returns:
+            True if there were any data to export, false otherwise
+        """
         version_path = "LIVE" if version else "SOD"
 
         margins_success = self._export_portfolio_margin(date, version_path, portfolio_data, output_path)
