@@ -1,7 +1,8 @@
 """Utility functions for the margin_calculator package."""
 
 
-from typing import Dict, List, Union, Tuple
+import csv
+from typing import Dict, List, Union, Tuple, Any
 from datetime import datetime, timedelta
 from cpme_api.models import BodyEstimator
 import cpme_api.models as spec
@@ -76,17 +77,75 @@ def flatten_dict(
     return dict(items)
 
 
-def setup_estimator_request_body(business_day: int,
-                                 portfolio: str,
-                                 version: bool = True,
-                                 timestamp: int = 0
-                                 ) -> BodyEstimator:
+def setup_estimator_request_gui(business_day: int,
+                                portfolio: str,
+                                version: bool = True,
+                                timestamp: int = 0
+                                ) -> BodyEstimator:
     """
     Sets up the body for the POST request to /estimator endpoint.
 
     Args:
         business_day: required business date
         portfolio: portfolio to be sent to endpoint
+        version: desired version
+        timestamp: desired timestamp
+
+    Returns:
+        Estimator body to be used in request and sent to endpoint
+    """
+    request_body = setup_request_body(business_day, timestamp, version)
+
+    etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
+    etd_csv_comp.etd_csv = spec.EtdCsv(csv=load_portfolio(portfolio))
+
+    request_body.portfolio_components.append(etd_csv_comp)
+    return request_body
+
+
+def setup_estimator_request_inner(business_day: int,
+                                  portfolio: str,
+                                  version: bool = True,
+                                  timestamp: int = 0
+                                  ) -> BodyEstimator:
+    """
+    Sets up the body for the POST request to /estimator endpoint.
+
+    Args:
+        business_day: required business date
+        portfolio: portfolio to be sent to endpoint
+        version: desired version
+        timestamp: desired timestamp
+
+    Returns:
+        Estimator body to be used in request and sent to endpoint
+    """
+    request_body = setup_request_body(business_day, timestamp, version)
+
+    etd_p_comp = spec.BodyEstimatorPortfolioComponents(type='etd_portfolio')
+
+    with open(portfolio, mode='r', newline='', encoding="utf-8") as file:
+        reader = csv.reader(file)
+
+        header = next(reader)
+
+        for row in reader:
+            pc_etd = spec.EtdPositionsInner()
+
+            for key, value in zip(header, row):
+                setattr(pc_etd, "_" + key, value)
+
+            etd_p_comp.etd_portfolio.append(pc_etd)
+
+    request_body.portfolio_components.append(etd_p_comp)
+    return request_body
+
+def setup_request_body(business_day: int, timestamp: int = 0, version: bool = True) -> BodyEstimator:
+    """
+    Sets up the body for the POST request to /estimator endpoint.
+
+    Args:
+        business_day: required business date
         version: desired version
         timestamp: desired timestamp
 
@@ -100,8 +159,9 @@ def setup_estimator_request_body(business_day: int,
     request_body.snapshot.live_timestamp = timestamp
     request_body.clearing_currency = "EUR"
 
-    etd_csv_comp = spec.BodyEstimatorPortfolioComponents()
-    etd_csv_comp.etd_csv = spec.EtdCsv(csv=portfolio)
-
-    request_body.portfolio_components.append(etd_csv_comp)
     return request_body
+
+def load_portfolio(portfolio: str) -> str:
+    """Loads and returns the portfolio as a string."""
+    with open(portfolio, 'r', encoding="utf-8") as f:
+        return f.read()

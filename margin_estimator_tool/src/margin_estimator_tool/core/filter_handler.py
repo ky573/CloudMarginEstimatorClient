@@ -33,7 +33,7 @@ class FilterHandler:
             filter_str: string to be parsed.
 
         Returns:
-            A dictionary containing correct key:value pairs in proper type mapping
+            A dictionary containing correct key and value pairs in proper type mapping
         """
         filters: Dict[str, Union[str, int, bool]] = {}
         if not filter_str:
@@ -76,7 +76,7 @@ class FilterHandler:
 
         Args:
             data: data from request to be filtered
-            filters: dictionary of key:value pairs to be used for filtering
+            filters: dictionary of key and value pairs to be used for filtering
             custom_filters: additional custom filters in form of functions
 
         Returns:

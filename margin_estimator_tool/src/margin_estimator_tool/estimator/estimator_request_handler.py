@@ -13,7 +13,7 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_loader 
 from margin_estimator_tool.src.margin_estimator_tool.estimator.graph_exporter import GraphExporter
 from margin_estimator_tool.src.margin_estimator_tool.estimator.excel_exporter import ExcelExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import (collect_business_days,
-                                                                        setup_estimator_request_body)
+                                                                        setup_estimator_request_gui)
 
 
 class EstimatorRequestHandler(RequestHandler):
@@ -48,7 +48,7 @@ class EstimatorRequestHandler(RequestHandler):
 
     def send_request(self, business_date: int, portfolio: str) -> Dict[str, Any]:
         """Sends a POST request to the /estimator endpoint with the specified data."""
-        request_body = setup_estimator_request_body(business_date, portfolio)
+        request_body = setup_estimator_request_gui(business_date, portfolio)
         try:
             response = self.api.estimator_post(body=request_body.to_dict())
             self._check_for_error_in_response(response)

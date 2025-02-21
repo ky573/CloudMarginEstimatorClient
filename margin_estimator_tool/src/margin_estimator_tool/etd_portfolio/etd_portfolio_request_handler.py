@@ -5,20 +5,22 @@ endpoint and then outputting them in desired form.
 
 
 import csv
+import json
 from typing import Dict, Any, Optional
 import os
 import click
 from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.core.utils import setup_estimator_request_body
-
-# dodelat tridu na mapping do POrtfolioInner
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import (setup_estimator_request_gui,
+                                                                        setup_estimator_request_inner,
+                                                                        setup_request_body)
 
 
 class EtdPortfolioRequestHandler(RequestHandler):
     """Handler for sending requests to the /estimator endpoint and exporting data."""
 
-    REQUIRED_HEADERS = "Product ID,Contract Date,Call Put Flag,Exercise Price,Version Number,Net LS Balance"
+    GUI_HEADER = "Product ID,Contract Date,Call Put Flag,Exercise Price,Version Number,Net LS Balance"
+    INNER_HEADER = "call_put_flag,component_margin,component_margin_currency,contract_date,exercise_price,exercise_style,iid,instrument_type,line_no,liquidation_group,liquidation_group_split,maturity,net_ls_balance,premium_margin,premium_margin_currency,product_id,version_number"
 
     def __init__(self,
                  csv_file: str,
@@ -49,6 +51,8 @@ class EtdPortfolioRequestHandler(RequestHandler):
         self.to_excel = to_excel
         self.to_json = to_json
         self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        self.gui_header = False
+        self.inner_header = False
 
     def process_and_provide_output(self) -> None:
         """
@@ -75,12 +79,19 @@ class EtdPortfolioRequestHandler(RequestHandler):
             response: Response returned from the endpoint containing data about portoflio.
                       If an error is encountered during the request, it returns an empty dictionary.
         """
-        request_body = setup_estimator_request_body(self.business_date,
-                                                    self._load_portfolio(),
-                                                    self.version,
-                                                    self.timestamp)
+        if self.gui_header:
+            estimator_request_body = setup_estimator_request_gui(self.business_date,
+                                                                 self.csv_file,
+                                                                 self.version,
+                                                                 self.timestamp)
+        else:
+            estimator_request_body = setup_estimator_request_inner(self.business_date,
+                                                                   self.csv_file,
+                                                                   self.version,
+                                                                   self.timestamp)
+
         try:
-            response = self.api.estimator_post(body=request_body.to_dict())
+            response = self.api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)
             return response
         except Exception as e:
@@ -97,8 +108,14 @@ class EtdPortfolioRequestHandler(RequestHandler):
                     raise ValueError("CSV file is empty.")
 
                 headers_str = ",".join(headers)
-                if headers_str != self.REQUIRED_HEADERS:
-                    raise ValueError(f"Headers mismatch. Expected: '{self.REQUIRED_HEADERS}', Found: '{headers_str}'.")
+                if headers_str == self.GUI_HEADER:
+                    self.gui_header = True
+                elif headers_str == self.INNER_HEADER:
+                    self.inner_header = True
+
+                if not self.gui_header and not self.inner_header:
+                    raise ValueError(f"Headers mismatch. Expected: either '{self.GUI_HEADER}' "
+                                     f"or '{self.INNER_HEADER}', Found: '{headers_str}'.")
 
             click.echo("Headers validated successfully.")
             return True
