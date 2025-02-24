@@ -13,7 +13,6 @@ from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
 import click
 import requests
-from margin_estimator_tool.src.margin_estimator_tool.core.utils import is_business_day
 
 
 class RequestHandler(ABC):
@@ -46,8 +45,7 @@ class RequestHandler(ABC):
         api = CpmeApi(configuration=config)
         return api
 
-    @staticmethod
-    def _get_business_date(date: Optional[str], version: Optional[str]) -> int:
+    def _get_business_date(self, date: Optional[str], version: Optional[str]) -> int:
         """
         Get the correct business date.
         If a date is provided, use it as is.
@@ -61,7 +59,7 @@ class RequestHandler(ABC):
             current_date = datetime.today()
             current_date -= timedelta(days=1)
 
-            while not is_business_day(current_date):
+            while not self._is_business_day(current_date):
                 current_date -= timedelta(days=1)
 
             return int(current_date.strftime("%Y%m%d"))
@@ -81,3 +79,8 @@ class RequestHandler(ABC):
             sys.exit(1)
 
         click.echo("Request successful.")
+
+    @staticmethod
+    def _is_business_day(current_date: datetime) -> bool:
+        """Check if the current date is a weekend day."""
+        return current_date.weekday() not in [5, 6]

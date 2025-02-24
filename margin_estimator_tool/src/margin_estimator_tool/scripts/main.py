@@ -8,14 +8,14 @@ Main module of the application, contains the starting point.
 import click
 from typing import Optional
 from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_handler import EstimatorRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import MarginCalculatorRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.core.argument_validator import (GetProductsValidator,
-                                                                                     PostEstimatorValidator,
+                                                                                     MarginCalculatorValidator,
                                                                                      GetSeriesValidator,
                                                                                      GetLiveSnapshotsValidator,
                                                                                      GetSnapshotsValidator,
@@ -28,16 +28,28 @@ def cli():
     pass
 
 
-@cli.command(name="post_estimator")
+@cli.command(name="margin_calculator")
+@click.option("--csv_file", required=True, type=click.Path(resolve_path=True), help="Path to the ETD portfolio CSV file.")
+@click.option("--version", type=click.Choice(["SOD", "LIVE"]), help="Snapshot version.")
+@click.option("--timestamp", type=int, help="Timestamp for LIVE version.")
 @click.option("--date_from", required=True, type=str, help="Start date in YYYYMMDD format")
 @click.option("--date_to", required=True, type=str, help="End date in YYYYMMDD format")
 @click.option("--export_dir", required=True, type=click.Path(resolve_path=True), help="Directory to save output.")
-def post_estimator(date_from: str, date_to: str, export_dir: str) -> None:
+def post_estimator(csv_file: str,
+                   version: Optional[str],
+                   timestamp: Optional[str],
+                   date_from: str,
+                   date_to: str,
+                   export_dir: str
+                   ) -> None:
     """Run estimator endpoint."""
-    validator = PostEstimatorValidator()
-    validator.validate(date_from=date_from, date_to=date_to, export_dir=export_dir)
+    validator = MarginCalculatorValidator()
+    validator.validate(csv_file=csv_file, date_from=date_from, date_to=date_to, export_dir=export_dir)
 
-    handler = EndpointHandlerFactory.get_handler("post_estimator",
+    handler = EndpointHandlerFactory.get_handler("margin_calculator",
+                                                 csv_file=csv_file,
+                                                 version=version,
+                                                 timestamp=timestamp,
                                                  date_from=date_from,
                                                  date_to=date_to,
                                                  export_dir=export_dir)
@@ -226,8 +238,8 @@ class EndpointHandlerFactory:
         Returns:
             RequestHandler: concrete instance of the request handler
         """
-        if endpoint == "post_estimator":
-            return EstimatorRequestHandler(**kwargs)
+        if endpoint == "margin_calculator":
+            return MarginCalculatorRequestHandler(**kwargs)
         elif endpoint == "get_products":
             return ProductsRequestHandler(**kwargs)
         elif endpoint == "get_series":

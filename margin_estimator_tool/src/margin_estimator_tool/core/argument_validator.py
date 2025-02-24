@@ -42,17 +42,19 @@ class BaseArgumentValidator:
         raise NotImplementedError
 
 
-class PostEstimatorValidator(BaseArgumentValidator):
+class MarginCalculatorValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /estimator endpoint."""
-    def validate(self, date_from: str, date_to: str, export_dir: str) -> None:
+    def validate(self, csv_file: str, date_from: str, date_to: str, export_dir: str) -> None:
         """
         Implementation of validate method for /estimator endpoint.
 
         Args:
+            csv_file: Csv file for portfolio
             date_from: starting date for the interval
             date_to: ending date for the interval
             export_dir: directory where data should be exported
         """
+        self.validate_dir(csv_file)
         self.validate_date(date_from)
         self.validate_date(date_to)
         self.validate_dir(export_dir)
