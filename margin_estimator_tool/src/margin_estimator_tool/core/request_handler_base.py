@@ -7,12 +7,12 @@ sending requests to the API.
 import sys
 import json
 from abc import ABC, abstractmethod
+import click
+import requests
 from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
-import click
-import requests
 
 
 class RequestHandler(ABC):

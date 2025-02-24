@@ -8,14 +8,14 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 import click
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_handler_base import \
-    EstimatorRequestHandlerBase
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import Extractor
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import GraphExporter
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.excel_exporter import ExcelExporter
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
 
 
-class MarginCalculatorRequestHandler(RequestHandler, EstimatorRequestHandlerBase):
+class MarginCalculatorRequestHandler(RequestHandler):
     """Handler for sending requests to the /estimator endpoint."""
 
     def __init__(self,
@@ -26,8 +26,9 @@ class MarginCalculatorRequestHandler(RequestHandler, EstimatorRequestHandlerBase
                  date_to: str,
                  export_dir: str
                  ) -> None:
-        RequestHandler.__init__(self)
-        EstimatorRequestHandlerBase.__init__(self)
+        super().__init__()
+        self.header_validator = HeaderValidator()
+        self.request_builder = EstimatorRequestBuilder()
         self.csv_file = csv_file
         self.version = version == "LIVE"
         self.timestamp = timestamp if timestamp is not None else 0
@@ -38,7 +39,8 @@ class MarginCalculatorRequestHandler(RequestHandler, EstimatorRequestHandlerBase
 
     def process_and_provide_output(self) -> None:
         """Main method to process and export margin data."""
-        if not self._validate_header(self.csv_file):
+        if not self.header_validator.validate_headers(self.csv_file):
+            click.echo("Failed to validate CSV portfolio file. Process aborted.")
             return
 
         business_days = self._collect_business_days()
@@ -50,10 +52,10 @@ class MarginCalculatorRequestHandler(RequestHandler, EstimatorRequestHandlerBase
 
     def send_request(self, business_date: int) -> Dict[str, Any]:
         """Sends a POST request to the /estimator endpoint with the specified data."""
-        estimator_request_body = self.create_correct_request_body(business_date,
-                                                                  self.csv_file,
-                                                                  self.version,
-                                                                  self.timestamp)
+        estimator_request_body = self.request_builder.build_request(business_date,
+                                                                    self.csv_file,
+                                                                    self.version,
+                                                                    self.timestamp)
         try:
             response = self.api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)

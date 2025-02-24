@@ -1,18 +1,19 @@
 """
-This module contains logic for retrieving information about products from
+This module contains logic for retrieving information about etd portfolio from
 endpoint and then outputting them in desired form.
 """
 
 
 from typing import Dict, Any, Optional
 import os
+import click
 from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_handler_base import \
-    EstimatorRequestHandlerBase
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
 
 
-class EtdPortfolioRequestHandler(RequestHandler, EstimatorRequestHandlerBase):
+class EtdPortfolioRequestHandler(RequestHandler):
     """Handler for sending requests to the /estimator endpoint and exporting data."""
 
     def __init__(self,
@@ -36,8 +37,9 @@ class EtdPortfolioRequestHandler(RequestHandler, EstimatorRequestHandlerBase):
             to_json: whether to export to json
             export_dir: directory where data will be exported, defaults to project's root
         """
-        RequestHandler.__init__(self)
-        EstimatorRequestHandlerBase.__init__(self)
+        super().__init__()
+        self.header_validator = HeaderValidator()
+        self.request_builder = EstimatorRequestBuilder()
         self.csv_file = csv_file
         self.business_date = self._get_business_date(date, version)
         self.version = version == "LIVE"
@@ -51,7 +53,8 @@ class EtdPortfolioRequestHandler(RequestHandler, EstimatorRequestHandlerBase):
         Processes the data from /estimator and exports it according to the specified format.
         If the header is not validated properly, it returns immediately.
         """
-        if not self._validate_header(self.csv_file):
+        if not self.header_validator.validate_headers(self.csv_file):
+            click.echo("Failed to validate CSV portfolio file. Process aborted.")
             return
 
         portfolio = self.send_request()
@@ -71,10 +74,10 @@ class EtdPortfolioRequestHandler(RequestHandler, EstimatorRequestHandlerBase):
             response: Response returned from the endpoint containing data about portoflio.
                       If an error is encountered during the request, it returns an empty dictionary.
         """
-        estimator_request_body = self.create_correct_request_body(self.business_date,
-                                                                  self.csv_file,
-                                                                  self.version,
-                                                                  self.timestamp)
+        estimator_request_body = self.request_builder.build_request(self.business_date,
+                                                                    self.csv_file,
+                                                                    self.version,
+                                                                    self.timestamp)
         try:
             response = self.api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)
