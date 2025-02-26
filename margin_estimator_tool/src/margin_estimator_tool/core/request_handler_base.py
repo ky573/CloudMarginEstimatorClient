@@ -7,17 +7,18 @@ sending requests to the API.
 import sys
 import json
 from abc import ABC, abstractmethod
-import click
-import requests
 from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
+import click
+import requests
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
 
 
 class RequestHandler(ABC):
     """Class to handle sending requests to the API."""
-    def __init__(self):
+    def __init__(self) -> None:
+        """Initializes a RequestHandler instance."""
         self.api: CpmeApi = self._setup_api()
 
     @abstractmethod

@@ -1,6 +1,4 @@
-"""
-This module defines strategy for JSON exporting.
-"""
+"""This module defines strategy for JSON exporting."""
 
 
 import os

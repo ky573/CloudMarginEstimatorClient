@@ -34,5 +34,5 @@ def flatten_dict(
                 items.append((new_key, str(v)))
         else:
             items.append((new_key, v))
-            
+
     return dict(items)

@@ -1,5 +1,5 @@
 """
-Class to handle exporting of data to different formats. Strategies are defined in dictionary,
+Module to handle exporting of data to different formats. Strategies are defined in dictionary,
 and can be easily modified or extended.
 """
 
@@ -7,6 +7,7 @@ and can be easily modified or extended.
 from typing import Dict, Any, List
 import click
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
@@ -17,7 +18,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calc
 
 class DataExporter:
     """Class to handle exporting of data into various formats."""
-    EXPORT_STRATEGIES = {
+    EXPORT_STRATEGIES: Dict[str, Dict[str, ExportStrategy]] = {
         "Products": {
             "csv": CSVExportStrategy("products"),
             "excel": ExcelExportStrategy("products"),

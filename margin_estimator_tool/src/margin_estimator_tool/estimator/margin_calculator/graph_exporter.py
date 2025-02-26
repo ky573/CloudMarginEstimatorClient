@@ -1,4 +1,4 @@
-"""Module to handle exporting margin details to an Excel file."""
+"""Module to handle exporting margin details as a graph."""
 
 
 from typing import List
@@ -10,6 +10,14 @@ class GraphExporter:
     """Class to handle exporting the initial margin graph."""
 
     def __init__(self, dates: List[int], initial_margins: List[float], export_dir: str) -> None:
+        """
+        Initializes the GraphExporter instance.
+
+        Args:
+            dates: list of dates for x-axis
+            initial_margins: list of initial margins for y-axis
+            export_dir: directory to export to
+        """
         self.dates = dates
         self.initial_margins = initial_margins
         self.export_dir = export_dir

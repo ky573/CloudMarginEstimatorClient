@@ -1,6 +1,6 @@
 """
 This module contains logic for retrieving information about etd portfolio from
-endpoint and then outputting them in desired form.
+endpoint and then outputting it in desired format.
 """
 
 

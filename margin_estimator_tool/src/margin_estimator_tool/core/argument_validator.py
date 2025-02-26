@@ -1,5 +1,5 @@
 """
-This module contains logic for argument validation for CLI interface.
+This module contains logic for argument validation for CLI.
 Implemented by Template Method design pattern.
 """
 

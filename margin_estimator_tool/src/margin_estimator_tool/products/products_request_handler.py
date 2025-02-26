@@ -1,6 +1,6 @@
 """
 This module contains logic for retrieving information about products from
-endpoint and then outputting them in desired form.
+endpoint and then outputting them in desired format.
 """
 
 

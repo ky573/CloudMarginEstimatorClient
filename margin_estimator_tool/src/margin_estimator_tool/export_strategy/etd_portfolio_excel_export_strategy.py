@@ -1,14 +1,12 @@
-"""
-This module defines strategy for etd portfolio exporting into excel.
-"""
+"""This module defines strategy for etd portfolio exporting into excel."""
 
 
+from typing import Dict, Any, List
 import os
 import click
 import pandas as pd
-from typing import Dict, Any, List
-from .export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
+from .export_strategy import ExportStrategy
 
 
 class EtdPortfolioExcelExportStrategy(ExportStrategy):
@@ -34,13 +32,14 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         drilldowns = portfolio_data.get("drilldowns", [])
 
         with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
-            margin_success = self.export_margins(portfolio_margin, writer)
-            drilldowns_success = self.export_drilldowns(drilldowns, writer)
+            margin_success = self._export_margins(portfolio_margin, writer)
+            drilldowns_success = self._export_drilldowns(drilldowns, writer)
 
         return margin_success or drilldowns_success
 
     @staticmethod
-    def export_drilldowns(drilldowns: List[Dict[str, Any]], writer: pd.ExcelWriter) -> bool:
+    def _export_drilldowns(drilldowns: List[Dict[str, Any]], writer: pd.ExcelWriter) -> bool:
+        """Handles export of drilldowns from the returned response."""
         if not drilldowns:
             click.echo("No drilldowns found in response.")
             return False
@@ -49,7 +48,8 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         return True
 
     @staticmethod
-    def export_margins(portfolio_margin: List[Dict[str, Any]], writer: pd.ExcelWriter):
+    def _export_margins(portfolio_margin: List[Dict[str, Any]], writer: pd.ExcelWriter):
+        """Handles export of margins from the returned response."""
         if not portfolio_margin:
             click.echo("No portfolio margins found in response.")
             return False

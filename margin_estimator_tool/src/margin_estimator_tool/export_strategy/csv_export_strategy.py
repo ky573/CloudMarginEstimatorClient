@@ -32,6 +32,7 @@ class CSVExportStrategy(ExportStrategy):
         out_path = f"{date}_{version_path}_{self.type}.csv"
         file_path = os.path.join(output_path, out_path)
         keys = data[0].keys()
+
         with open(file_path, 'w', newline='') as output_file:
             dict_writer = csv.DictWriter(output_file, fieldnames=keys)
             dict_writer.writeheader()

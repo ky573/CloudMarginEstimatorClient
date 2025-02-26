@@ -1,3 +1,9 @@
+"""
+This module handles the building of the request body for the /estimator
+endpoint for both GUI and inner format.
+"""
+
+
 import csv
 from cpme_api.models import BodyEstimator, Snapshot
 import cpme_api.models as spec
@@ -8,7 +14,12 @@ class EstimatorRequestBuilder:
     """Builds request bodies for the estimator API endpoint."""
 
     def __init__(self, header_validator: HeaderValidator) -> None:
-        """Initialize the EstimatorRequestBuilder instance."""
+        """
+        Initialize the EstimatorRequestBuilder instance.
+
+        Args:
+            header_validator: validator for the portfolio headers
+        """
         self.header_validator = header_validator
 
     def build_request(self,
@@ -18,7 +29,7 @@ class EstimatorRequestBuilder:
                       timestamp: int
                       ) -> BodyEstimator:
         """
-        Builds a request body for the estimator endpoint.
+        Builds a request body for the estimator endpoint depending on the header format.
 
         Args:
             business_day: The business date for the request
@@ -38,17 +49,7 @@ class EstimatorRequestBuilder:
 
     @staticmethod
     def _build_base_request(business_day: int, version: bool, timestamp: int) -> BodyEstimator:
-        """
-        Creates the base request body with common properties.
-
-        Args:
-            business_day: The business date for the request
-            version: Whether to use live data
-            timestamp: Timestamp for the request
-
-        Returns:
-            The base BodyEstimator object
-        """
+        """Creates the base request body with common properties."""
         request_body = BodyEstimator()
         request_body.snapshot = Snapshot()
         request_body.snapshot.live = version
@@ -65,18 +66,7 @@ class EstimatorRequestBuilder:
                                   version: bool,
                                   timestamp: int
                                   ) -> BodyEstimator:
-        """
-        Builds a request for GUI format CSV files.
-
-        Args:
-            business_day: The business date for the request
-            csv_file: Path to the portfolio CSV file
-            version: Whether to use live data
-            timestamp: Timestamp for the request
-
-        Returns:
-            The built BodyEstimator object
-        """
+        """Builds a request for GUI format CSV files."""
         request_body = self._build_base_request(business_day, version, timestamp)
 
         with open(csv_file, 'r', encoding="utf-8") as f:
@@ -94,18 +84,7 @@ class EstimatorRequestBuilder:
                                     version: bool,
                                     timestamp: int
                                     ) -> BodyEstimator:
-        """
-        Builds a request for inner format CSV files.
-
-        Args:
-            business_day: The business date for the request
-            csv_file: Path to the portfolio CSV file
-            version: Whether to use live data
-            timestamp: Timestamp for the request
-
-        Returns:
-            The built BodyEstimator object
-        """
+        """Builds a request for inner format CSV files."""
         request_body = self._build_base_request(business_day, version, timestamp)
 
         etd_p_comp = spec.BodyEstimatorPortfolioComponents(type="etd_portfolio")

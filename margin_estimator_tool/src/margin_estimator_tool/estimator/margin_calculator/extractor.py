@@ -14,7 +14,12 @@ class Extractor:
         self._dates: List[int] = []
 
     def extract_data(self, data: Dict[str, Any]) -> None:
-        """Extracts and aggregates initial margin data from the API response."""
+        """
+        Extracts and aggregates initial margin data from the API response.
+
+        Args:
+            data: data returned from the endpoint in form of a dictionary
+        """
         business_date = int(data["business_date"])
         initial_margin = data["portfolio_margin"][self.INITIAL_MARGIN_INDEX]["initial_margin"]
 

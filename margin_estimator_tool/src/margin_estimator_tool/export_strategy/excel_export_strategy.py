@@ -1,6 +1,4 @@
-"""
-This module defines strategy for excel exporting.
-"""
+"""This module defines strategy for excel exporting."""
 
 
 import os

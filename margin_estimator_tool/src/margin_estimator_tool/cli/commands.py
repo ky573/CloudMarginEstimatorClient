@@ -3,8 +3,8 @@ CLI commands module for the margin estimator tool.
 """
 
 
-import click
 from typing import Optional
+import click
 from margin_estimator_tool.src.margin_estimator_tool.core.endpoint_handler_factory import EndpointHandlerFactory
 from margin_estimator_tool.src.margin_estimator_tool.core.argument_validator import (GetProductsValidator,
                                                                                      MarginCalculatorValidator,

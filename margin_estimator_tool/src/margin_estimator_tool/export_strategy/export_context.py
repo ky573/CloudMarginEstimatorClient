@@ -1,6 +1,4 @@
-"""
-This module defines context for exporting the data.
-"""
+"""This module defines context for exporting the data."""
 
 
 from typing import Dict, Any, List

@@ -1,3 +1,6 @@
+"""This module contains logic for header validation of etd portfolios."""
+
+
 import csv
 import click
 from typing import Tuple

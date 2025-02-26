@@ -1,5 +1,5 @@
 """
-Class to handle filter parsing for products and series endpoint.
+Module to handle filter parsing for products and series endpoint.
 """
 
 
@@ -10,7 +10,7 @@ import click
 class FilterHandler:
     """Handles parsing and applying filters to a dataset."""
 
-    def __init__(self, extrafields: List[str], int_values: Optional[List[str]] = None):
+    def __init__(self, extrafields: List[str], int_values: Optional[List[str]] = None) -> None:
         """
         Initializes the FilterHandler instance.
 
@@ -26,7 +26,7 @@ class FilterHandler:
         Parses a filter string into a dictionary to be later used for
         filtering of the response. Correct types are assigned to values.
 
-        If format is malformed (i.e., not a key:value pair), or one of the
+        If format is malformed (i.e., not a key and value pair), or one of the
         keys is not in extrafields, or it contains a wrong type, exception is thrown.
 
         Args:

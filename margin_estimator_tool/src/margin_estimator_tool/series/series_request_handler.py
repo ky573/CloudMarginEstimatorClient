@@ -1,6 +1,6 @@
 """
 This module contains logic for retrieving data about series and giving
-output to the user.
+output to the user in desired format.
 """
 
 
@@ -143,7 +143,8 @@ class SeriesRequestHandler(RequestHandler):
 
     def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
-        Filters the series based on various criteria.
+        Filters the series based on various criteria, currently filters by
+        call_put_flag, type and tte.
 
         Can be customized by adding more filters as callables.
         """

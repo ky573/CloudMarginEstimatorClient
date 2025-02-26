@@ -1,6 +1,6 @@
 """
-This module is responsible for sending the request to estimator endpoint,
-fetching the results and exporting them.
+This module is responsible for sending the portfolio to estimator endpoint,
+fetching the results, aggregating the data and exporting them in the form of graph and excel.
 """
 
 
@@ -16,7 +16,7 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_
 
 
 class MarginCalculatorRequestHandler(RequestHandler):
-    """Handler for sending requests to the /estimator endpoint."""
+    """Handler for sending requests to the /estimator endpoint and calculating the margins."""
 
     def __init__(self,
                  csv_file: str,
@@ -26,6 +26,17 @@ class MarginCalculatorRequestHandler(RequestHandler):
                  date_to: str,
                  export_dir: str
                  ) -> None:
+        """
+        Initializes the MarginCalculatorRequestHandler instance.
+
+        Args:
+            csv_file: file containing the portfolio
+            version: version for the request
+            timestamp: timestamp of the request
+            date_from: starting date for the range
+            date_to: ending date for the range
+            export_dir: directory to export to
+        """
         super().__init__()
         self.header_validator = HeaderValidator()
         self.request_builder = EstimatorRequestBuilder(self.header_validator)
@@ -50,7 +61,15 @@ class MarginCalculatorRequestHandler(RequestHandler):
             self._export_results(margin_data)
 
     def send_request(self, business_date: int) -> Dict[str, Any]:
-        """Sends a POST request to the /estimator endpoint with the specified data."""
+        """
+        Sends a POST request to the /estimator endpoint with the specified data.
+
+        Args:
+            business_date: specific business date for the request
+
+        Returns:
+            response: response returned from the endpoint
+        """
         estimator_request_body = self.request_builder.build_request(business_date,
                                                                     self.csv_file,
                                                                     self.version,

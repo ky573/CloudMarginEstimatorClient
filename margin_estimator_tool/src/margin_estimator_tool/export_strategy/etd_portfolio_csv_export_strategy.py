@@ -7,8 +7,8 @@ import os
 import csv
 from typing import Dict, Any
 import click
-from .export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
+from .export_strategy import ExportStrategy
 
 
 class EtdPortfolioCSVExportStrategy(ExportStrategy):
@@ -42,7 +42,7 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
                                  ) -> bool:
         """Exports portfolio margins into designated csv file."""
         portfolio_margin = portfolio_data.get("portfolio_margin", [])
-        portfolio_margin_path = os.path.join(output_path, f"{date}_{version_path}_portfolio_portfolio_margin.csv")
+        portfolio_margin_path = os.path.join(output_path, f"{date}_{version_path}_portfolio_margin.csv")
 
         flattened_data = [flatten_dict(entry) for entry in portfolio_margin]
 

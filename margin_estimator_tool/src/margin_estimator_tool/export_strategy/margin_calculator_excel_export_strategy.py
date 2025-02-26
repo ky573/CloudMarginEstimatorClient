@@ -1,6 +1,5 @@
-"""
-This module defines a strategy for exporting margin data to Excel format.
-"""
+"""This module defines a strategy for exporting margin data to Excel format."""
+
 
 import os
 from typing import Dict, Any, List, Set, Tuple
@@ -50,31 +49,14 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
         return True
 
     def _prepare_headers(self, margin_details: List[Dict[str, Any]]) -> Tuple[List[str], List[str]]:
-        """
-        Prepares headers for portfolio and drilldowns sheets.
-
-        Args:
-            margin_details: The list of margin data
-
-        Returns:
-            A tuple containing lists of headers for portfolio and drilldown sheets
-        """
+        """Prepares headers for portfolio and drilldowns sheets."""
         portfolio_headers = self._extract_headers(margin_details, "portfolio_margin")
         drilldown_headers = self._extract_headers(margin_details, "drilldowns")
         return portfolio_headers, drilldown_headers
 
     @staticmethod
     def _extract_headers(margin_details: List[Dict[str, Any]], key: str) -> List[str]:
-        """
-        Extracts headers by examining all data entries for the given key.
-
-        Args:
-            margin_details: The list of margin data
-            key: The key to extract headers from
-
-        Returns:
-            A list of headers
-        """
+        """Extracts headers by examining all data entries for the given key."""
         headers: Set[str] = set()
         for detail in margin_details:
             for item in detail[key]:
@@ -89,15 +71,7 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
                         margin_details: List[Dict[str, Any]],
                         data_key: str
                         ) -> None:
-        """
-        Populates a given worksheet with data based on the specified headers.
-
-        Args:
-            ws: The worksheet to populate
-            headers: The list of column headers
-            margin_details: The list of margin data
-            data_key: The key to extract data from
-        """
+        """Populates a given worksheet with data based on the specified headers."""
         ws.append(headers)
 
         for detail in margin_details:
