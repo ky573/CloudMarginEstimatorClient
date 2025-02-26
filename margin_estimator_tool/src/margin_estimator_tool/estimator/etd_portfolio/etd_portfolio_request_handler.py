@@ -39,7 +39,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         """
         super().__init__()
         self.header_validator = HeaderValidator()
-        self.request_builder = EstimatorRequestBuilder()
+        self.request_builder = EstimatorRequestBuilder(self.header_validator)
         self.csv_file = csv_file
         self.business_date = self._get_business_date(date, version)
         self.version = version == "LIVE"

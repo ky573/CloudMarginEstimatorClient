@@ -12,6 +12,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import EtdPortfolioCSVExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import EtdPortfolioExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy import MarginCalculatorExcelExportStrategy
 
 
 class DataExporter:
@@ -36,6 +37,9 @@ class DataExporter:
             "csv": EtdPortfolioCSVExportStrategy("estimator"),
             "excel": EtdPortfolioExcelExportStrategy("estimator"),
             "json": JSONExportStrategy("estimator"),
+        },
+        "Margins": {
+            "excel": MarginCalculatorExcelExportStrategy("margins"),
         }
     }
 
@@ -72,7 +76,7 @@ class DataExporter:
             else:
                 context.set_strategy(strategies["csv"])
 
-            if context.export_data(str(business_date), version, data, export_dir):
+            if context.export_data(business_date, version, data, export_dir):
                 click.echo(f"{export_name} exported to {export_dir}")
             else:
                 click.echo("No data found.")

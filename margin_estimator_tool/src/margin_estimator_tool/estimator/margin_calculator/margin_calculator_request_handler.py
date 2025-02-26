@@ -7,11 +7,11 @@ fetching the results and exporting them.
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 import click
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import Extractor
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import GraphExporter
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.excel_exporter import ExcelExporter
 from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
 
 
@@ -28,7 +28,7 @@ class MarginCalculatorRequestHandler(RequestHandler):
                  ) -> None:
         super().__init__()
         self.header_validator = HeaderValidator()
-        self.request_builder = EstimatorRequestBuilder()
+        self.request_builder = EstimatorRequestBuilder(self.header_validator)
         self.csv_file = csv_file
         self.version = version == "LIVE"
         self.timestamp = timestamp if timestamp is not None else 0
@@ -48,7 +48,6 @@ class MarginCalculatorRequestHandler(RequestHandler):
 
         if margin_data:
             self._export_results(margin_data)
-            click.echo(f"Margins exported to {self.export_dir}")
 
     def send_request(self, business_date: int) -> Dict[str, Any]:
         """Sends a POST request to the /estimator endpoint with the specified data."""
@@ -61,6 +60,7 @@ class MarginCalculatorRequestHandler(RequestHandler):
             self._check_for_error_in_response(response)
             return response
         except Exception as e:
+            click.echo(f"Request failed for date {business_date}.")
             self._handle_request_error(e)
         return {}
 
@@ -91,8 +91,15 @@ class MarginCalculatorRequestHandler(RequestHandler):
 
     def _export_results(self, margin_data: List[Dict[str, Any]]) -> None:
         """Exports margin details to Excel and graph formats."""
-        excel_exporter = ExcelExporter(margin_data, self.export_dir)
-        excel_exporter.export_to_excel()
+        DataExporter.export(
+            margin_data,
+            "Margins",
+            self.export_dir,
+            True,
+            False,
+            self.date_from + "_" + self.date_to,
+            self.version
+        )
 
         graph_exporter = GraphExporter(
             self.extractor.dates, self.extractor.initial_margins, self.export_dir

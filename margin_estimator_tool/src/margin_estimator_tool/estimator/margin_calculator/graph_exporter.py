@@ -9,7 +9,7 @@ import plotly.graph_objects as go  # type: ignore
 class GraphExporter:
     """Class to handle exporting the initial margin graph."""
 
-    def __init__(self, dates: List[int], initial_margins: List[float], export_dir: str):
+    def __init__(self, dates: List[int], initial_margins: List[float], export_dir: str) -> None:
         self.dates = dates
         self.initial_margins = initial_margins
         self.export_dir = export_dir

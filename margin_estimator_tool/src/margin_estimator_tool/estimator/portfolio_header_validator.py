@@ -11,8 +11,8 @@ class HeaderValidator:
 
     def __init__(self) -> None:
         """Initialize the HeaderValidator with default values."""
-        self.is_gui_format = False
-        self.is_inner_format = False
+        self.is_gui_format: bool = False
+        self.is_inner_format: bool = False
 
     def validate_headers(self, csv_file: str) -> bool:
         """

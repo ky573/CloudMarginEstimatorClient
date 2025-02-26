@@ -7,9 +7,9 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_
 class EstimatorRequestBuilder:
     """Builds request bodies for the estimator API endpoint."""
 
-    def __init__(self) -> None:
+    def __init__(self, header_validator: HeaderValidator) -> None:
         """Initialize the EstimatorRequestBuilder instance."""
-        self.header_validator = HeaderValidator()
+        self.header_validator = header_validator
 
     def build_request(self,
                       business_day: int,
@@ -108,7 +108,7 @@ class EstimatorRequestBuilder:
         """
         request_body = self._build_base_request(business_day, version, timestamp)
 
-        etd_p_comp = spec.BodyEstimatorPortfolioComponents(type='etd_portfolio')
+        etd_p_comp = spec.BodyEstimatorPortfolioComponents(type="etd_portfolio")
         etd_p_comp.etd_portfolio = []
 
         with open(csv_file, mode='r', newline='', encoding="utf-8") as file:
