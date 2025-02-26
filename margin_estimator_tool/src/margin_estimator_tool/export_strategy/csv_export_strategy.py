@@ -25,16 +25,16 @@ class CSVExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        if data:
-            version_path = "LIVE" if version else "SOD"
-            out_path = f"{date}_{version_path}_{self.type}.csv"
-            file_path = os.path.join(output_path, out_path)
-            keys = data[0].keys()
-            with open(file_path, 'w', newline='') as output_file:
-                dict_writer = csv.DictWriter(output_file, fieldnames=keys)
-                dict_writer.writeheader()
-                dict_writer.writerows(data)
-
-            return True
-        else:
+        if not data:
             return False
+
+        version_path = "LIVE" if version else "SOD"
+        out_path = f"{date}_{version_path}_{self.type}.csv"
+        file_path = os.path.join(output_path, out_path)
+        keys = data[0].keys()
+        with open(file_path, 'w', newline='') as output_file:
+            dict_writer = csv.DictWriter(output_file, fieldnames=keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(data)
+
+        return True

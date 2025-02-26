@@ -46,16 +46,16 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
 
         flattened_data = [flatten_dict(entry) for entry in portfolio_margin]
 
-        if flattened_data:
-            with open(portfolio_margin_path, 'w', newline='') as file:
-                writer = csv.DictWriter(file, fieldnames=flattened_data[0].keys())
-                writer.writeheader()
-                writer.writerows(flattened_data)
-
-            return True
-        else:
+        if not flattened_data:
             click.echo("No portfolio margins found in response.")
             return False
+
+        with open(portfolio_margin_path, 'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=flattened_data[0].keys())
+            writer.writeheader()
+            writer.writerows(flattened_data)
+
+        return True
 
     @staticmethod
     def _export_drilldowns(date: str,
@@ -67,13 +67,13 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
         drilldowns = portfolio_data.get("drilldowns", [])
         drilldowns_path = os.path.join(output_path, f"{date}_{version_path}_portfolio_drilldowns.csv")
 
-        if drilldowns:
-            with open(drilldowns_path, 'w', newline='') as file:
-                writer = csv.DictWriter(file, fieldnames=drilldowns[0].keys())
-                writer.writeheader()
-                writer.writerows(drilldowns)
-
-            return True
-        else:
+        if not drilldowns:
             click.echo("No drilldowns found in response.")
             return False
+
+        with open(drilldowns_path, 'w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=drilldowns[0].keys())
+            writer.writeheader()
+            writer.writerows(drilldowns)
+
+        return True

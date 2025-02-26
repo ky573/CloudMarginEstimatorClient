@@ -25,13 +25,13 @@ class JSONExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        if data:
-            version_path = "LIVE" if version else "SOD"
-            out_path = f"{date}_{version_path}_{self.type}.json"
-            file_path = os.path.join(output_path, out_path)
-            with open(file_path, 'w') as output_file:
-                json.dump(data, output_file, indent=4)
-
-            return True
-        else:
+        if not data:
             return False
+
+        version_path = "LIVE" if version else "SOD"
+        out_path = f"{date}_{version_path}_{self.type}.json"
+        file_path = os.path.join(output_path, out_path)
+        with open(file_path, 'w') as output_file:
+            json.dump(data, output_file, indent=4)
+
+        return True

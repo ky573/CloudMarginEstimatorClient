@@ -41,22 +41,20 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
 
     @staticmethod
     def export_drilldowns(drilldowns: List[Dict[str, Any]], writer: pd.ExcelWriter) -> bool:
-        if drilldowns:
-            pd.DataFrame(drilldowns).to_excel(writer, sheet_name="Drilldowns", index=False)
-            drilldowns_success = True
-        else:
+        if not drilldowns:
             click.echo("No drilldowns found in response.")
-            drilldowns_success = False
-        return drilldowns_success
+            return False
+
+        pd.DataFrame(drilldowns).to_excel(writer, sheet_name="Drilldowns", index=False)
+        return True
 
     @staticmethod
     def export_margins(portfolio_margin: List[Dict[str, Any]], writer: pd.ExcelWriter):
-        if portfolio_margin:
-            pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer,
-                                                                                       sheet_name="Portfolio Margin",
-                                                                                       index=False)
-            margin_success = True
-        else:
+        if not portfolio_margin:
             click.echo("No portfolio margins found in response.")
-            margin_success = False
-        return margin_success
+            return False
+
+        pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer,
+                                                                                   sheet_name="Portfolio Margin",
+                                                                                   index=False)
+        return True

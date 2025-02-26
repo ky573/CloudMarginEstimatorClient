@@ -25,13 +25,13 @@ class ExcelExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        if data:
-            version_path = "LIVE" if version else "SOD"
-            out_path = f"{date}_{version_path}_{self.type}.xlsx"
-            file_path = os.path.join(output_path, out_path)
-            df = pd.DataFrame(data)
-            df.to_excel(file_path, sheet_name="products", index=False)
-
-            return True
-        else:
+        if not data:
             return False
+
+        version_path = "LIVE" if version else "SOD"
+        out_path = f"{date}_{version_path}_{self.type}.xlsx"
+        file_path = os.path.join(output_path, out_path)
+        df = pd.DataFrame(data)
+        df.to_excel(file_path, sheet_name="products", index=False)
+
+        return True
