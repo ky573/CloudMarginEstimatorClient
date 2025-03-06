@@ -11,8 +11,7 @@ from margin_estimator_tool.src.margin_estimator_tool.core.argument_validator imp
                                                                                      GetSeriesValidator,
                                                                                      GetLiveSnapshotsValidator,
                                                                                      GetSnapshotsValidator,
-                                                                                     EtdPortfolioValidator
-                                                                                     )
+                                                                                     EtdPortfolioValidator)
 
 
 def register_margin_calculator_command(cli_group):
@@ -31,7 +30,7 @@ def register_margin_calculator_command(cli_group):
                        date_to: str,
                        export_dir: str
                        ) -> None:
-        """Run estimator endpoint."""
+        """Run estimator endpoint and calculate margins"""
         validator = MarginCalculatorValidator()
         validator.validate(csv_file=csv_file, date_from=date_from, date_to=date_to, export_dir=export_dir)
 

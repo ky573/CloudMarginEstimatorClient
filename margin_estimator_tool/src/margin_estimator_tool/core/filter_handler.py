@@ -94,4 +94,6 @@ class FilterHandler:
 
             filtered_data.append(item)
 
+        click.echo(f"Filtered down to {len(filtered_data)} items.")
+
         return filtered_data
