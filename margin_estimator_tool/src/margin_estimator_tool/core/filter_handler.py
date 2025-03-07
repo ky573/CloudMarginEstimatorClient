@@ -10,7 +10,7 @@ import click
 class FilterHandler:
     """Handles parsing and applying filters to a dataset."""
 
-    def __init__(self, extrafields: List[str], int_values: Optional[List[str]] = None) -> None:
+    def __init__(self, extrafields: List[str], numeric_values: Optional[List[str]] = None) -> None:
         """
         Initializes the FilterHandler instance.
 
@@ -19,23 +19,23 @@ class FilterHandler:
             int_values: values from extrafields to be converted to int
         """
         self.extrafields = set(extrafields)
-        self.int_values = set(int_values) if int_values else set()
+        self.numeric_values = set(numeric_values) if numeric_values else set()
 
-    def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, bool]]:
+    def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, float, bool]]:
         """
         Parses a filter string into a dictionary to be later used for
         filtering of the response. Correct types are assigned to values.
 
         If format is malformed (i.e., not a key and value pair), or one of the
-        keys is not in extrafields, or it contains a wrong type, exception is thrown.
+        keys is not in extrafields, or it contains a wrong type, an exception is thrown.
 
         Args:
             filter_str: string to be parsed.
 
         Returns:
-            A dictionary containing correct key and value pairs in proper type mapping
+            A dictionary containing correct key and value pairs in proper type mapping.
         """
-        filters: Dict[str, Union[str, int, bool]] = {}
+        filters: Dict[str, Union[str, int, float, bool]] = {}
         if not filter_str:
             return filters
 
@@ -50,11 +50,17 @@ class FilterHandler:
                 if key not in self.extrafields:
                     raise ValueError(f"Invalid filter key: {key}. Must be one of {self.extrafields}")
 
-                if key in self.int_values:
-                    try:
-                        filters[key] = int(value)
-                    except ValueError:
-                        raise ValueError(f"Invalid integer value for {key}: {value}")
+                if key in self.numeric_values:
+                    if "." in value:  # Check for decimal point
+                        try:
+                            filters[key] = float(value)
+                        except ValueError:
+                            raise ValueError(f"Invalid float value for {key}: {value}")
+                    else:
+                        try:
+                            filters[key] = int(value)
+                        except ValueError:
+                            raise ValueError(f"Invalid integer value for {key}: {value}")
                 elif key == "xm_eligibility":
                     filters[key] = False if value.lower() == "false" else True
                 else:

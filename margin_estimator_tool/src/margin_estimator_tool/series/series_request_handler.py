@@ -19,9 +19,9 @@ class SeriesRequestHandler(RequestHandler):
                    "act_trade_unit_no", "days_to_expiration", "trade_unit_value",
                    "exercise_style_flag", "contract_frequency"]
 
-    INT_VALUES = ["contract_date", "contract_maturity", "expiry_maturity",
-                  "exercise_price", "iid", "act_trade_unit_no",
-                  "days_to_expiration", "trade_unit_value"]
+    NUMERIC_VALUES = ["contract_date", "contract_maturity", "expiry_maturity",
+                      "exercise_price", "iid", "act_trade_unit_no",
+                      "days_to_expiration", "trade_unit_value"]
 
     def __init__(self,
                  date: Optional[str] = None,
@@ -67,7 +67,7 @@ class SeriesRequestHandler(RequestHandler):
         self.products = products.split(',')
         self.type = type
         self.call_put_flag = call_put_flag
-        self.filter_handler = FilterHandler(self.EXTRAFIELDS, self.INT_VALUES)
+        self.filter_handler = FilterHandler(self.EXTRAFIELDS, self.NUMERIC_VALUES)
         self.filters = self.filter_handler.parse_filters(filters)
         self.template = template
         self.max_tte = max_tte
