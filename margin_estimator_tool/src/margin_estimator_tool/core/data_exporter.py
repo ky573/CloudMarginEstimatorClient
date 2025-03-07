@@ -65,21 +65,25 @@ class DataExporter:
             business_date: desired business date, to be used in file name
             version: desired version, to be used in file name
         """
-        context = ExportContext()
+        try:
+            context = ExportContext()
 
-        if export_name in DataExporter.EXPORT_STRATEGIES:
-            strategies = DataExporter.EXPORT_STRATEGIES[export_name]
+            if export_name in DataExporter.EXPORT_STRATEGIES:
+                strategies = DataExporter.EXPORT_STRATEGIES[export_name]
 
-            if to_excel:
-                context.set_strategy(strategies["excel"])
-            elif to_json:
-                context.set_strategy(strategies["json"])
+                if to_excel:
+                    context.set_strategy(strategies["excel"])
+                elif to_json:
+                    context.set_strategy(strategies["json"])
+                else:
+                    context.set_strategy(strategies["csv"])
+
+                if context.export_data(business_date, version, data, export_dir):
+                    click.echo(f"{export_name} exported to {export_dir}")
+                else:
+                    click.echo("No data found.")
             else:
-                context.set_strategy(strategies["csv"])
+                raise ValueError(f"Unknown export name: {export_name}")
+        except Exception as e:
+            click.echo(f"Export failed: {e}")
 
-            if context.export_data(business_date, version, data, export_dir):
-                click.echo(f"{export_name} exported to {export_dir}")
-            else:
-                click.echo("No data found.")
-        else:
-            raise ValueError(f"Unknown export name: {export_name}")
