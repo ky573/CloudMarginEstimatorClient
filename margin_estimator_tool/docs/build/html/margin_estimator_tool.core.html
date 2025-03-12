@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>margin_estimator_tool.core package &mdash; Margin Estimator Tool  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="margin_estimator_tool.estimator package" href="margin_estimator_tool.estimator.html" />
+    <link rel="prev" title="margin_estimator_tool.cli package" href="margin_estimator_tool.cli.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Margin Estimator Tool
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="margin_estimator_tool.html">margin_estimator_tool package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="margin_estimator_tool.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.cli.html">margin_estimator_tool.cli package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">margin_estimator_tool.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.argument_validator">margin_estimator_tool.core.argument_validator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.data_exporter">margin_estimator_tool.core.data_exporter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.endpoint_handler_factory">margin_estimator_tool.core.endpoint_handler_factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.filter_handler">margin_estimator_tool.core.filter_handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.request_handler_base">margin_estimator_tool.core.request_handler_base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core.utils">margin_estimator_tool.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-margin_estimator_tool.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.estimator.html">margin_estimator_tool.estimator package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.export_strategy.html">margin_estimator_tool.export_strategy package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.live_snapshots.html">margin_estimator_tool.live_snapshots package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.products.html">margin_estimator_tool.products package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.series.html">margin_estimator_tool.series package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="margin_estimator_tool.snapshots.html">margin_estimator_tool.snapshots package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="margin_estimator_tool.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margin_estimator_tool.html#module-margin_estimator_tool.main">margin_estimator_tool.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margin_estimator_tool.html#module-margin_estimator_tool">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Margin Estimator Tool</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="margin_estimator_tool.html">margin_estimator_tool package</a></li>
+      <li class="breadcrumb-item active">margin_estimator_tool.core package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/margin_estimator_tool.core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="margin-estimator-tool-core-package">
+<h1>margin_estimator_tool.core package<a class="headerlink" href="#margin-estimator-tool-core-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-margin_estimator_tool.core.argument_validator">
+<span id="margin-estimator-tool-core-argument-validator-module"></span><h2>margin_estimator_tool.core.argument_validator module<a class="headerlink" href="#module-margin_estimator_tool.core.argument_validator" title="Link to this heading"></a></h2>
+<p>This module contains logic for argument validation for CLI.
+Implemented by Template Method design pattern.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.BaseArgumentValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">BaseArgumentValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class for argument validation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Override this method in subclasses to define specific validation logic.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate_date">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate_date" title="Link to this definition"></a></dt>
+<dd><p>Checks that date is in correct format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>date</strong> – date to be validated</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate_dir">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator.validate_dir" title="Link to this definition"></a></dt>
+<dd><p>Checks that directory exists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>directory</strong> – directory to be checked</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.EtdPortfolioValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">EtdPortfolioValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.EtdPortfolioValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /estimator endpoint for sending portfolio.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.EtdPortfolioValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.EtdPortfolioValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /estimator endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_file</strong> – portfolio file to be checked</p></li>
+<li><p><strong>date</strong> – date for the request</p></li>
+<li><p><strong>export_dir</strong> – directory where data should be exported</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetLiveSnapshotsValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">GetLiveSnapshotsValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetLiveSnapshotsValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /live_snapshots endpoint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetLiveSnapshotsValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetLiveSnapshotsValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /live_snapshots endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>date</strong> – date for the request</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetProductsValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">GetProductsValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetProductsValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /products endpoint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetProductsValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetProductsValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /products endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – date for the request</p></li>
+<li><p><strong>export_dir</strong> – directory where data should be exported</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetSeriesValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">GetSeriesValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetSeriesValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /series endpoint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetSeriesValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetSeriesValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /series endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> – date for the request</p></li>
+<li><p><strong>export_dir</strong> – directory where data should be exported</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetSnapshotsValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">GetSnapshotsValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetSnapshotsValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /snapshots endpoint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.GetSnapshotsValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.GetSnapshotsValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /snapshots endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_from</strong> – starting date for the interval</p></li>
+<li><p><strong>date_to</strong> – ending date for the interval</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.MarginCalculatorValidator">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.argument_validator.</span></span><span class="sig-name descname"><span class="pre">MarginCalculatorValidator</span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.MarginCalculatorValidator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#margin_estimator_tool.core.argument_validator.BaseArgumentValidator" title="margin_estimator_tool.core.argument_validator.BaseArgumentValidator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseArgumentValidator</span></code></a></p>
+<p>Subclass to validate arguments for /estimator endpoint.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.argument_validator.MarginCalculatorValidator.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.argument_validator.MarginCalculatorValidator.validate" title="Link to this definition"></a></dt>
+<dd><p>Implementation of validate method for /estimator endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_file</strong> – Csv file for portfolio</p></li>
+<li><p><strong>date_from</strong> – starting date for the interval</p></li>
+<li><p><strong>date_to</strong> – ending date for the interval</p></li>
+<li><p><strong>export_dir</strong> – directory where data should be exported</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core.data_exporter">
+<span id="margin-estimator-tool-core-data-exporter-module"></span><h2>margin_estimator_tool.core.data_exporter module<a class="headerlink" href="#module-margin_estimator_tool.core.data_exporter" title="Link to this heading"></a></h2>
+<p>Module to handle exporting of data to different formats. Strategies are defined in dictionary,
+and can be easily modified or extended.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.data_exporter.DataExporter">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.data_exporter.</span></span><span class="sig-name descname"><span class="pre">DataExporter</span></span><a class="headerlink" href="#margin_estimator_tool.core.data_exporter.DataExporter" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class to handle exporting of data into various formats.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.data_exporter.DataExporter.EXPORT_STRATEGIES">
+<span class="sig-name descname"><span class="pre">EXPORT_STRATEGIES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ExportStrategy</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Margins':</span> <span class="pre">{'excel':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy.MarginCalculatorExcelExportStrategy</span> <span class="pre">object&gt;},</span> <span class="pre">'Portfolio':</span> <span class="pre">{'csv':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy.EtdPortfolioCSVExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'excel':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'json':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy.JSONExportStrategy</span> <span class="pre">object&gt;},</span> <span class="pre">'Products':</span> <span class="pre">{'csv':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy.CSVExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'excel':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy.ExcelExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'json':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy.JSONExportStrategy</span> <span class="pre">object&gt;},</span> <span class="pre">'Series':</span> <span class="pre">{'csv':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy.CSVExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'excel':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy.ExcelExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'json':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy.JSONExportStrategy</span> <span class="pre">object&gt;},</span> <span class="pre">'Template':</span> <span class="pre">{'csv':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy.CSVExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'excel':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy.ExcelExportStrategy</span> <span class="pre">object&gt;,</span> <span class="pre">'json':</span> <span class="pre">&lt;margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy.JSONExportStrategy</span> <span class="pre">object&gt;}}</span></em><a class="headerlink" href="#margin_estimator_tool.core.data_exporter.DataExporter.EXPORT_STRATEGIES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.data_exporter.DataExporter.export">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">export_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_excel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_json</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">business_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.data_exporter.DataExporter.export" title="Link to this definition"></a></dt>
+<dd><p>Exports data based on the requested format, using endpoint-specific strategies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data from the request to be exported</p></li>
+<li><p><strong>export_name</strong> – defines what kind of endpoint-specific strategies to pick from in EXPORT_STRATEGIES</p></li>
+<li><p><strong>export_dir</strong> – directory where the data should be exported</p></li>
+<li><p><strong>to_excel</strong> – whether to export to excel</p></li>
+<li><p><strong>to_json</strong> – whether to export to json</p></li>
+<li><p><strong>business_date</strong> – desired business date, to be used in file name</p></li>
+<li><p><strong>version</strong> – desired version, to be used in file name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core.endpoint_handler_factory">
+<span id="margin-estimator-tool-core-endpoint-handler-factory-module"></span><h2>margin_estimator_tool.core.endpoint_handler_factory module<a class="headerlink" href="#module-margin_estimator_tool.core.endpoint_handler_factory" title="Link to this heading"></a></h2>
+<p>Factory module for creating endpoint handlers.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.endpoint_handler_factory.EndpointHandlerFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.endpoint_handler_factory.</span></span><span class="sig-name descname"><span class="pre">EndpointHandlerFactory</span></span><a class="headerlink" href="#margin_estimator_tool.core.endpoint_handler_factory.EndpointHandlerFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Simple Factory for creating desired request handler based on CLI.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.endpoint_handler_factory.EndpointHandlerFactory.get_handler">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RequestHandler</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.endpoint_handler_factory.EndpointHandlerFactory.get_handler" title="Link to this definition"></a></dt>
+<dd><p>Creates and returns desired handler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> – desired endpoint for which the concrete request handler will be created</p></li>
+<li><p><strong>**kwargs</strong> – arguments from the CLI</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A concrete instance of the request handler</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If no handler is defined for the given endpoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core.filter_handler">
+<span id="margin-estimator-tool-core-filter-handler-module"></span><h2>margin_estimator_tool.core.filter_handler module<a class="headerlink" href="#module-margin_estimator_tool.core.filter_handler" title="Link to this heading"></a></h2>
+<p>Module to handle filter parsing for products and series endpoint.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.filter_handler.FilterHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.filter_handler.</span></span><span class="sig-name descname"><span class="pre">FilterHandler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extrafields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numeric_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#margin_estimator_tool.core.filter_handler.FilterHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles parsing and applying filters to a dataset.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.filter_handler.FilterHandler.filter_response">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#margin_estimator_tool.core.filter_handler.FilterHandler.filter_response" title="Link to this definition"></a></dt>
+<dd><p>Filters a list of dictionaries based on the given filters.
+Custom filters in form of callables can also be applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – data from request to be filtered</p></li>
+<li><p><strong>filters</strong> – dictionary of key and value pairs to be used for filtering</p></li>
+<li><p><strong>custom_filters</strong> – additional custom filters in form of functions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of filtered data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.filter_handler.FilterHandler.parse_filters">
+<span class="sig-name descname"><span class="pre">parse_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#margin_estimator_tool.core.filter_handler.FilterHandler.parse_filters" title="Link to this definition"></a></dt>
+<dd><p>Parses a filter string into a dictionary to be later used for
+filtering of the response. Correct types are assigned to values.</p>
+<p>If format is malformed (i.e., not a key and value pair), or one of the
+keys is not in extrafields, or it contains a wrong type, an exception is thrown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filter_str</strong> – string to be parsed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing correct key and value pairs in proper type mapping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core.request_handler_base">
+<span id="margin-estimator-tool-core-request-handler-base-module"></span><h2>margin_estimator_tool.core.request_handler_base module<a class="headerlink" href="#module-margin_estimator_tool.core.request_handler_base" title="Link to this heading"></a></h2>
+<p>This module contains the RequestHandler base class which is responsible for
+sending requests to the API.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.request_handler_base.RequestHandler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.request_handler_base.</span></span><span class="sig-name descname"><span class="pre">RequestHandler</span></span><a class="headerlink" href="#margin_estimator_tool.core.request_handler_base.RequestHandler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Class to handle sending requests to the API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.request_handler_base.RequestHandler.process_and_provide_output">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">process_and_provide_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#margin_estimator_tool.core.request_handler_base.RequestHandler.process_and_provide_output" title="Link to this definition"></a></dt>
+<dd><p>Abstract method for sending a request and exporting data; implemented by subclasses.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core.utils">
+<span id="margin-estimator-tool-core-utils-module"></span><h2>margin_estimator_tool.core.utils module<a class="headerlink" href="#module-margin_estimator_tool.core.utils" title="Link to this heading"></a></h2>
+<p>Utility functions for the margin_calculator package.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="margin_estimator_tool.core.utils.flatten_dict">
+<span class="sig-prename descclassname"><span class="pre">margin_estimator_tool.core.utils.</span></span><span class="sig-name descname"><span class="pre">flatten_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'_'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#margin_estimator_tool.core.utils.flatten_dict" title="Link to this definition"></a></dt>
+<dd><p>Flattens nested dictionaries and lists into a single-level dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> – dictionary to be flattened</p></li>
+<li><p><strong>parent_key</strong> – key from previous level</p></li>
+<li><p><strong>sep</strong> – separator between levels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary which was flattened into a single level, i.e. doesn’t contain any
+other dictionaries</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-margin_estimator_tool.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-margin_estimator_tool.core" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="margin_estimator_tool.cli.html" class="btn btn-neutral float-left" title="margin_estimator_tool.cli package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="margin_estimator_tool.estimator.html" class="btn btn-neutral float-right" title="margin_estimator_tool.estimator package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Daniel Lopata.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
