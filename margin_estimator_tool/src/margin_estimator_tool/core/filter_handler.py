@@ -51,7 +51,7 @@ class FilterHandler:
                     raise ValueError(f"Invalid filter key: {key}. Must be one of {self.extrafields}")
 
                 if key in self.numeric_values:
-                    if "." in value:  # Check for decimal point
+                    if "." in value: # Check for decimal point
                         try:
                             filters[key] = float(value)
                         except ValueError:

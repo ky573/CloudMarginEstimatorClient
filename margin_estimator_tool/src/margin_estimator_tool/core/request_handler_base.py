@@ -6,6 +6,8 @@ sending requests to the API.
 
 import sys
 import json
+import os
+from dotenv import load_dotenv
 from abc import ABC, abstractmethod
 from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
@@ -13,6 +15,7 @@ import click
 import requests
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
+from example.request_example import API_KEY
 
 
 class RequestHandler(ABC):
@@ -38,10 +41,11 @@ class RequestHandler(ABC):
     @staticmethod
     def _setup_api() -> CpmeApi:
         """Sets up and returns the API for requests."""
+        load_dotenv()
         set_data_validation(False)
         config = Configuration()
-        config.api_key = "9c40a29c-8b1d-4245-b3d9-2ffe5b5e9358"
-        config.proxy = "http://squid-proxy.gcp.dbgcloud.io:3128"
+        config.api_key = os.getenv("API_KEY")
+        config.proxy = os.getenv("PROXY")
         config.enable_logging = True
         api = CpmeApi(configuration=config)
         return api
