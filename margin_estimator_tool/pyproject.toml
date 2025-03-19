@@ -41,6 +41,14 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["mypy", "pylint", "pytest", "black"]
 
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = ["test"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

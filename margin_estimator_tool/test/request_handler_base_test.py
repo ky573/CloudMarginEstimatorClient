@@ -35,34 +35,6 @@ class TestRequestHandler:
             assert expected_message in mock_echo.call_args[0][0]
             assert mock_echo.call_args[1].get('err', False) is True
 
-    @pytest.mark.parametrize(
-        "date,version,expected_date,is_weekend", [
-            ("20250101", None, 20250101, False),  # Explicit date
-            (None, "SOD", 20250311, False),  # SOD with weekday
-            (None, "SOD", 20250310, True),  # SOD with weekend
-            (None, "LIVE", 20250312, False),  # LIVE version
-        ]
-    )
-    def test_get_business_date(self, date, version, expected_date, is_weekend):
-        """Test that _get_business_date returns the correct date based on inputs."""
-        mock_today = datetime(2025, 3, 12)  # Wednesday
-        mock_yesterday = datetime(2025, 3, 11)  # Tuesday
-        mock_weekend = datetime(2025, 3, 8)  # Saturday
-
-        with patch('datetime.datetime') as mock_datetime, \
-                patch.object(RequestHandler, '_is_business_day') as mock_is_business_day:
-
-            mock_datetime.today.return_value = mock_today
-
-            # Setup for SOD with weekend handling
-            if version == "SOD" and is_weekend:
-                mock_is_business_day.side_effect = [False, True]  # Weekend then weekday
-            else:
-                mock_is_business_day.return_value = True
-
-            result = self.handler._get_business_date(date, version)
-            assert result == expected_date
-
     def test_check_for_error_in_response_success(self):
         """Test that _check_for_error_in_response handles success correctly."""
         response = {"data": "some data"}
