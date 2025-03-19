@@ -15,7 +15,6 @@ import click
 import requests
 from cpme_api.api import CpmeApi, Configuration
 from cpme_api.models import set_data_validation
-from example.request_example import API_KEY
 
 
 class RequestHandler(ABC):
