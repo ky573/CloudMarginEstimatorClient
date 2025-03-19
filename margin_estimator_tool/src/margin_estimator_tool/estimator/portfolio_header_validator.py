@@ -1,6 +1,5 @@
 """This module contains logic for header validation of etd portfolios."""
 
-
 import csv
 import click
 from typing import Tuple
@@ -28,7 +27,7 @@ class HeaderValidator:
             True if headers are valid, False otherwise
         """
         try:
-            with open(csv_file, mode='r', newline='', encoding="utf-8") as csvfile:
+            with open(csv_file, mode="r", newline="", encoding="utf-8") as csvfile:
                 reader = csv.reader(csvfile)
                 headers = next(reader, None)
                 if headers is None:
@@ -41,8 +40,10 @@ class HeaderValidator:
                     self.is_inner_format = True
 
                 if not self.is_gui_format and not self.is_inner_format:
-                    raise ValueError(f"Headers mismatch. Expected: either '{self.GUI_HEADER}' "
-                                     f"or '{self.INNER_HEADER}', Found: '{headers_str}'.")
+                    raise ValueError(
+                        f"Headers mismatch. Expected: either '{self.GUI_HEADER}' "
+                        f"or '{self.INNER_HEADER}', Found: '{headers_str}'."
+                    )
 
             click.echo("Headers validated successfully.")
             return True

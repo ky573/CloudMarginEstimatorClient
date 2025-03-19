@@ -3,7 +3,6 @@ This module contains the RequestHandler base class which is responsible for
 sending requests to the API.
 """
 
-
 import sys
 import json
 import os
@@ -19,6 +18,7 @@ from cpme_api.models import set_data_validation
 
 class RequestHandler(ABC):
     """Class to handle sending requests to the API."""
+
     def __init__(self) -> None:
         """Initializes a RequestHandler instance."""
         self.api: CpmeApi = self._setup_api()

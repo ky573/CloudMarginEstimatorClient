@@ -2,7 +2,6 @@
 Module to handle filter parsing for products and series endpoint.
 """
 
-
 from typing import Dict, Any, Optional, List, Union, Callable
 import click
 
@@ -10,7 +9,9 @@ import click
 class FilterHandler:
     """Handles parsing and applying filters to a dataset."""
 
-    def __init__(self, extrafields: List[str], numeric_values: Optional[List[str]] = None) -> None:
+    def __init__(
+        self, extrafields: List[str], numeric_values: Optional[List[str]] = None
+    ) -> None:
         """
         Initializes the FilterHandler instance.
 
@@ -21,7 +22,9 @@ class FilterHandler:
         self.extrafields = set(extrafields)
         self.numeric_values = set(numeric_values) if numeric_values else set()
 
-    def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, float, bool]]:
+    def parse_filters(
+        self, filter_str: Optional[str]
+    ) -> Dict[str, Union[str, int, float, bool]]:
         """
         Parses a filter string into a dictionary to be later used for
         filtering of the response. Correct types are assigned to values.
@@ -40,18 +43,22 @@ class FilterHandler:
             return filters
 
         try:
-            for f in filter_str.split(','):
-                parts = f.split(':', 1)
+            for f in filter_str.split(","):
+                parts = f.split(":", 1)
                 if len(parts) != 2:
-                    raise ValueError(f"Invalid filter format: {f}. Expected 'key:value'")
+                    raise ValueError(
+                        f"Invalid filter format: {f}. Expected 'key:value'"
+                    )
 
                 key, value = parts
 
                 if key not in self.extrafields:
-                    raise ValueError(f"Invalid filter key: {key}. Must be one of {self.extrafields}")
+                    raise ValueError(
+                        f"Invalid filter key: {key}. Must be one of {self.extrafields}"
+                    )
 
                 if key in self.numeric_values:
-                    if "." in value: # Check for decimal point
+                    if "." in value:  # Check for decimal point
                         try:
                             filters[key] = float(value)
                         except ValueError:
@@ -60,7 +67,9 @@ class FilterHandler:
                         try:
                             filters[key] = int(value)
                         except ValueError:
-                            raise ValueError(f"Invalid integer value for {key}: {value}")
+                            raise ValueError(
+                                f"Invalid integer value for {key}: {value}"
+                            )
                 elif key == "xm_eligibility":
                     filters[key] = False if value.lower() == "false" else True
                 else:
@@ -72,10 +81,11 @@ class FilterHandler:
         return filters
 
     @staticmethod
-    def filter_response(data: List[Dict[str, Any]],
-                        filters: Dict[str, Union[str, int, bool]],
-                        custom_filters: Optional[Dict[str, Callable[[Dict[str, Any]], bool]]] = None
-                        ) -> List[Dict[str, Any]]:
+    def filter_response(
+        data: List[Dict[str, Any]],
+        filters: Dict[str, Union[str, int, bool]],
+        custom_filters: Optional[Dict[str, Callable[[Dict[str, Any]], bool]]] = None,
+    ) -> List[Dict[str, Any]]:
         """
         Filters a list of dictionaries based on the given filters.
         Custom filters in form of callables can also be applied.

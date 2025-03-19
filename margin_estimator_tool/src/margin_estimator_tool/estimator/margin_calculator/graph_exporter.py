@@ -1,6 +1,5 @@
 """Module to handle exporting margin details as a graph."""
 
-
 from typing import List
 from datetime import datetime
 import plotly.graph_objects as go  # type: ignore
@@ -9,7 +8,9 @@ import plotly.graph_objects as go  # type: ignore
 class GraphExporter:
     """Class to handle exporting the initial margin graph."""
 
-    def __init__(self, dates: List[int], initial_margins: List[float], export_dir: str) -> None:
+    def __init__(
+        self, dates: List[int], initial_margins: List[float], export_dir: str
+    ) -> None:
         """
         Initializes the GraphExporter instance.
 
@@ -30,20 +31,20 @@ class GraphExporter:
 
     def _plot_graph(self) -> go.Figure:
         """Plots the initial margin graph."""
-        formatted_dates = [datetime.strptime(str(date), "%Y%m%d") for date in self.dates]
+        formatted_dates = [
+            datetime.strptime(str(date), "%Y%m%d") for date in self.dates
+        ]
 
-        fig = go.Figure(data=go.Scatter(x=formatted_dates,
-                                        y=self.initial_margins,
-                                        mode="lines+markers")
-                        )
+        fig = go.Figure(
+            data=go.Scatter(
+                x=formatted_dates, y=self.initial_margins, mode="lines+markers"
+            )
+        )
         fig.update_layout(
             title="Initial Margin Over Time",
             xaxis_title="Date",
             yaxis_title="Initial Margin (EUR)",
-            xaxis={
-                "tickformat": "%Y-%m-%d",
-                "type": "date"
-            }
+            xaxis={"tickformat": "%Y-%m-%d", "type": "date"},
         )
 
         return fig

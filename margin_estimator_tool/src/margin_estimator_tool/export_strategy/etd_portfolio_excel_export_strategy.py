@@ -1,6 +1,5 @@
 """This module defines strategy for etd portfolio exporting into excel."""
 
-
 from typing import Dict, Any, List
 import os
 import click
@@ -12,7 +11,9 @@ from .export_strategy import ExportStrategy
 class EtdPortfolioExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting portfolio data to Excel."""
 
-    def export(self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str) -> bool:
+    def export(
+        self, date: str, version: bool, portfolio_data: Dict[str, Any], output_path: str
+    ) -> bool:
         """
         Exports portfolio data into an Excel file with two subsheets.
 
@@ -38,7 +39,9 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         return margin_success or drilldowns_success
 
     @staticmethod
-    def _export_drilldowns(drilldowns: List[Dict[str, Any]], writer: pd.ExcelWriter) -> bool:
+    def _export_drilldowns(
+        drilldowns: List[Dict[str, Any]], writer: pd.ExcelWriter
+    ) -> bool:
         """Handles export of drilldowns from the returned response."""
         if not drilldowns:
             click.echo("No drilldowns found in response.")
@@ -54,7 +57,7 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
             click.echo("No portfolio margins found in response.")
             return False
 
-        pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(writer,
-                                                                                   sheet_name="Portfolio Margin",
-                                                                                   index=False)
+        pd.DataFrame([flatten_dict(entry) for entry in portfolio_margin]).to_excel(
+            writer, sheet_name="Portfolio Margin", index=False
+        )
         return True

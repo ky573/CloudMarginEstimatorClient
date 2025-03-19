@@ -3,7 +3,6 @@ This module contains logic for argument validation for CLI.
 Implemented by Template Method design pattern.
 """
 
-
 from datetime import datetime
 from typing import Optional
 import os
@@ -44,7 +43,10 @@ class BaseArgumentValidator:
 
 class MarginCalculatorValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /estimator endpoint."""
-    def validate(self, csv_file: str, date_from: str, date_to: str, export_dir: str) -> None:
+
+    def validate(
+        self, csv_file: str, date_from: str, date_to: str, export_dir: str
+    ) -> None:
         """
         Implementation of validate method for /estimator endpoint.
 
@@ -62,6 +64,7 @@ class MarginCalculatorValidator(BaseArgumentValidator):
 
 class GetProductsValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /products endpoint."""
+
     def validate(self, date: Optional[str], export_dir: Optional[str]) -> None:
         """
         Implementation of validate method for /products endpoint.
@@ -78,6 +81,7 @@ class GetProductsValidator(BaseArgumentValidator):
 
 class GetSeriesValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /series endpoint."""
+
     def validate(self, date: Optional[str], export_dir: Optional[str]) -> None:
         """
         Implementation of validate method for /series endpoint.
@@ -94,6 +98,7 @@ class GetSeriesValidator(BaseArgumentValidator):
 
 class GetLiveSnapshotsValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /live_snapshots endpoint."""
+
     def validate(self, date: str) -> None:
         """
         Implementation of validate method for /live_snapshots endpoint.
@@ -106,6 +111,7 @@ class GetLiveSnapshotsValidator(BaseArgumentValidator):
 
 class GetSnapshotsValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /snapshots endpoint."""
+
     def validate(self, date_from: Optional[str], date_to: Optional[str]) -> None:
         """
         Implementation of validate method for /snapshots endpoint.
@@ -122,7 +128,10 @@ class GetSnapshotsValidator(BaseArgumentValidator):
 
 class EtdPortfolioValidator(BaseArgumentValidator):
     """Subclass to validate arguments for /estimator endpoint for sending portfolio."""
-    def validate(self, csv_file: str, date: Optional[str], export_dir: Optional[str]) -> None:
+
+    def validate(
+        self, csv_file: str, date: Optional[str], export_dir: Optional[str]
+    ) -> None:
         """
         Implementation of validate method for /estimator endpoint.
 

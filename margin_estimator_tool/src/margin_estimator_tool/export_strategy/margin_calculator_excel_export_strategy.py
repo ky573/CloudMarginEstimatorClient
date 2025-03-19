@@ -1,18 +1,21 @@
 """This module defines a strategy for exporting margin data to Excel format."""
 
-
 import os
 from typing import Dict, Any, List, Set, Tuple
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import ExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import (
+    ExportStrategy,
+)
 
 
 class MarginCalculatorExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting margin data to Excel."""
 
-    def export(self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str) -> bool:
+    def export(
+        self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str
+    ) -> bool:
         """
         Concrete implementation for exporting margin data into Excel.
 
@@ -48,7 +51,9 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
 
         return True
 
-    def _prepare_headers(self, margin_details: List[Dict[str, Any]]) -> Tuple[List[str], List[str]]:
+    def _prepare_headers(
+        self, margin_details: List[Dict[str, Any]]
+    ) -> Tuple[List[str], List[str]]:
         """Prepares headers for portfolio and drilldowns sheets."""
         portfolio_headers = self._extract_headers(margin_details, "portfolio_margin")
         drilldown_headers = self._extract_headers(margin_details, "drilldowns")
@@ -66,11 +71,12 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
         return headers_list
 
     @staticmethod
-    def _populate_sheet(ws: Worksheet,
-                        headers: List[str],
-                        margin_details: List[Dict[str, Any]],
-                        data_key: str
-                        ) -> None:
+    def _populate_sheet(
+        ws: Worksheet,
+        headers: List[str],
+        margin_details: List[Dict[str, Any]],
+        data_key: str,
+    ) -> None:
         """Populates a given worksheet with data based on the specified headers."""
         ws.append(headers)
 
@@ -78,5 +84,7 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
             business_date = detail.get("business_date", "")
             for item in detail[data_key]:
                 flat_item = flatten_dict(item)
-                row = [business_date] + [flat_item.get(header, '') for header in headers[1:]]
+                row = [business_date] + [
+                    flat_item.get(header, "") for header in headers[1:]
+                ]
                 ws.append(row)

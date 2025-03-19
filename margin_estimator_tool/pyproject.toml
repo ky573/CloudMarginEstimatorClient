@@ -16,10 +16,13 @@ dependencies = [
     "click>=8.1.7",
     "pandas>=2.2.0",
     "requests>=2.32.3",
+    "python-dotenv>=1.0.1",
+    "sphinx>=7.3.7",
+    "sphinx-rtd-theme>=2.0.0",
     "certifi",
     "pprintjson"
 ]
-description = "Demo tool for CPME"
+description = "CLI tool for CPME"
 readme = "README.md"
 authors = [
     { name = "Daniel Lopata", email = "daniel.lopata@deutsche-boerse.com" }
@@ -36,7 +39,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["mypy", "pylint"]
+dev = ["mypy", "pylint", "pytest", "black"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

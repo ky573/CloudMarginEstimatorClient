@@ -3,29 +3,41 @@ This module is responsible for sending the portfolio to estimator endpoint,
 fetching the results, aggregating the data and exporting them in the form of graph and excel.
 """
 
-
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import Extractor
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import GraphExporter
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import (
+    DataExporter,
+)
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import (
+    EstimatorRequestBuilder,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import (
+    Extractor,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import (
+    GraphExporter,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+    HeaderValidator,
+)
 
 
 class MarginCalculatorRequestHandler(RequestHandler):
     """Handler for sending requests to the /estimator endpoint and calculating the margins."""
 
-    def __init__(self,
-                 csv_file: str,
-                 version: Optional[str],
-                 timestamp: Optional[int],
-                 date_from: str,
-                 date_to: str,
-                 export_dir: str
-                 ) -> None:
+    def __init__(
+        self,
+        csv_file: str,
+        version: Optional[str],
+        timestamp: Optional[int],
+        date_from: str,
+        date_to: str,
+        export_dir: str,
+    ) -> None:
         """
         Initializes the MarginCalculatorRequestHandler instance.
 
@@ -70,10 +82,9 @@ class MarginCalculatorRequestHandler(RequestHandler):
         Returns:
             response: response returned from the endpoint
         """
-        estimator_request_body = self.request_builder.build_request(business_date,
-                                                                    self.csv_file,
-                                                                    self.version,
-                                                                    self.timestamp)
+        estimator_request_body = self.request_builder.build_request(
+            business_date, self.csv_file, self.version, self.timestamp
+        )
         try:
             response = self.api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)
@@ -117,7 +128,7 @@ class MarginCalculatorRequestHandler(RequestHandler):
             True,
             False,
             self.date_from + "_" + self.date_to,
-            self.version
+            self.version,
         )
 
         graph_exporter = GraphExporter(

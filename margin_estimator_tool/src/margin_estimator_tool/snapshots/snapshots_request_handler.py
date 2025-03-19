@@ -3,11 +3,12 @@ This module contains logic for retrieving information about currently
 available snapshots for range of dates and then outputs it.
 """
 
-
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
 
 
 class SnapshotRequestHandler(RequestHandler):
@@ -17,7 +18,7 @@ class SnapshotRequestHandler(RequestHandler):
         """
         Initilizes a new SnapshotRequestHandler instance. If date_to is greater than
         date_from, no data will be returned back.
-        
+
         Args:
             date_from: Starting date for the range, must be specified.
             date_to: End date of the range, optional, defaults to current date.
@@ -42,8 +43,9 @@ class SnapshotRequestHandler(RequestHandler):
                       Returns empty list in case of an error during the request.
         """
         try:
-            response = self.api.snapshots_get(business_date_from=self.date_from,
-                                              business_date_to=self.date_to)
+            response = self.api.snapshots_get(
+                business_date_from=self.date_from, business_date_to=self.date_to
+            )
             self._check_for_error_in_response(response)
             response = response.get("snapshots", [])
             return response

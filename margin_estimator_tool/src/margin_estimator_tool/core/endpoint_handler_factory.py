@@ -2,14 +2,27 @@
 Factory module for creating endpoint handlers.
 """
 
-
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import MarginCalculatorRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import SeriesRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler import LiveSnapshotRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.snapshots.snapshots_request_handler import SnapshotRequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import EtdPortfolioRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import (
+    ProductsRequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
+    MarginCalculatorRequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import (
+    SeriesRequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler import (
+    LiveSnapshotRequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.snapshots.snapshots_request_handler import (
+    SnapshotRequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
+    EtdPortfolioRequestHandler,
+)
 
 
 class EndpointHandlerFactory:
@@ -36,7 +49,7 @@ class EndpointHandlerFactory:
             "get_series": SeriesRequestHandler,
             "get_live_snapshots": LiveSnapshotRequestHandler,
             "get_snapshots": SnapshotRequestHandler,
-            "etd_portfolio": EtdPortfolioRequestHandler
+            "etd_portfolio": EtdPortfolioRequestHandler,
         }
 
         handler_class = handlers.get(endpoint)

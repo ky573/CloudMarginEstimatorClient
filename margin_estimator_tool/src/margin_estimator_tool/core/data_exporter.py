@@ -3,21 +3,37 @@ Module to handle exporting of data to different formats. Strategies are defined 
 and can be easily modified or extended.
 """
 
-
 from typing import Dict, Any, List
 import click
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import ExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import EtdPortfolioCSVExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import EtdPortfolioExcelExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy import MarginCalculatorExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import (
+    ExportContext,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import (
+    ExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import (
+    JSONExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import (
+    CSVExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import (
+    ExcelExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import (
+    EtdPortfolioCSVExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
+    EtdPortfolioExcelExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy import (
+    MarginCalculatorExcelExportStrategy,
+)
 
 
 class DataExporter:
     """Class to handle exporting of data into various formats."""
+
     EXPORT_STRATEGIES: Dict[str, Dict[str, ExportStrategy]] = {
         "Products": {
             "csv": CSVExportStrategy("products"),
@@ -41,18 +57,19 @@ class DataExporter:
         },
         "Margins": {
             "excel": MarginCalculatorExcelExportStrategy("margins"),
-        }
+        },
     }
 
     @staticmethod
-    def export(data: List[Dict[str, Any]] | Dict[str, Any],
-               export_name: str,
-               export_dir: str,
-               to_excel: bool,
-               to_json: bool,
-               business_date: str,
-               version: bool
-               ) -> None:
+    def export(
+        data: List[Dict[str, Any]] | Dict[str, Any],
+        export_name: str,
+        export_dir: str,
+        to_excel: bool,
+        to_json: bool,
+        business_date: str,
+        version: bool,
+    ) -> None:
         """
         Exports data based on the requested format, using endpoint-specific strategies.
 
@@ -86,4 +103,3 @@ class DataExporter:
                 raise ValueError(f"Unknown export name: {export_name}")
         except Exception as e:
             click.echo(f"Export failed: {e}")
-

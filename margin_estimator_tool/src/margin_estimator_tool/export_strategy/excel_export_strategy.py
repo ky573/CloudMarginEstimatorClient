@@ -1,6 +1,5 @@
 """This module defines strategy for excel exporting."""
 
-
 import os
 from typing import Dict, Any, List
 import pandas as pd
@@ -10,7 +9,9 @@ from .export_strategy import ExportStrategy
 class ExcelExportStrategy(ExportStrategy):
     """Concrete strategy for exporting to Excel."""
 
-    def export(self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str) -> bool:
+    def export(
+        self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str
+    ) -> bool:
         """
         Concrete implementation for exporting into excel.
 

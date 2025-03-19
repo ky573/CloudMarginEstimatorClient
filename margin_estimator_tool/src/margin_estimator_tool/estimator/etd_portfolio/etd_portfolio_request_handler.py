@@ -3,28 +3,36 @@ This module contains logic for retrieving information about etd portfolio from
 endpoint and then outputting it in desired format.
 """
 
-
 from typing import Dict, Any, Optional
 import os
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import DataExporter
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
+from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import (
+    DataExporter,
+)
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import (
+    EstimatorRequestBuilder,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+    HeaderValidator,
+)
 
 
 class EtdPortfolioRequestHandler(RequestHandler):
     """Handler for sending requests to the /estimator endpoint and exporting data."""
 
-    def __init__(self,
-                 csv_file: str,
-                 date: Optional[str] = None,
-                 version: Optional[str] = None,
-                 timestamp: Optional[int] = None,
-                 to_excel: Optional[bool] = False,
-                 to_json: Optional[bool] = False,
-                 export_dir: Optional[str] = None,
-                 ) -> None:
+    def __init__(
+        self,
+        csv_file: str,
+        date: Optional[str] = None,
+        version: Optional[str] = None,
+        timestamp: Optional[int] = None,
+        to_excel: Optional[bool] = False,
+        to_json: Optional[bool] = False,
+        export_dir: Optional[str] = None,
+    ) -> None:
         """
         Initializes the EtdPortfolioRequestHandler instance.
 
@@ -46,7 +54,9 @@ class EtdPortfolioRequestHandler(RequestHandler):
         self.timestamp = timestamp if timestamp is not None else 0
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir or os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        self.export_dir = export_dir or os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "..")
+        )
 
     def process_and_provide_output(self) -> None:
         """
@@ -58,13 +68,15 @@ class EtdPortfolioRequestHandler(RequestHandler):
             return
 
         portfolio = self.send_request()
-        DataExporter.export(portfolio,
-                            "Portfolio",
-                            self.export_dir,
-                            self.to_excel,
-                            self.to_json,
-                            str(self.business_date),
-                            self.version)
+        DataExporter.export(
+            portfolio,
+            "Portfolio",
+            self.export_dir,
+            self.to_excel,
+            self.to_json,
+            str(self.business_date),
+            self.version,
+        )
 
     def send_request(self) -> Dict[str, Any]:
         """
@@ -74,10 +86,9 @@ class EtdPortfolioRequestHandler(RequestHandler):
             response: Response returned from the endpoint containing data about portoflio.
                       If an error is encountered during the request, it returns an empty dictionary.
         """
-        estimator_request_body = self.request_builder.build_request(self.business_date,
-                                                                    self.csv_file,
-                                                                    self.version,
-                                                                    self.timestamp)
+        estimator_request_body = self.request_builder.build_request(
+            self.business_date, self.csv_file, self.version, self.timestamp
+        )
         try:
             response = self.api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)

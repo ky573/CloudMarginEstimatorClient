@@ -3,11 +3,12 @@ This module is responsible for retrieving the information about
 live snapshots from estimator.
 """
 
-
 from datetime import datetime
 from typing import Dict, Any, List
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
 
 
 class LiveSnapshotRequestHandler(RequestHandler):
@@ -52,7 +53,13 @@ class LiveSnapshotRequestHandler(RequestHandler):
         click.echo(f"Available live snapshots for {self.business_date}:")
         for idx, snapshot in enumerate(live_snapshots, start=1):
             timestamp = snapshot.get("live_timestamp", "N/A")
-            time = datetime.fromtimestamp(int(timestamp) / 1000).strftime("%H:%M:%S") if timestamp != 0 else 0
+            time = (
+                datetime.fromtimestamp(int(timestamp) / 1000).strftime("%H:%M:%S")
+                if timestamp != 0
+                else 0
+            )
             otc = "YES" if snapshot.get("otc_available", "N/A") is True else "NO"
             cash = "YES" if snapshot.get("cash_available", "N/A") is True else "NO"
-            click.echo(f"  [{idx:02d}] time: {time} ts:{timestamp} OTC={otc}, CASH={cash}")
+            click.echo(
+                f"  [{idx:02d}] time: {time} ts:{timestamp} OTC={otc}, CASH={cash}"
+            )
