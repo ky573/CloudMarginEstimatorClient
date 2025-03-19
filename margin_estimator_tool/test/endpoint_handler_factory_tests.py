@@ -1,5 +1,5 @@
 import pytest
-from margin_estimator_tool.src.margin_estimator_tool.core.endpoint_handler_factory import EndpointHandlerFactory
+from margin_estimator_tool.src.margin_estimator_tool.cli.endpoint_handler_factory import EndpointHandlerFactory
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import \

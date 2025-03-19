@@ -3,13 +3,13 @@ import click
 from unittest.mock import patch
 
 
-from margin_estimator_tool.src.margin_estimator_tool.core.argument_validator import (BaseArgumentValidator,
-                                                                                     MarginCalculatorValidator,
-                                                                                     GetProductsValidator,
-                                                                                     GetSeriesValidator,
-                                                                                     GetLiveSnapshotsValidator,
-                                                                                     GetSnapshotsValidator,
-                                                                                     EtdPortfolioValidator)
+from margin_estimator_tool.src.margin_estimator_tool.cli.argument_validator import (BaseArgumentValidator,
+                                                                                    MarginCalculatorValidator,
+                                                                                    GetProductsValidator,
+                                                                                    GetSeriesValidator,
+                                                                                    GetLiveSnapshotsValidator,
+                                                                                    GetSnapshotsValidator,
+                                                                                    EtdPortfolioValidator)
 
 
 class TestBaseArgumentValidator:
