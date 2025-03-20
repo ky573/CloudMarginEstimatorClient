@@ -6,7 +6,7 @@ The CLI Tool is a command-line interface designed to interact with CPME API for 
 ## Features
 - Command-line interface for interacting with backend endpoints.
 - Modular command factory for dynamically handling commands.
-- Argument validation to ensure correctness of user inputs.
+- Argument validation to ensure the correctness of user inputs.
 - Request handlers for different endpoints: Products, Series, Snapshots, Live Snapshots, ETD Portfolio, and Margin Calculator.
 - Data filtering and exporting capabilities.
 - Header validation and request body construction for specific endpoints.
