@@ -35,7 +35,7 @@ pip install .
 ```
 
 ### Environment Configuration
-Create a `.env` file in the project root directory and define the required environment variables:
+Create a `.env` file in the project root directory and define the environment variables (proxy is optional, can be left empty / not specified):
 ```ini
 API_KEY=/api key/
 PROXY=/proxy/
@@ -63,6 +63,8 @@ margin_estimator_tool get_products --version LIVE
 margin_estimator_tool get_series --date 20250303 --version SOD --to_json
 ```
 
+For more detailed usage, please have a look at the tutorials in separate directory.
+
 ## Architecture
 The tool is structured into two main components:
 ### CLI
@@ -79,4 +81,4 @@ The tool is structured into two main components:
 - **Export Strategies**: Handles exporting data in different formats.
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the License - see the [LICENSE](LICENSE) file for details.
