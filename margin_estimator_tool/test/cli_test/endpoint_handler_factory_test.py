@@ -1,3 +1,5 @@
+"""Test suite for EndpointHandlerFactory class."""
+
 import pytest
 from margin_estimator_tool.src.margin_estimator_tool.cli.endpoint_handler_factory import EndpointHandlerFactory
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler

@@ -1,8 +1,8 @@
+"""Test suite for ArgumentValidator class."""
+
 import pytest
 import click
 from unittest.mock import patch
-
-
 from margin_estimator_tool.src.margin_estimator_tool.cli.argument_validator import (BaseArgumentValidator,
                                                                                     MarginCalculatorValidator,
                                                                                     GetProductsValidator,
@@ -13,6 +13,7 @@ from margin_estimator_tool.src.margin_estimator_tool.cli.argument_validator impo
 
 
 class TestBaseArgumentValidator:
+    """Test cases for ArgumentValidator class."""
     def test_validate_date_valid(self):
         """Test that valid date passes validation"""
         try:
@@ -21,7 +22,7 @@ class TestBaseArgumentValidator:
             pytest.fail("validate_date raised BadParameter unexpectedly for valid date")
 
     def test_validate_date_invalid(self):
-        """Test that invalid date raises BadParameter"""
+        """Test that invalid date raises BadParameter."""
         with pytest.raises(click.BadParameter) as excinfo:
             BaseArgumentValidator.validate_date("2025-01-01")
         assert "Date format must be YYYYMMDD" in str(excinfo.value)
@@ -30,7 +31,7 @@ class TestBaseArgumentValidator:
             BaseArgumentValidator.validate_date("20251301")  # Invalid month
 
     def test_validate_dir_exists(self):
-        """Test that existing directory passes validation"""
+        """Test that existing directory passes validation."""
         with patch('os.path.exists', return_value=True):
             try:
                 BaseArgumentValidator.validate_dir("/existing/dir")
@@ -38,14 +39,14 @@ class TestBaseArgumentValidator:
                 pytest.fail("validate_dir raised BadParameter unexpectedly for existing directory")
 
     def test_validate_dir_not_exists(self):
-        """Test that non-existing directory raises BadParameter"""
+        """Test that non-existing directory raises BadParameter."""
         with patch('os.path.exists', return_value=False):
             with pytest.raises(click.BadParameter) as excinfo:
                 BaseArgumentValidator.validate_dir("/nonexistent/dir")
             assert "Directory '/nonexistent/dir' not found" in str(excinfo.value)
 
     def test_validate_not_implemented(self):
-        """Test that base validate method raises NotImplementedError"""
+        """Test that base validate method raises NotImplementedError."""
         with pytest.raises(NotImplementedError):
             BaseArgumentValidator().validate()
 
@@ -55,7 +56,7 @@ class TestMarginCalculatorValidator:
         self.validator = MarginCalculatorValidator()
 
     def test_validate_all_valid(self):
-        """Test validation with all valid parameters"""
+        """Test validation with all valid parameters."""
         with patch('os.path.exists', return_value=True):
             try:
                 self.validator.validate(
@@ -68,7 +69,7 @@ class TestMarginCalculatorValidator:
                 pytest.fail("Validation failed with valid parameters")
 
     def test_validate_invalid_csv_file(self):
-        """Test validation with non-existing csv file"""
+        """Test validation with non-existing csv file."""
         with patch('os.path.exists', side_effect=[False, True]):  # csv_file not exists, export_dir exists
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -80,7 +81,7 @@ class TestMarginCalculatorValidator:
             assert "not found" in str(excinfo.value)
 
     def test_validate_invalid_date_from(self):
-        """Test validation with invalid date_from"""
+        """Test validation with invalid date_from."""
         with patch('os.path.exists', return_value=True):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -92,7 +93,7 @@ class TestMarginCalculatorValidator:
             assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_date_to(self):
-        """Test validation with invalid date_to"""
+        """Test validation with invalid date_to."""
         with patch('os.path.exists', return_value=True):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -104,7 +105,7 @@ class TestMarginCalculatorValidator:
             assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_export_dir(self):
-        """Test validation with non-existing export directory"""
+        """Test validation with non-existing export directory."""
         with patch('os.path.exists', side_effect=[True, False]):  # csv_file exists, export_dir not exists
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -121,7 +122,7 @@ class TestGetProductsValidator:
         self.validator = GetProductsValidator()
 
     def test_validate_all_valid(self):
-        """Test validation with all valid parameters"""
+        """Test validation with all valid parameters."""
         with patch('os.path.exists', return_value=True):
             try:
                 self.validator.validate(
@@ -132,7 +133,7 @@ class TestGetProductsValidator:
                 pytest.fail("Validation failed with valid parameters")
 
     def test_validate_none_parameters(self):
-        """Test validation with None parameters which are optional"""
+        """Test validation with None parameters which are optional."""
         try:
             self.validator.validate(
                 date=None,
@@ -142,7 +143,7 @@ class TestGetProductsValidator:
             pytest.fail("Validation failed with None parameters")
 
     def test_validate_invalid_date(self):
-        """Test validation with invalid date"""
+        """Test validation with invalid date."""
         with pytest.raises(click.BadParameter) as excinfo:
             self.validator.validate(
                 date="invalid",
@@ -151,7 +152,7 @@ class TestGetProductsValidator:
         assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_export_dir(self):
-        """Test validation with non-existing export directory"""
+        """Test validation with non-existing export directory."""
         with patch('os.path.exists', return_value=False):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -166,7 +167,7 @@ class TestGetSeriesValidator:
         self.validator = GetSeriesValidator()
 
     def test_validate_all_valid(self):
-        """Test validation with all valid parameters"""
+        """Test validation with all valid parameters."""
         with patch('os.path.exists', return_value=True):
             try:
                 self.validator.validate(
@@ -196,7 +197,7 @@ class TestGetSeriesValidator:
         assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_export_dir(self):
-        """Test validation with non-existing export directory"""
+        """Test validation with non-existing export directory."""
         with patch('os.path.exists', return_value=False):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -211,14 +212,14 @@ class TestGetLiveSnapshotsValidator:
         self.validator = GetLiveSnapshotsValidator()
 
     def test_validate_valid_date(self):
-        """Test validation with valid date"""
+        """Test validation with valid date."""
         try:
             self.validator.validate(date="20250101")
         except click.BadParameter:
             pytest.fail("Validation failed with valid date")
 
     def test_validate_invalid_date(self):
-        """Test validation with invalid date"""
+        """Test validation with invalid date."""
         with pytest.raises(click.BadParameter) as excinfo:
             self.validator.validate(date="invalid")
         assert "Date format" in str(excinfo.value)
@@ -229,7 +230,7 @@ class TestGetSnapshotsValidator:
         self.validator = GetSnapshotsValidator()
 
     def test_validate_all_valid(self):
-        """Test validation with all valid parameters"""
+        """Test validation with all valid parameters."""
         try:
             self.validator.validate(
                 date_from="20250101",
@@ -239,7 +240,7 @@ class TestGetSnapshotsValidator:
             pytest.fail("Validation failed with valid parameters")
 
     def test_validate_none_parameters(self):
-        """Test validation with None parameters which are optional"""
+        """Test validation with None parameters which are optional."""
         try:
             self.validator.validate(
                 date_from=None,
@@ -249,7 +250,7 @@ class TestGetSnapshotsValidator:
             pytest.fail("Validation failed with None parameters")
 
     def test_validate_invalid_date_from(self):
-        """Test validation with invalid date_from"""
+        """Test validation with invalid date_from."""
         with pytest.raises(click.BadParameter) as excinfo:
             self.validator.validate(
                 date_from="invalid",
@@ -258,7 +259,7 @@ class TestGetSnapshotsValidator:
         assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_date_to(self):
-        """Test validation with invalid date_to"""
+        """Test validation with invalid date_to."""
         with pytest.raises(click.BadParameter) as excinfo:
             self.validator.validate(
                 date_from="20250101",
@@ -284,7 +285,7 @@ class TestEtdPortfolioValidator:
                 pytest.fail("Validation failed with valid parameters")
 
     def test_validate_only_required_valid(self):
-        """Test validation with only required parameter valid"""
+        """Test validation with only required parameter valid."""
         with patch('os.path.exists', return_value=True):
             try:
                 self.validator.validate(
@@ -296,7 +297,7 @@ class TestEtdPortfolioValidator:
                 pytest.fail("Validation failed with only required parameter")
 
     def test_validate_invalid_csv_file(self):
-        """Test validation with non-existing csv file"""
+        """Test validation with non-existing csv file."""
         with patch('os.path.exists', return_value=False):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -307,7 +308,7 @@ class TestEtdPortfolioValidator:
             assert "not found" in str(excinfo.value)
 
     def test_validate_invalid_date(self):
-        """Test validation with invalid date"""
+        """Test validation with invalid date."""
         with patch('os.path.exists', return_value=True):
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(
@@ -318,7 +319,7 @@ class TestEtdPortfolioValidator:
             assert "Date format" in str(excinfo.value)
 
     def test_validate_invalid_export_dir(self):
-        """Test validation with non-existing export directory"""
+        """Test validation with non-existing export directory."""
         with patch('os.path.exists', side_effect=[True, False]):  # csv_file exists, export_dir not exists
             with pytest.raises(click.BadParameter) as excinfo:
                 self.validator.validate(

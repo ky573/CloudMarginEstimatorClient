@@ -1,3 +1,5 @@
+"""Test suite for the SeriesRequestHandler class."""
+
 from unittest.mock import patch
 from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import (
     SeriesRequestHandler,
@@ -5,7 +7,7 @@ from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handl
 
 
 class TestSeriesRequestHandler:
-    """Test suite for the SeriesRequestHandler class."""
+    """Test cases for the SeriesRequestHandler class."""
 
     def setup_method(self):
         """Setup test data before each test."""

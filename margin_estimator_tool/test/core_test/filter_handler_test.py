@@ -1,9 +1,13 @@
+"""Test suite for FilterHandler class"""
+
 import pytest
 import click
 from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
 
 
 class TestFilterHandler:
+    """Test cases for FilterHandler class"""
+
     def test_init(self):
         """Test initialization of FilterHandler"""
         extrafields = ["field1", "field2", "xm_eligibility"]

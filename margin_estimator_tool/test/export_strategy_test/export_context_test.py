@@ -1,10 +1,12 @@
+"""Test suite for the ExportContext class."""
+
 from unittest.mock import MagicMock
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import ExportStrategy
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
 
 
 class TestExportContext:
-    """Test suite for the ExportContext class."""
+    """Test cases for the ExportContext class."""
 
     def setup_method(self):
         """Setup test data before each test."""

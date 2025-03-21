@@ -1,9 +1,11 @@
+"""Test suite for Extractor class"""
+
 import pytest
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import Extractor
 
 
 class TestExtractor:
-    """Test suite for the Extractor class."""
+    """Test cases for the Extractor class."""
 
     def test_initial_state(self):
         """Tests that the extractor starts with empty lists."""

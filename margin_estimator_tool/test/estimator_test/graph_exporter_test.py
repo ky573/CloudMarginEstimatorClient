@@ -1,16 +1,17 @@
-import pytest
+"""Test suite for GraphExporter class"""
+
 import plotly.graph_objects as go
 from datetime import datetime
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import GraphExporter
 
 
 class TestGraphExporter:
-    """Test suite for the GraphExporter class."""
+    """Test cases for the GraphExporter class."""
 
     def setup_method(self):
         """Setup test data before each test."""
-        self.dates = [20240318, 20240319, 20240320]
+        self.dates = [20250318, 20250319, 20250320]
         self.initial_margins = [1500.75, 1600.50, 1700.25]
         self.export_dir = "test_dir"
         self.exporter = GraphExporter(self.dates, self.initial_margins, self.export_dir)

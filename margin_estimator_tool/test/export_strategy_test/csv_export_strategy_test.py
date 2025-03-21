@@ -1,10 +1,12 @@
+"""Test suite for CSVExportStrategy class"""
+
 import os
 from unittest.mock import patch, mock_open
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
 
 
 class TestCSVExportStrategy:
-    """Test suite for the CSVExportStrategy class."""
+    """Test cases for the CSVExportStrategy class."""
 
     def setup_method(self):
         """Setup test data before each test."""

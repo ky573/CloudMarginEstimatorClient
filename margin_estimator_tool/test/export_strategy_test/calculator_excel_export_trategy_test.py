@@ -1,3 +1,5 @@
+"""Test suite for MarginCalculatorExcelExportStrategy class"""
+
 import os
 from unittest.mock import patch, MagicMock
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy import (
@@ -6,7 +8,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.margin_calc
 
 
 class TestMarginCalculatorExcelExportStrategy:
-    """Test suite for the MarginCalculatorExcelExportStrategy class."""
+    """Test cases for the MarginCalculatorExcelExportStrategy class."""
 
     def setup_method(self):
         """Setup test data before each test."""

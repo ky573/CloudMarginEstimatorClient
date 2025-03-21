@@ -1,3 +1,5 @@
+"""Test suite for EtdPortfolioRequestHandler class"""
+
 from unittest.mock import patch, MagicMock
 from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
     EtdPortfolioRequestHandler,
@@ -5,7 +7,7 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd
 
 
 class TestEtdPortfolioRequestHandler:
-    """Test suite for the EtdPortfolioRequestHandler class."""
+    """Test cases for the EtdPortfolioRequestHandler class."""
 
     def setup_method(self):
         """Setup test data before each test."""

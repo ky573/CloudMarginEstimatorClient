@@ -1,3 +1,5 @@
+"""Test suite for EtdPortfolioCSVExportStrategy class."""
+
 import os
 from unittest.mock import patch, mock_open
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import (
@@ -6,7 +8,7 @@ from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfol
 
 
 class TestEtdPortfolioCSVExportStrategy:
-    """Test suite for the EtdPortfolioCSVExportStrategy class."""
+    """Test cases for the EtdPortfolioCSVExportStrategy class."""
 
     def setup_method(self):
         """Setup test data before each test."""

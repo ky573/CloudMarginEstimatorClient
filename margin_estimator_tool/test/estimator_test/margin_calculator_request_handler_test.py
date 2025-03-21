@@ -1,3 +1,5 @@
+"""Test suite for MarginCalculatorRequestHandler class"""
+
 from unittest.mock import patch, MagicMock
 from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
     MarginCalculatorRequestHandler,
@@ -5,7 +7,7 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator
 
 
 class TestMarginCalculatorRequestHandler:
-    """Test suite for the MarginCalculatorRequestHandler class."""
+    """Test cases for the MarginCalculatorRequestHandler class."""
 
     def setup_method(self):
         """Setup initial test data."""

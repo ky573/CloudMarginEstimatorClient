@@ -1,7 +1,8 @@
+"""Test suite for RequestHandlerBase class."""
+
 import pytest
 from unittest.mock import patch, MagicMock, call
 import requests
-from datetime import datetime
 from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
 
 

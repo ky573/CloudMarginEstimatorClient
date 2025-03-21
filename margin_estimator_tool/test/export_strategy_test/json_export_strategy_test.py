@@ -1,9 +1,11 @@
+"""Test suite for the JSONExportStrategy class."""
+
 import os
 from unittest.mock import mock_open, patch
 from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
 
 class TestJSONExportStrategy:
-    """Test suite for the JSONExportStrategy class."""
+    """Test cases for the JSONExportStrategy class."""
 
     def setup_method(self):
         """Setup test data before each test."""

@@ -1,3 +1,5 @@
+"""Test suite for EstimatorRequestBuilder class."""
+
 import pytest
 from unittest.mock import patch, mock_open, MagicMock
 from io import StringIO
@@ -6,6 +8,7 @@ from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request
 
 
 class TestEstimatorRequestBuilder:
+    """Test cases for EstimatorRequestBuilder class."""
     @pytest.fixture
     def header_validator_mock(self):
         return MagicMock(spec=HeaderValidator)
