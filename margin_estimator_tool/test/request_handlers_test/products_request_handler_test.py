@@ -3,7 +3,9 @@
 from unittest.mock import patch
 import os
 from datetime import datetime
-from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import ProductsRequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import (
+    ProductsRequestHandler,
+)
 
 
 class TestProductsRequestHandler:
@@ -32,7 +34,7 @@ class TestProductsRequestHandler:
             to_json=True,
             export_dir=export_dir,
             timestamp=timestamp,
-            filters="currency:USD,product_type:OINX"
+            filters="currency:USD,product_type:OINX",
         )
 
         assert handler.business_date == int(current_date)
@@ -44,8 +46,13 @@ class TestProductsRequestHandler:
 
     def test_init_parses_filters(self):
         """Test that filters are parsed during initialization."""
-        with patch('margin_estimator_tool.src.margin_estimator_tool.core.filter_handler.FilterHandler.parse_filters') as mock_parse_filters:
-            mock_parse_filters.return_value = {"currency": "USD", "product_type": "OINX"}
+        with patch(
+            "margin_estimator_tool.src.margin_estimator_tool.core.filter_handler.FilterHandler.parse_filters"
+        ) as mock_parse_filters:
+            mock_parse_filters.return_value = {
+                "currency": "USD",
+                "product_type": "OINX",
+            }
 
             handler = ProductsRequestHandler(filters="currency:USD,product_type:OINX")
 
@@ -54,8 +61,11 @@ class TestProductsRequestHandler:
 
     def test_send_request_error(self):
         """Test API request with error response."""
-        with patch('margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base.RequestHandler.api', create=True) as mock_api:
-            with patch('click.echo') as mock_echo, patch('sys.exit') as mock_exit:
+        with patch(
+            "margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base.RequestHandler.api",
+            create=True,
+        ) as mock_api:
+            with patch("click.echo") as mock_echo, patch("sys.exit") as mock_exit:
                 handler = ProductsRequestHandler(date="20250101")
                 result = handler.send_request()
 

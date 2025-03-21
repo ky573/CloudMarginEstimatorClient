@@ -1,7 +1,9 @@
 """Test suite for HeaderValidator class."""
 
 from unittest.mock import patch, mock_open
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+    HeaderValidator,
+)
 
 
 class TestHeaderValidator:

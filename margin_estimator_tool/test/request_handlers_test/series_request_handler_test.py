@@ -57,12 +57,17 @@ class TestSeriesRequestHandler:
 
     def test_process_and_provide_output(self):
         """Test that data is processed and exported correctly."""
-        mock_series_data = [{"product_id": "product1", "call_put_flag": "C", "days_to_expiration": 5}]
+        mock_series_data = [
+            {"product_id": "product1", "call_put_flag": "C", "days_to_expiration": 5}
+        ]
 
-        with patch.object(self.handler, "send_request", return_value=mock_series_data), \
-                patch(
-                    "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export") as mock_export, \
-                patch.object(self.handler, "_filter_series", return_value=mock_series_data):  # Mock the filter step
+        with patch.object(
+            self.handler, "send_request", return_value=mock_series_data
+        ), patch(
+            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+        ) as mock_export, patch.object(
+            self.handler, "_filter_series", return_value=mock_series_data
+        ):  # Mock the filter step
 
             self.handler.process_and_provide_output()
 
@@ -83,16 +88,18 @@ class TestSeriesRequestHandler:
             "list_series": [{"product_id": "product1", "call_put_flag": "C"}]
         }
 
-        with patch.object(self.handler.api, "series_get", return_value=mock_response), \
-                patch.object(self.handler, "_check_for_error_in_response"):
+        with patch.object(
+            self.handler.api, "series_get", return_value=mock_response
+        ), patch.object(self.handler, "_check_for_error_in_response"):
             response = self.handler.send_request()
 
             assert response == mock_response["list_series"]
 
     def test_send_request_handles_exception(self):
         """Test that an exception during the request is properly handled."""
-        with patch.object(self.handler.api, "series_get", side_effect=Exception("API error")), \
-                patch.object(self.handler, "_handle_request_error") as mock_handle_error:
+        with patch.object(
+            self.handler.api, "series_get", side_effect=Exception("API error")
+        ), patch.object(self.handler, "_handle_request_error") as mock_handle_error:
             response = self.handler.send_request()
 
             assert response == []  # Empty list should be returned on error
@@ -111,7 +118,8 @@ class TestSeriesRequestHandler:
         ]
 
         with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export") as mock_export:
+            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+        ) as mock_export:
             self.handler._generate_etd_portfolio_template(mock_filtered_series)
 
             expected_template = [

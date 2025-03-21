@@ -37,7 +37,9 @@ class TestMarginCalculatorExcelExportStrategy:
         with patch("openpyxl.Workbook.save") as mock_save:
             mock_save.return_value = None  # Prevents actual file writing
 
-            result = self.strategy.export(self.date, self.version, self.data, self.output_path)
+            result = self.strategy.export(
+                self.date, self.version, self.data, self.output_path
+            )
 
             assert result is True
             mock_save.assert_called_once()  # Ensure save is called once
@@ -52,14 +54,19 @@ class TestMarginCalculatorExcelExportStrategy:
 
     def test_export_creates_correct_sheets(self):
         """Tests if the export creates the correct sheets and populates them."""
-        with patch("openpyxl.Workbook.save") as mock_save, \
-             patch("openpyxl.Workbook.create_sheet") as mock_create_sheet:
+        with patch("openpyxl.Workbook.save") as mock_save, patch(
+            "openpyxl.Workbook.create_sheet"
+        ) as mock_create_sheet:
 
             mock_ws1 = MagicMock()
             mock_ws2 = MagicMock()
-            mock_create_sheet.side_effect = lambda title: mock_ws1 if title == "portfolio_margin" else mock_ws2
+            mock_create_sheet.side_effect = lambda title: (
+                mock_ws1 if title == "portfolio_margin" else mock_ws2
+            )
 
-            result = self.strategy.export(self.date, self.version, self.data, self.output_path)
+            result = self.strategy.export(
+                self.date, self.version, self.data, self.output_path
+            )
 
             assert result is True
             mock_create_sheet.assert_any_call(title="portfolio_margin")
@@ -69,11 +76,13 @@ class TestMarginCalculatorExcelExportStrategy:
 
     def test_export_calls_populate_sheet(self):
         """Tests that _populate_sheet is called for both sheets."""
-        with patch("openpyxl.Workbook.save") as mock_save, \
-             patch.object(self.strategy, "_populate_sheet") as mock_populate_sheet:
+        with patch("openpyxl.Workbook.save") as mock_save, patch.object(
+            self.strategy, "_populate_sheet"
+        ) as mock_populate_sheet:
 
-            result = self.strategy.export(self.date, self.version, self.data, self.output_path)
+            result = self.strategy.export(
+                self.date, self.version, self.data, self.output_path
+            )
 
             assert result is True
             assert mock_populate_sheet.call_count == 2  # One for each sheet
-

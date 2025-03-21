@@ -2,7 +2,10 @@
 
 import os
 from unittest.mock import patch
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import ExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.excel_export_strategy import (
+    ExcelExportStrategy,
+)
+
 
 class TestExcelExportStrategy:
     """Test cases for the ExcelExportStrategy class."""

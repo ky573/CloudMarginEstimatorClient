@@ -42,9 +42,13 @@ class TestEtdPortfolioRequestHandler:
 
     def test_process_and_provide_output_valid_headers(self):
         """Test that data is processed and exported when headers are valid."""
-        with patch.object(self.handler.header_validator, "validate_headers", return_value=True), \
-             patch.object(self.handler, "send_request", return_value={"portfolio": "data"}), \
-             patch("margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export") as mock_export:
+        with patch.object(
+            self.handler.header_validator, "validate_headers", return_value=True
+        ), patch.object(
+            self.handler, "send_request", return_value={"portfolio": "data"}
+        ), patch(
+            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+        ) as mock_export:
 
             self.handler.process_and_provide_output()
 
@@ -60,13 +64,17 @@ class TestEtdPortfolioRequestHandler:
 
     def test_process_and_provide_output_invalid_headers(self):
         """Test that no data is processed when headers are invalid."""
-        with patch.object(self.handler.header_validator, "validate_headers", return_value=False), \
-             patch("click.echo") as mock_echo, \
-             patch.object(self.handler, "send_request") as mock_send_request:
+        with patch.object(
+            self.handler.header_validator, "validate_headers", return_value=False
+        ), patch("click.echo") as mock_echo, patch.object(
+            self.handler, "send_request"
+        ) as mock_send_request:
 
             self.handler.process_and_provide_output()
 
-            mock_echo.assert_called_once_with("Failed to validate CSV portfolio file. Process aborted.")
+            mock_echo.assert_called_once_with(
+                "Failed to validate CSV portfolio file. Process aborted."
+            )
             mock_send_request.assert_not_called()  # send_request should not be called when headers are invalid
 
     def test_send_request_successful_response(self):
@@ -74,9 +82,13 @@ class TestEtdPortfolioRequestHandler:
         mock_response = MagicMock()
         mock_response.to_dict.return_value = {"key": "value"}
 
-        with patch.object(self.handler.request_builder, "build_request", return_value=mock_response), \
-             patch.object(self.handler.api, "estimator_post", return_value={"portfolio": "data"}), \
-             patch.object(self.handler, "_check_for_error_in_response") as mock_check_error:
+        with patch.object(
+            self.handler.request_builder, "build_request", return_value=mock_response
+        ), patch.object(
+            self.handler.api, "estimator_post", return_value={"portfolio": "data"}
+        ), patch.object(
+            self.handler, "_check_for_error_in_response"
+        ) as mock_check_error:
 
             response = self.handler.send_request()
 
@@ -85,9 +97,9 @@ class TestEtdPortfolioRequestHandler:
 
     def test_send_request_handles_exception(self):
         """Test handling an exception when the API request fails."""
-        with patch.object(self.handler.request_builder, "build_request"), \
-             patch.object(self.handler.api, "estimator_post", side_effect=Exception("API error")), \
-             patch.object(self.handler, "_handle_request_error") as mock_handle_error:
+        with patch.object(self.handler.request_builder, "build_request"), patch.object(
+            self.handler.api, "estimator_post", side_effect=Exception("API error")
+        ), patch.object(self.handler, "_handle_request_error") as mock_handle_error:
 
             response = self.handler.send_request()
 

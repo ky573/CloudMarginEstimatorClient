@@ -2,7 +2,9 @@
 
 import os
 from unittest.mock import patch, mock_open
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import CSVExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import (
+    CSVExportStrategy,
+)
 
 
 class TestCSVExportStrategy:
@@ -24,11 +26,15 @@ class TestCSVExportStrategy:
 
     def test_export_success(self):
         """Tests successful CSV export."""
-        with patch("os.path.join", return_value="test_dir/test_file.csv") as mock_path_join, \
-                patch("csv.DictWriter") as mock_dict_writer, \
-                patch("builtins.open", new_callable=mock_open) as mock_file:
+        with patch(
+            "os.path.join", return_value="test_dir/test_file.csv"
+        ) as mock_path_join, patch("csv.DictWriter") as mock_dict_writer, patch(
+            "builtins.open", new_callable=mock_open
+        ) as mock_file:
             mock_writer_instance = mock_dict_writer.return_value
-            result = self.strategy.export(self.date, self.version, self.data, self.output_path)
+            result = self.strategy.export(
+                self.date, self.version, self.data, self.output_path
+            )
 
             assert result is True
             mock_dict_writer.assert_called_once()

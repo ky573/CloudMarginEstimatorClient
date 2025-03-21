@@ -43,9 +43,7 @@ class TestEtdPortfolioCSVExportStrategy:
             )
 
             assert result is True
-            mock_file.assert_any_call(
-                self.expected_margin_filename, "w", newline=""
-            )
+            mock_file.assert_any_call(self.expected_margin_filename, "w", newline="")
             mock_file.assert_any_call(
                 self.expected_drilldowns_filename, "w", newline=""
             )
@@ -65,7 +63,9 @@ class TestEtdPortfolioCSVExportStrategy:
 
     def test_export_no_drilldowns(self):
         """Tests exporting when there are portfolio margins but no drilldowns."""
-        data_no_drilldowns = {"portfolio_margin": self.portfolio_data["portfolio_margin"]}
+        data_no_drilldowns = {
+            "portfolio_margin": self.portfolio_data["portfolio_margin"]
+        }
 
         with patch("builtins.open", mock_open()) as mock_file, patch(
             "csv.DictWriter"

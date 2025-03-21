@@ -2,8 +2,9 @@
 
 import os
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import \
-    EtdPortfolioExcelExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
+    EtdPortfolioExcelExportStrategy,
+)
 
 
 class TestEtdPortfolioExcelExportStrategy:
@@ -30,8 +31,9 @@ class TestEtdPortfolioExcelExportStrategy:
 
     def test_export_success(self):
         """Tests exporting portfolio data successfully to an Excel file using openpyxl."""
-        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, \
-                patch("openpyxl.workbook.workbook.Workbook.save") as mock_save:
+        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, patch(
+            "openpyxl.workbook.workbook.Workbook.save"
+        ) as mock_save:
             mock_writer_instance = MagicMock()
             mock_excel_writer.return_value.__enter__.return_value = mock_writer_instance
             mock_save.return_value = None  # Prevents actual file saving
@@ -41,33 +43,41 @@ class TestEtdPortfolioExcelExportStrategy:
             )
 
             assert result is True
-            mock_excel_writer.assert_called_once_with(self.expected_filename, engine="openpyxl")
+            mock_excel_writer.assert_called_once_with(
+                self.expected_filename, engine="openpyxl"
+            )
             mock_save.assert_called()
 
     def test_export_no_data(self):
         """Tests exporting when both portfolio_margin and drilldowns are empty, expecting False."""
         empty_data = {"portfolio_margin": [], "drilldowns": []}
 
-        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, \
-                patch("openpyxl.workbook.workbook.Workbook.save") as mock_save:
+        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, patch(
+            "openpyxl.workbook.workbook.Workbook.save"
+        ) as mock_save:
             mock_writer_instance = MagicMock()
             mock_excel_writer.return_value.__enter__.return_value = mock_writer_instance
             mock_save.return_value = None
 
-            result = self.strategy.export(self.date, self.version, empty_data, self.output_path)
+            result = self.strategy.export(
+                self.date, self.version, empty_data, self.output_path
+            )
 
             assert result is False
-            mock_excel_writer.assert_called_once_with(self.expected_filename, engine="openpyxl")
+            mock_excel_writer.assert_called_once_with(
+                self.expected_filename, engine="openpyxl"
+            )
             mock_save.assert_not_called()  # Should not save when no data
 
     def test_export_calls_submethods(self):
         """Tests that _export_margins and _export_drilldowns are called correctly."""
-        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, \
-                patch("openpyxl.workbook.workbook.Workbook.save") as mock_save, \
-                patch(
-                    "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_margins") as mock_export_margins, \
-                patch(
-                    "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_drilldowns") as mock_export_drilldowns:
+        with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, patch(
+            "openpyxl.workbook.workbook.Workbook.save"
+        ) as mock_save, patch(
+            "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_margins"
+        ) as mock_export_margins, patch(
+            "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_drilldowns"
+        ) as mock_export_drilldowns:
             mock_export_margins.return_value = True
             mock_export_drilldowns.return_value = False
             mock_writer_instance = MagicMock()

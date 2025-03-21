@@ -1,7 +1,9 @@
 """Test suite for Extractor class"""
 
 import pytest
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import Extractor
+from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import (
+    Extractor,
+)
 
 
 class TestExtractor:

@@ -1,8 +1,12 @@
 """Test suite for the ExportContext class."""
 
 from unittest.mock import MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import ExportStrategy
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import ExportContext
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import (
+    ExportStrategy,
+)
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import (
+    ExportContext,
+)
 
 
 class TestExportContext:
@@ -27,14 +31,20 @@ class TestExportContext:
         self.context.set_strategy(self.mock_strategy)
         self.mock_strategy.export.return_value = True
 
-        result = self.context.export_data("20250318", True, [{"key": "value"}], "test_dir")
+        result = self.context.export_data(
+            "20250318", True, [{"key": "value"}], "test_dir"
+        )
 
-        self.mock_strategy.export.assert_called_once_with("20250318", True, [{"key": "value"}], "test_dir")
+        self.mock_strategy.export.assert_called_once_with(
+            "20250318", True, [{"key": "value"}], "test_dir"
+        )
         assert result is True
 
     def test_export_data_without_strategy(self, capsys):
         """Tests exporting data without setting a strategy (should print a message and return False)."""
-        result = self.context.export_data("20250318", True, [{"key": "value"}], "test_dir")
+        result = self.context.export_data(
+            "20250318", True, [{"key": "value"}], "test_dir"
+        )
 
         captured = capsys.readouterr()
         assert "No export strategy defined." in captured.out

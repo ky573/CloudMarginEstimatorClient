@@ -2,7 +2,10 @@
 
 import os
 from unittest.mock import mock_open, patch
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import JSONExportStrategy
+from margin_estimator_tool.src.margin_estimator_tool.export_strategy.json_export_strategy import (
+    JSONExportStrategy,
+)
+
 
 class TestJSONExportStrategy:
     """Test cases for the JSONExportStrategy class."""

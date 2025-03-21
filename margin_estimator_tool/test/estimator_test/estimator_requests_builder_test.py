@@ -3,12 +3,17 @@
 import pytest
 from unittest.mock import patch, mock_open, MagicMock
 from io import StringIO
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import HeaderValidator
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import EstimatorRequestBuilder
+from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+    HeaderValidator,
+)
+from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import (
+    EstimatorRequestBuilder,
+)
 
 
 class TestEstimatorRequestBuilder:
     """Test cases for EstimatorRequestBuilder class."""
+
     @pytest.fixture
     def header_validator_mock(self):
         return MagicMock(spec=HeaderValidator)
@@ -22,13 +27,20 @@ class TestEstimatorRequestBuilder:
         builder = EstimatorRequestBuilder(header_validator_mock)
         assert builder.header_validator == header_validator_mock
 
-    @patch('cpme_api.models.BodyEstimator')
-    @patch('cpme_api.models.Snapshot')
-    @patch('cpme_api.models.BodyEstimatorPortfolioComponents')
-    @patch('cpme_api.models.EtdCsv')
+    @patch("cpme_api.models.BodyEstimator")
+    @patch("cpme_api.models.Snapshot")
+    @patch("cpme_api.models.BodyEstimatorPortfolioComponents")
+    @patch("cpme_api.models.EtdCsv")
     @patch("builtins.open", new_callable=mock_open, read_data="mock_csv_content")
-    def test_build_gui_format_request(self, mock_file, mock_etd_csv, mock_components,
-                                      mock_snapshot, mock_body_estimator, builder):
+    def test_build_gui_format_request(
+        self,
+        mock_file,
+        mock_etd_csv,
+        mock_components,
+        mock_snapshot,
+        mock_body_estimator,
+        builder,
+    ):
         """Test if _build_gui_format_request correctly builds a GUI format request."""
         # Setup mocks
         mock_body_instance = MagicMock()
@@ -51,8 +63,12 @@ class TestEstimatorRequestBuilder:
         timestamp = 1672531200
 
         # Create a patch for the _build_base_request method
-        with patch.object(builder, '_build_base_request', return_value=mock_body_instance) as mock_base_request:
-            result = builder._build_gui_format_request(business_day, csv_file, version, timestamp)
+        with patch.object(
+            builder, "_build_base_request", return_value=mock_body_instance
+        ) as mock_base_request:
+            result = builder._build_gui_format_request(
+                business_day, csv_file, version, timestamp
+            )
 
             # Verify _build_base_request was called correctly
             mock_base_request.assert_called_once_with(business_day, version, timestamp)
@@ -67,13 +83,20 @@ class TestEstimatorRequestBuilder:
             assert mock_components.called
             assert mock_components_instance in result.portfolio_components
 
-    @patch('cpme_api.models.BodyEstimator')
-    @patch('cpme_api.models.Snapshot')
-    @patch('cpme_api.models.BodyEstimatorPortfolioComponents')
-    @patch('cpme_api.models.EtdPositionsInner')
+    @patch("cpme_api.models.BodyEstimator")
+    @patch("cpme_api.models.Snapshot")
+    @patch("cpme_api.models.BodyEstimatorPortfolioComponents")
+    @patch("cpme_api.models.EtdPositionsInner")
     @patch("builtins.open")
-    def test_build_inner_format_request(self, mock_file, mock_etd_positions,
-                                        mock_components, mock_snapshot, mock_body_estimator, builder):
+    def test_build_inner_format_request(
+        self,
+        mock_file,
+        mock_etd_positions,
+        mock_components,
+        mock_snapshot,
+        mock_body_estimator,
+        builder,
+    ):
         """Test if _build_inner_format_request correctly builds an inner format request."""
         # Setup mocks
         mock_body_instance = MagicMock()
@@ -104,8 +127,12 @@ class TestEstimatorRequestBuilder:
         timestamp = 1672531200
 
         # Create a patch for the _build_base_request method
-        with patch.object(builder, '_build_base_request', return_value=mock_body_instance) as mock_base_request:
-            result = builder._build_inner_format_request(business_day, csv_file, version, timestamp)
+        with patch.object(
+            builder, "_build_base_request", return_value=mock_body_instance
+        ) as mock_base_request:
+            result = builder._build_inner_format_request(
+                business_day, csv_file, version, timestamp
+            )
 
             # Verify _build_base_request was called correctly
             mock_base_request.assert_called_once_with(business_day, version, timestamp)
@@ -134,12 +161,14 @@ class TestEstimatorRequestBuilder:
         header_validator_mock.get_header_format.return_value = (True, False)
 
         # Mock the _build_gui_format_request method
-        with patch.object(builder, '_build_gui_format_request') as mock_build_gui:
+        with patch.object(builder, "_build_gui_format_request") as mock_build_gui:
             mock_build_gui.return_value = "GUI_REQUEST"
 
             result = builder.build_request(business_day, csv_file, version, timestamp)
 
-            mock_build_gui.assert_called_once_with(business_day, csv_file, version, timestamp)
+            mock_build_gui.assert_called_once_with(
+                business_day, csv_file, version, timestamp
+            )
             assert result == "GUI_REQUEST"
 
     def test_build_request_inner_format(self, builder, header_validator_mock):
@@ -153,10 +182,12 @@ class TestEstimatorRequestBuilder:
         header_validator_mock.get_header_format.return_value = (False, True)
 
         # Mock the _build_inner_format_request method
-        with patch.object(builder, '_build_inner_format_request') as mock_build_inner:
+        with patch.object(builder, "_build_inner_format_request") as mock_build_inner:
             mock_build_inner.return_value = "INNER_REQUEST"
 
             result = builder.build_request(business_day, csv_file, version, timestamp)
 
-            mock_build_inner.assert_called_once_with(business_day, csv_file, version, timestamp)
+            mock_build_inner.assert_called_once_with(
+                business_day, csv_file, version, timestamp
+            )
             assert result == "INNER_REQUEST"

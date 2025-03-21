@@ -3,7 +3,9 @@
 import pytest
 from unittest.mock import patch, MagicMock, call
 import requests
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import RequestHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+    RequestHandler,
+)
 
 
 # Create a concrete subclass for testing the abstract class
@@ -18,29 +20,36 @@ class TestRequestHandler:
     def setup_method(self):
         """Set up a concrete handler instance for testing."""
         # Create with patch to avoid actual API setup
-        with patch.object(RequestHandler, '_setup_api'):
+        with patch.object(RequestHandler, "_setup_api"):
             self.handler = ConcreteRequestHandler()
 
     @pytest.mark.parametrize(
-        "error,expected_message", [
-            (requests.exceptions.HTTPError("404 Not Found"), "HTTP Error: 404 Not Found"),
-            (requests.exceptions.ConnectionError("Connection refused"), "Error sending request: Connection refused"),
-            (ValueError("Invalid parameter"), "Error: Invalid parameter")
-        ]
+        "error,expected_message",
+        [
+            (
+                requests.exceptions.HTTPError("404 Not Found"),
+                "HTTP Error: 404 Not Found",
+            ),
+            (
+                requests.exceptions.ConnectionError("Connection refused"),
+                "Error sending request: Connection refused",
+            ),
+            (ValueError("Invalid parameter"), "Error: Invalid parameter"),
+        ],
     )
     def test_handle_request_error(self, error, expected_message):
         """Test that _handle_request_error correctly handles different error types."""
-        with patch('click.echo') as mock_echo:
+        with patch("click.echo") as mock_echo:
             RequestHandler._handle_request_error(error)
             mock_echo.assert_called_once()
             assert expected_message in mock_echo.call_args[0][0]
-            assert mock_echo.call_args[1].get('err', False) is True
+            assert mock_echo.call_args[1].get("err", False) is True
 
     def test_check_for_error_in_response_success(self):
         """Test that _check_for_error_in_response handles success correctly."""
         response = {"data": "some data"}
 
-        with patch('click.echo') as mock_echo:
+        with patch("click.echo") as mock_echo:
             RequestHandler._check_for_error_in_response(response)
             mock_echo.assert_called_once_with("Request successful.")
 
@@ -48,19 +57,23 @@ class TestRequestHandler:
         """Test that _check_for_error_in_response handles errors correctly."""
         response = {"trace_id": "abc123", "error": "Something went wrong"}
 
-        with patch('click.echo') as mock_echo, \
-                patch('sys.exit') as mock_exit:
+        with patch("click.echo") as mock_echo, patch("sys.exit") as mock_exit:
             RequestHandler._check_for_error_in_response(response)
 
             assert mock_echo.call_count == 3
-            mock_echo.assert_has_calls([
-                call("An error occurred in the request. Full response details:"),
-                call('{\n    "trace_id": "abc123",\n    "error": "Something went wrong"\n}')
-            ])
+            mock_echo.assert_has_calls(
+                [
+                    call("An error occurred in the request. Full response details:"),
+                    call(
+                        '{\n    "trace_id": "abc123",\n    "error": "Something went wrong"\n}'
+                    ),
+                ]
+            )
             mock_exit.assert_called_once_with(1)
 
     @pytest.mark.parametrize(
-        "weekday,expected", [
+        "weekday,expected",
+        [
             (0, True),  # Monday
             (1, True),  # Tuesday
             (2, True),  # Wednesday
@@ -68,7 +81,7 @@ class TestRequestHandler:
             (4, True),  # Friday
             (5, False),  # Saturday
             (6, False),  # Sunday
-        ]
+        ],
     )
     def test_is_business_day(self, weekday, expected):
         """Test that _is_business_day correctly identifies business days."""

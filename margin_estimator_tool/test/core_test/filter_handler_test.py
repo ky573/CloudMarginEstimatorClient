@@ -2,7 +2,9 @@
 
 import pytest
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import FilterHandler
+from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import (
+    FilterHandler,
+)
 
 
 class TestFilterHandler:
@@ -103,7 +105,7 @@ class TestFilterHandler:
             {"field1": "value1", "field2": "value2", "extra": "data1"},
             {"field1": "value1", "field2": "different", "extra": "data2"},
             {"field1": "different", "field2": "value2", "extra": "data3"},
-            {"field1": "different", "field2": "different", "extra": "data4"}
+            {"field1": "different", "field2": "different", "extra": "data4"},
         ]
 
         # Single filter
@@ -136,7 +138,7 @@ class TestFilterHandler:
         data = [
             {"numeric_field": 100, "name": "item1"},
             {"numeric_field": 200, "name": "item2"},
-            {"numeric_field": 300, "name": "item3"}
+            {"numeric_field": 300, "name": "item3"},
         ]
 
         filters = {"numeric_field": 200}
@@ -151,7 +153,7 @@ class TestFilterHandler:
         data = [
             {"active": True, "name": "item1"},
             {"active": False, "name": "item2"},
-            {"active": True, "name": "item3"}
+            {"active": True, "name": "item3"},
         ]
 
         filters = {"active": True}
@@ -168,7 +170,7 @@ class TestFilterHandler:
             {"field1": "value1", "field2": "value2"},
             {"field1": "value1"},  # Missing field2
             {"field2": "value2"},  # Missing field1
-            {}  # Missing both
+            {},  # Missing both
         ]
 
         filters = {"field1": "value1"}
@@ -190,13 +192,11 @@ class TestFilterHandler:
         data = [
             {"field1": "value1", "field2": 5},
             {"field1": "value1", "field2": 15},
-            {"field1": "value2", "field2": 25}
+            {"field1": "value2", "field2": 25},
         ]
 
         # Custom filter that only accepts items where field2 > 10
-        custom_filters = {
-            "field2_gt_10": lambda item: item.get("field2", 0) > 10
-        }
+        custom_filters = {"field2_gt_10": lambda item: item.get("field2", 0) > 10}
 
         # Apply standard filters and custom filters
         filters = {"field1": "value1"}
