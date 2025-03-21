@@ -1,4 +1,4 @@
-"""Utility functions for the margin_calculator package."""
+"""Utility functions for the margin_estimator_tool package."""
 
 from typing import Dict, List, Union, Tuple
 
