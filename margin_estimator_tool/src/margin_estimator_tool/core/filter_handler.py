@@ -17,68 +17,65 @@ class FilterHandler:
 
         Args:
             extrafields: extrafields to be checked in parsing
-            int_values: values from extrafields to be converted to int
+            numeric_values: values from extrafields to be converted to int or float
         """
         self.extrafields = set(extrafields)
         self.numeric_values = set(numeric_values) if numeric_values else set()
 
-    def parse_filters(
-        self, filter_str: Optional[str]
-    ) -> Dict[str, Union[str, int, float, bool]]:
+    def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, float, bool]]:
         """
-        Parses a filter string into a dictionary to be later used for
-        filtering of the response. Correct types are assigned to values.
-
-        If format is malformed (i.e., not a key and value pair), or one of the
-        keys is not in extrafields, or it contains a wrong type, an exception is thrown.
+        Parses a filter string into a dictionary with correctly typed values.
 
         Args:
             filter_str: string to be parsed.
 
         Returns:
-            A dictionary containing correct key and value pairs in proper type mapping.
+            A dictionary containing key-value pairs with appropriate types.
         """
-        filters: Dict[str, Union[str, int, float, bool]] = {}
+        filters = {}
         if not filter_str:
             return filters
 
-        try:
-            for f in filter_str.split(","):
-                parts = f.split(":", 1)
-                if len(parts) != 2:
-                    raise ValueError(
-                        f"Invalid filter format: {f}. Expected 'key:value'"
-                    )
-
-                key, value = parts
-
-                if key not in self.extrafields:
-                    raise ValueError(
-                        f"Invalid filter key: {key}. Must be one of {self.extrafields}"
-                    )
-
-                if key in self.numeric_values:
-                    if "." in value:  # Check for decimal point
-                        try:
-                            filters[key] = float(value)
-                        except ValueError:
-                            raise ValueError(f"Invalid float value for {key}: {value}")
-                    else:
-                        try:
-                            filters[key] = int(value)
-                        except ValueError:
-                            raise ValueError(
-                                f"Invalid integer value for {key}: {value}"
-                            )
-                elif key == "xm_eligibility":
-                    filters[key] = False if value.lower() == "false" else True
-                else:
-                    filters[key] = value
-
-        except ValueError as e:
-            raise click.ClickException(str(e))
+        for f in filter_str.split(","):
+            key, value = self._parse_key_value_pair(f)
+            self._validate_key(key)
+            filters[key] = self._parse_value(key, value)
 
         return filters
+
+    @staticmethod
+    def _parse_key_value_pair(filter_item: str) -> tuple[str, str]:
+        """Splits a filter item into a key-value pair and checks for correct format."""
+        parts = filter_item.split(":", 1)
+        if len(parts) != 2:
+            raise click.ClickException(f"Invalid filter format: {filter_item}. Expected 'key:value'")
+        return parts[0], parts[1]
+
+    def _validate_key(self, key: str) -> None:
+        """Checks if the key is in the allowed extrafields."""
+        if key not in self.extrafields:
+            raise click.ClickException(f"Invalid filter key: {key}. Must be one of {self.extrafields}")
+
+    def _parse_value(self, key: str, value: str) -> Union[str, int, float, bool]:
+        """Parses the value into the appropriate type based on the key."""
+        if key in self.numeric_values:
+            return self._parse_numeric_value(key, value)
+        if key == "xm_eligibility":
+            return self._parse_boolean_value(value)
+        return value
+
+    @staticmethod
+    def _parse_numeric_value(key: str, value: str) -> Union[int, float]:
+        """Attempts to parse a value as a float or integer."""
+        try:
+            return float(value) if "." in value else int(value)
+        except ValueError:
+            raise click.ClickException(f"Invalid numeric value for {key}: {value}")
+
+    @staticmethod
+    def _parse_boolean_value(value: str) -> bool:
+        """Parses a value as a boolean, assuming specific strings map to False."""
+        return value.lower() != "false"
 
     @staticmethod
     def filter_response(
@@ -99,17 +96,14 @@ class FilterHandler:
             A list of filtered data
         """
         custom_filters = custom_filters or {}
-
         filtered_data = []
+
         for item in data:
-            if any(item.get(key) != value for key, value in filters.items()):
+            if any(item.get(key) != value for key, value in filters.items()) or \
+               any(not func(item) for func in custom_filters.values()):
                 continue
-
-            if any(not func(item) for func in custom_filters.values()):
-                continue
-
             filtered_data.append(item)
 
         click.echo(f"Filtered down to {len(filtered_data)} items.")
-
         return filtered_data
+

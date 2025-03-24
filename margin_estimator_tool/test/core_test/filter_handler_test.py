@@ -89,13 +89,13 @@ class TestFilterHandler:
         assert "Invalid filter key" in str(excinfo.value)
         assert "Must be one of" in str(excinfo.value)
 
-    def test_parse_filters_invalid_int_value(self):
-        """Test parsing filter string with invalid integer value"""
+    def test_parse_filters_invalid_numeric_value(self):
+        """Test parsing filter string with invalid numeric value"""
         handler = FilterHandler(["field1", "field2"], ["field1"])
 
         with pytest.raises(click.ClickException) as excinfo:
-            handler.parse_filters("field1:not_an_integer")
-        assert "Invalid integer value" in str(excinfo.value)
+            handler.parse_filters("field1:not_a_numeric")
+        assert "Invalid numeric value" in str(excinfo.value)
 
     def test_filter_response_basic(self):
         """Test basic filtering of response data"""
@@ -131,8 +131,8 @@ class TestFilterHandler:
         result = handler.filter_response(data, filters)
         assert len(result) == 4
 
-    def test_filter_response_with_int_values(self):
-        """Test filtering with integer values"""
+    def test_filter_response_with_numeric_values(self):
+        """Test filtering with numeric values"""
         handler = FilterHandler(["numeric_field"], ["numeric_field"])
 
         data = [
