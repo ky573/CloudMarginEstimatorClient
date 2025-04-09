@@ -40,10 +40,10 @@ setup(
     install_requires=requires,
     url="https://github.deutsche-boerse.de/dev/DAVe-MarginEstimator-PythonAPIClient",
     keywords="margining, risk, estimator, marginestimator, risk-it",
-    python_requires=">=3.8, <3.11",
+    python_requires=">=3.8",
     packages=find_packages(),
     include_package_data=True,
-    setup_requires=['setuptools>=59.0"'],
+    setup_requires=['setuptools>=59.0'],
     classifiers=[
         "Development Status :: 1 - Beta",
         "Programming Language :: Python :: 3.8",

@@ -6,7 +6,7 @@ import os
 import csv
 from typing import Dict, Any
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
+from margin_estimator_tool.core.utils import flatten_dict
 from .export_strategy import ExportStrategy
 
 

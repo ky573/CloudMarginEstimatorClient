@@ -6,7 +6,7 @@ Main module of the application, contains the starting point.
 
 
 import click
-from margin_estimator_tool.src.margin_estimator_tool.cli.commands import (
+from margin_estimator_tool.cli.commands import (
     register_margin_calculator_command,
     register_get_products_command,
     register_get_series_command,

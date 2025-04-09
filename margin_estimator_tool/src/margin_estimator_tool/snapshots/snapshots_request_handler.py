@@ -6,7 +6,7 @@ available snapshots for range of dates and then outputs it.
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
 

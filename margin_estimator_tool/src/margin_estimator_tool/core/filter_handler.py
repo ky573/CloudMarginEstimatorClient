@@ -22,7 +22,9 @@ class FilterHandler:
         self.extrafields = set(extrafields)
         self.numeric_values = set(numeric_values) if numeric_values else set()
 
-    def parse_filters(self, filter_str: Optional[str]) -> Dict[str, Union[str, int, float, bool]]:
+    def parse_filters(
+        self, filter_str: Optional[str]
+    ) -> Dict[str, Union[str, int, float, bool]]:
         """
         Parses a filter string into a dictionary with correctly typed values.
 
@@ -48,13 +50,17 @@ class FilterHandler:
         """Splits a filter item into a key-value pair and checks for correct format."""
         parts = filter_item.split(":", 1)
         if len(parts) != 2:
-            raise click.ClickException(f"Invalid filter format: {filter_item}. Expected 'key:value'")
+            raise click.ClickException(
+                f"Invalid filter format: {filter_item}. Expected 'key:value'"
+            )
         return parts[0], parts[1]
 
     def _validate_key(self, key: str) -> None:
         """Checks if the key is in the allowed extrafields."""
         if key not in self.extrafields:
-            raise click.ClickException(f"Invalid filter key: {key}. Must be one of {self.extrafields}")
+            raise click.ClickException(
+                f"Invalid filter key: {key}. Must be one of {self.extrafields}"
+            )
 
     def _parse_value(self, key: str, value: str) -> Union[str, int, float, bool]:
         """Parses the value into the appropriate type based on the key."""
@@ -99,11 +105,11 @@ class FilterHandler:
         filtered_data = []
 
         for item in data:
-            if any(item.get(key) != value for key, value in filters.items()) or \
-               any(not func(item) for func in custom_filters.values()):
+            if any(item.get(key) != value for key, value in filters.items()) or any(
+                not func(item) for func in custom_filters.values()
+            ):
                 continue
             filtered_data.append(item)
 
         click.echo(f"Filtered down to {len(filtered_data)} items.")
         return filtered_data
-

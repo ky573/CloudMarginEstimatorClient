@@ -4,10 +4,10 @@ CLI commands module for the margin estimator tool.
 
 from typing import Optional
 import click
-from margin_estimator_tool.src.margin_estimator_tool.cli.endpoint_handler_factory import (
+from margin_estimator_tool.cli.endpoint_handler_factory import (
     EndpointHandlerFactory,
 )
-from margin_estimator_tool.src.margin_estimator_tool.cli.argument_validator import (
+from margin_estimator_tool.cli.argument_validator import (
     GetProductsValidator,
     MarginCalculatorValidator,
     GetSeriesValidator,

@@ -6,7 +6,7 @@ live snapshots from estimator.
 from datetime import datetime
 from typing import Dict, Any, List
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
 
@@ -27,7 +27,6 @@ class LiveSnapshotRequestHandler(RequestHandler):
     def process_and_provide_output(self) -> None:
         """Processes the data from /live_snapshots and outputs it according to specified format."""
         live_snapshots = self.send_request()
-
         self._print_output(live_snapshots)
 
     def send_request(self) -> List[Dict[str, Any]]:

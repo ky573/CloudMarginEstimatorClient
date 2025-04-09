@@ -6,13 +6,13 @@ endpoint and then outputting them in desired format.
 import json
 from typing import Dict, Any, List, Optional
 import os
-from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import (
+from margin_estimator_tool.core.data_exporter import (
     DataExporter,
 )
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
-from margin_estimator_tool.src.margin_estimator_tool.core.filter_handler import (
+from margin_estimator_tool.core.filter_handler import (
     FilterHandler,
 )
 
@@ -68,9 +68,7 @@ class ProductsRequestHandler(RequestHandler):
         self.version = version == "LIVE"
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir or os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..")
-        )
+        self.export_dir = export_dir or os.getcwd()
         self.timestamp = timestamp if timestamp is not None else 0
         self.filter_handler = FilterHandler(
             self.EXTRAFIELDS, ["product_tick_size", "product_tick_value"]

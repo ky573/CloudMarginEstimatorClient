@@ -3,19 +3,20 @@ This module contains logic for retrieving information about etd portfolio from
 endpoint and then outputting it in desired format.
 """
 
+import json
 from typing import Dict, Any, Optional
 import os
 import click
-from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import (
+from margin_estimator_tool.core.data_exporter import (
     DataExporter,
 )
-from margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base import (
+from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import (
+from margin_estimator_tool.estimator.estimator_request_builder import (
     EstimatorRequestBuilder,
 )
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+from margin_estimator_tool.estimator.portfolio_header_validator import (
     HeaderValidator,
 )
 
@@ -54,9 +55,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         self.timestamp = timestamp if timestamp is not None else 0
         self.to_excel = to_excel
         self.to_json = to_json
-        self.export_dir = export_dir or os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "..")
-        )
+        self.export_dir = export_dir or os.getcwd()
 
     def process_and_provide_output(self) -> None:
         """
@@ -91,6 +90,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         )
         try:
             response = self.api.estimator_post(body=estimator_request_body.to_dict())
+            print(json.dumps(response, indent=4))
             self._check_for_error_in_response(response)
             return response
         except Exception as e:
