@@ -17,6 +17,7 @@ from margin_estimator_tool.cli.commands import (
 
 
 @click.group()
+@click.version_option(version="1.0")
 def cli():
     """Main CLI group for margin estimator tool."""
     pass
