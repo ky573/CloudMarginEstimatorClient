@@ -1,6 +1,7 @@
 """
 This module is responsible for retrieving the information about
-live snapshots from estimator.
+live snapshots from estimator. It prints out the information
+in formatted output.
 """
 
 from datetime import datetime

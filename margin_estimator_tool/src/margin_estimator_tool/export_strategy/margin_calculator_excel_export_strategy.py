@@ -44,7 +44,7 @@ class MarginCalculatorExcelExportStrategy(ExportStrategy):
         self._populate_sheet(ws1, portfolio_headers, data, "portfolio_margin")
         self._populate_sheet(ws2, drilldown_headers, data, "drilldowns")
 
-        version_path = "LIVE" if version else "SOD"
+        version_path = "LIVE" if version else "EOD"
         out_path = f"{date}_{version_path}_{self.type}.xlsx"
         file_path = os.path.join(output_path, out_path)
         wb.save(file_path)

@@ -15,7 +15,7 @@ class TestProductsRequestHandler:
         """Test initialization with default values."""
         handler = ProductsRequestHandler()
 
-        assert handler.version is False  # Default to SOD (not LIVE)
+        assert handler.version is False  # Default to EOD (not LIVE)
         assert handler.to_excel is False
         assert handler.to_json is False
         assert handler.timestamp == 0

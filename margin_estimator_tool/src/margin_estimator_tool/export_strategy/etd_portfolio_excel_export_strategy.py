@@ -26,7 +26,7 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        version_path = "LIVE" if version else "SOD"
+        version_path = "LIVE" if version else "EOD"
         file_path = os.path.join(output_path, f"{date}_{version_path}_portfolio.xlsx")
 
         portfolio_margin = portfolio_data.get("portfolio_margin", [])

@@ -28,7 +28,7 @@ class EtdPortfolioCSVExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        version_path = "LIVE" if version else "SOD"
+        version_path = "LIVE" if version else "EOD"
 
         margins_success = self._export_portfolio_margin(
             date, version_path, portfolio_data, output_path

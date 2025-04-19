@@ -3,7 +3,6 @@ This module contains logic for retrieving information about products from
 endpoint and then outputting them in desired format.
 """
 
-import json
 from typing import Dict, Any, List, Optional
 import os
 from margin_estimator_tool.core.data_exporter import (

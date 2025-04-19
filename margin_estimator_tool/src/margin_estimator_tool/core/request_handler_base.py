@@ -53,13 +53,13 @@ class RequestHandler(ABC):
         """
         Get the correct business date.
         If a date is provided, use it as is.
-        If the version is 'SOD', return the latest business day before today.
+        If the version is 'EOD', return the latest business day before today.
         Otherwise, return today's date.
         """
         if date:
             return int(date)
 
-        if version == "SOD":
+        if version == "EOD":
             current_date = datetime.today()
             current_date -= timedelta(days=1)
 

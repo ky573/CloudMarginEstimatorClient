@@ -1,6 +1,7 @@
 """
 This module contains logic for retrieving information about currently
-available snapshots for range of dates and then outputs it.
+available snapshots for range of dates. It prints out the information in
+formatted output.
 """
 
 from datetime import datetime
@@ -12,7 +13,7 @@ from margin_estimator_tool.core.request_handler_base import (
 
 
 class SnapshotRequestHandler(RequestHandler):
-    """Handles fetching and displaying SOD snapshots (non-live)."""
+    """Handles fetching and displaying EOD snapshots (non-live)."""
 
     def __init__(self, date_from: str, date_to: Optional[str] = None) -> None:
         """

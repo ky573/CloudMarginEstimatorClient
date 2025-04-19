@@ -29,7 +29,7 @@ class CSVExportStrategy(ExportStrategy):
         if not data:
             return False
 
-        version_path = "LIVE" if version else "SOD"
+        version_path = "LIVE" if version else "EOD"
         out_path = f"{date}_{version_path}_{self.type}.csv"
         file_path = os.path.join(output_path, out_path)
         keys = data[0].keys()

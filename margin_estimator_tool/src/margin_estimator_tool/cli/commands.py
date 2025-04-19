@@ -28,7 +28,7 @@ def register_margin_calculator_command(cli_group):
         help="Path to the ETD portfolio CSV file.",
     )
     @click.option(
-        "--version", type=click.Choice(["SOD", "LIVE"]), help="Snapshot version."
+        "--version", type=click.Choice(["EOD", "LIVE"]), help="Snapshot version."
     )
     @click.option("--timestamp", type=int, help="Timestamp for LIVE version.")
     @click.option(
@@ -81,7 +81,7 @@ def register_get_products_command(cli_group):
     )
     @click.option(
         "--version",
-        type=click.Choice(["SOD", "LIVE"]),
+        type=click.Choice(["EOD", "LIVE"]),
         help="Fetch products based on version.",
     )
     @click.option("--to_excel", is_flag=True, help="Export as Excel file.")
@@ -153,7 +153,7 @@ def register_get_series_command(cli_group):
     )
     @click.option(
         "--version",
-        type=click.Choice(["SOD", "LIVE"]),
+        type=click.Choice(["EOD", "LIVE"]),
         help="Fetch products based on version.",
     )
     @click.option(
@@ -286,7 +286,7 @@ def register_get_snapshots_command(cli_group):
         help="End date in YYYYMMDD format. Defaults to the current date.",
     )
     def get_snapshots(date_from: Optional[str], date_to: Optional[str]) -> None:
-        """Fetch SOD snapshots (non-live) for the specified date range."""
+        """Fetch EOD snapshots (non-live) for the specified date range."""
         validator = GetSnapshotsValidator()
         validator.validate(date_from=date_from, date_to=date_to)
 
@@ -308,7 +308,7 @@ def register_etd_portfolio_command(cli_group):
     )
     @click.option("--date", type=str, help="Specific business date (YYYYMMDD).")
     @click.option(
-        "--version", type=click.Choice(["SOD", "LIVE"]), help="Snapshot version."
+        "--version", type=click.Choice(["EOD", "LIVE"]), help="Snapshot version."
     )
     @click.option("--timestamp", type=int, help="Timestamp for LIVE version.")
     @click.option("--to_excel", is_flag=True, help="Export results to an Excel file.")

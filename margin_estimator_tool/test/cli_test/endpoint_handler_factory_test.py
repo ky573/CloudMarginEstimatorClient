@@ -34,7 +34,7 @@ class TestEndpointHandlerFactory:
         """Test that margin_calculator endpoint returns correct handler instance with all kwargs."""
         kwargs = {
             "csv_file": "/path/to/file.csv",
-            "version": "SOD",
+            "version": "EOD",
             "timestamp": "123456789",
             "date_from": "20250101",
             "date_to": "20250131",
@@ -65,7 +65,7 @@ class TestEndpointHandlerFactory:
         """Test that get_series endpoint returns correct handler instance with all kwargs."""
         kwargs = {
             "date": "20250101",
-            "version": "SOD",
+            "version": "EOD",
             "timestamp": 123456789,
             "to_excel": True,
             "to_json": False,
@@ -104,7 +104,7 @@ class TestEndpointHandlerFactory:
         kwargs = {
             "csv_file": "/path/to/portfolio.csv",
             "date": "20250101",
-            "version": "SOD",
+            "version": "EOD",
             "timestamp": 123456789,
             "to_excel": True,
             "to_json": False,

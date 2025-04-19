@@ -27,7 +27,7 @@ class ExcelExportStrategy(ExportStrategy):
         if not data:
             return False
 
-        version_path = "LIVE" if version else "SOD"
+        version_path = "LIVE" if version else "EOD"
         out_path = f"{date}_{version_path}_{self.type}.xlsx"
         file_path = os.path.join(output_path, out_path)
         df = pd.DataFrame(data)
