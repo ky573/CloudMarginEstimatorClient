@@ -28,7 +28,7 @@ class JSONExportStrategy(ExportStrategy):
             return False
 
         version_path = "LIVE" if version else "EOD"
-        out_path = f"{date}_{version_path}_{self.type}.json"
+        out_path = f"{date}_{version_path}_{self._type}.json"
         file_path = os.path.join(output_path, out_path)
         with open(file_path, "w") as output_file:
             json.dump(data, output_file, indent=4)

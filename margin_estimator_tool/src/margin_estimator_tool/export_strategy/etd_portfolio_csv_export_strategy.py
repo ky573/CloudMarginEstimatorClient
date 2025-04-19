@@ -1,6 +1,4 @@
-"""
-This module defines strategy for etd portfolio exporting into csv.
-"""
+"""This module defines strategy for etd portfolio exporting into csv."""
 
 import os
 import csv

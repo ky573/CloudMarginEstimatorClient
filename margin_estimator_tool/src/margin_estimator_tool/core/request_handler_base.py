@@ -21,7 +21,7 @@ class RequestHandler(ABC):
 
     def __init__(self) -> None:
         """Initializes a RequestHandler instance."""
-        self.api: CpmeApi = self._setup_api()
+        self._api: CpmeApi = self._setup_api()
 
     @abstractmethod
     def process_and_provide_output(self) -> None:

@@ -65,8 +65,8 @@ class DataExporter:
         data: List[Dict[str, Any]] | Dict[str, Any],
         export_name: str,
         export_dir: str,
-        to_excel: bool,
-        to_json: bool,
+        to_excel: bool | None,
+        to_json: bool | None,
         business_date: str,
         version: bool,
     ) -> None:
@@ -83,6 +83,11 @@ class DataExporter:
             version: desired version, to be used in file name
         """
         try:
+            if to_json and to_excel:
+                raise click.UsageError(
+                    "Options --to_json and --to_excel are mutually exclusive. Please choose only one."
+                )
+
             context = ExportContext()
 
             if export_name in DataExporter.EXPORT_STRATEGIES:

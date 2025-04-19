@@ -8,7 +8,7 @@ from datetime import datetime
 from typing import Dict, Any, List
 import click
 from margin_estimator_tool.core.request_handler_base import (
-    RequestHandler,
+    RequestHandler
 )
 
 
@@ -23,7 +23,7 @@ class LiveSnapshotRequestHandler(RequestHandler):
             date: desired date
         """
         super().__init__()
-        self.business_date = int(date)
+        self._business_date = int(date)
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /live_snapshots and outputs it according to specified format."""
@@ -40,7 +40,7 @@ class LiveSnapshotRequestHandler(RequestHandler):
                       Returns an empty list in case of an error in the request.
         """
         try:
-            response = self.api.live_snapshots_get(business_date=self.business_date)
+            response = self._api.live_snapshots_get(business_date=self._business_date)
             self._check_for_error_in_response(response)
             response = response.get("snapshots", [])
             return response
@@ -50,7 +50,7 @@ class LiveSnapshotRequestHandler(RequestHandler):
 
     def _print_output(self, live_snapshots: List[Dict[str, Any]]) -> None:
         """Prints the output in desired format."""
-        click.echo(f"Available live snapshots for {self.business_date}:")
+        click.echo(f"Available live snapshots for {self._business_date}:")
         for idx, snapshot in enumerate(live_snapshots, start=1):
             timestamp = snapshot.get("live_timestamp", "N/A")
             time = (

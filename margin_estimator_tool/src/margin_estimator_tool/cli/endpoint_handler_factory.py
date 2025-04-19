@@ -1,6 +1,4 @@
-"""
-Factory module for creating endpoint handlers.
-"""
+"""Factory module for creating endpoint handlers."""
 
 from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,

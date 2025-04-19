@@ -13,8 +13,8 @@ class HeaderValidator:
 
     def __init__(self) -> None:
         """Initialize the HeaderValidator with default values."""
-        self.is_gui_format: bool = False
-        self.is_inner_format: bool = False
+        self._is_gui_format: bool = False
+        self._is_inner_format: bool = False
 
     def validate_headers(self, csv_file: str) -> bool:
         """
@@ -35,11 +35,11 @@ class HeaderValidator:
 
                 headers_str = ",".join(headers)
                 if headers_str == self.GUI_HEADER:
-                    self.is_gui_format = True
+                    self._is_gui_format = True
                 elif headers_str == self.INNER_HEADER:
-                    self.is_inner_format = True
+                    self._is_inner_format = True
 
-                if not self.is_gui_format and not self.is_inner_format:
+                if not self._is_gui_format and not self._is_inner_format:
                     raise ValueError(
                         f"Headers mismatch. Expected: either '{self.GUI_HEADER}' "
                         f"or '{self.INNER_HEADER}', Found: '{headers_str}'."
@@ -58,4 +58,4 @@ class HeaderValidator:
         Returns:
             Tuple (is_gui_format, is_inner_format)
         """
-        return self.is_gui_format, self.is_inner_format
+        return self._is_gui_format, self._is_inner_format

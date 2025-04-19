@@ -17,7 +17,7 @@ class ExportStrategy(ABC):
         Args:
             type: type of the strategy used
         """
-        self.type = type
+        self._type = type
 
     @abstractmethod
     def export(

@@ -47,22 +47,22 @@ class EtdPortfolioRequestHandler(RequestHandler):
             export_dir: directory where data will be exported, defaults to project's root
         """
         super().__init__()
-        self.header_validator = HeaderValidator()
-        self.request_builder = EstimatorRequestBuilder(self.header_validator)
-        self.csv_file = csv_file
-        self.business_date = self._get_business_date(date, version)
-        self.version = version == "LIVE"
-        self.timestamp = timestamp if timestamp is not None else 0
-        self.to_excel = to_excel
-        self.to_json = to_json
-        self.export_dir = export_dir or os.getcwd()
+        self._header_validator = HeaderValidator()
+        self._request_builder = EstimatorRequestBuilder(self._header_validator)
+        self._csv_file = csv_file
+        self._business_date = self._get_business_date(date, version)
+        self._version = version == "LIVE"
+        self._timestamp = timestamp if timestamp is not None else 0
+        self._to_excel = to_excel
+        self._to_json = to_json
+        self._export_dir = export_dir or os.getcwd()
 
     def process_and_provide_output(self) -> None:
         """
         Processes the data from /estimator and exports it according to the specified format.
         If the header is not validated properly, it returns immediately.
         """
-        if not self.header_validator.validate_headers(self.csv_file):
+        if not self._header_validator.validate_headers(self._csv_file):
             click.echo("Failed to validate CSV portfolio file. Process aborted.")
             return
 
@@ -70,11 +70,11 @@ class EtdPortfolioRequestHandler(RequestHandler):
         DataExporter.export(
             portfolio,
             "Portfolio",
-            self.export_dir,
-            self.to_excel,
-            self.to_json,
-            str(self.business_date),
-            self.version,
+            self._export_dir,
+            self._to_excel,
+            self._to_json,
+            str(self._business_date),
+            self._version,
         )
 
     def send_request(self) -> Dict[str, Any]:
@@ -85,11 +85,11 @@ class EtdPortfolioRequestHandler(RequestHandler):
             response: Response returned from the endpoint containing data about portoflio.
                       If an error is encountered during the request, it returns an empty dictionary.
         """
-        estimator_request_body = self.request_builder.build_request(
-            self.business_date, self.csv_file, self.version, self.timestamp
+        estimator_request_body = self._request_builder.build_request(
+            self._business_date, self._csv_file, self._version, self._timestamp
         )
         try:
-            response = self.api.estimator_post(body=estimator_request_body.to_dict())
+            response = self._api.estimator_post(body=estimator_request_body.to_dict())
             print(json.dumps(response, indent=4))
             self._check_for_error_in_response(response)
             return response

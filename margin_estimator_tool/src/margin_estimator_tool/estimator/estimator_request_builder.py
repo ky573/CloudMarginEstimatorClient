@@ -57,7 +57,7 @@ class EstimatorRequestBuilder:
         request_body = BodyEstimator()
         request_body.snapshot = Snapshot()
         request_body.snapshot.live = version
-        request_body.snapshot.business_date = business_day
+        request_body.snapshot._business_date = business_day
         request_body.snapshot.live_timestamp = timestamp
         request_body.clearing_currency = "EUR"
         request_body.portfolio_components = []

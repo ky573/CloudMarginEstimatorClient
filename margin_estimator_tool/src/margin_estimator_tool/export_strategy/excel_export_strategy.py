@@ -1,4 +1,4 @@
-"""This module defines strategy for excel exporting."""
+"""This module defines strategy for Excel exporting."""
 
 import os
 from typing import Dict, Any, List
@@ -13,7 +13,7 @@ class ExcelExportStrategy(ExportStrategy):
         self, date: str, version: bool, data: List[Dict[str, Any]], output_path: str
     ) -> bool:
         """
-        Concrete implementation for exporting into excel.
+        Concrete implementation for exporting into Excel.
 
         Args:
             date: date to be included in file name
@@ -28,7 +28,7 @@ class ExcelExportStrategy(ExportStrategy):
             return False
 
         version_path = "LIVE" if version else "EOD"
-        out_path = f"{date}_{version_path}_{self.type}.xlsx"
+        out_path = f"{date}_{version_path}_{self._type}.xlsx"
         file_path = os.path.join(output_path, out_path)
         df = pd.DataFrame(data)
         df.to_excel(file_path, sheet_name="products", index=False)

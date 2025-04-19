@@ -1,6 +1,4 @@
-"""
-This module defines strategy for CSV exporting.
-"""
+"""This module defines strategy for CSV exporting."""
 
 import os
 import csv
@@ -30,7 +28,7 @@ class CSVExportStrategy(ExportStrategy):
             return False
 
         version_path = "LIVE" if version else "EOD"
-        out_path = f"{date}_{version_path}_{self.type}.csv"
+        out_path = f"{date}_{version_path}_{self._type}.csv"
         file_path = os.path.join(output_path, out_path)
         keys = data[0].keys()
 

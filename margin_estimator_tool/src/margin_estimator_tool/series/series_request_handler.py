@@ -19,7 +19,7 @@ from margin_estimator_tool.core.filter_handler import (
 class SeriesRequestHandler(RequestHandler):
     """Handler for sending requests to the /series endpoint and exporting data."""
 
-    EXTRAFIELDS = [
+    _EXTRAFIELDS = [
         "product_id",
         "contract_date",
         "contract_maturity",
@@ -35,7 +35,7 @@ class SeriesRequestHandler(RequestHandler):
         "contract_frequency",
     ]
 
-    NUMERIC_VALUES = [
+    _NUMERIC_VALUES = [
         "contract_date",
         "contract_maturity",
         "expiry_maturity",
@@ -48,13 +48,13 @@ class SeriesRequestHandler(RequestHandler):
 
     def __init__(
         self,
+        products: str,
         date: Optional[str] = None,
         version: Optional[str] = None,
         timestamp: Optional[int] = None,
         to_excel: Optional[bool] = False,
         to_json: Optional[bool] = False,
         export_dir: Optional[str] = None,
-        products: str = None,
         type: Optional[str] = None,
         call_put_flag: Optional[str] = None,
         filters: Optional[str] = None,
@@ -66,7 +66,7 @@ class SeriesRequestHandler(RequestHandler):
         Initializes the SeriesRequestHandler instance.
 
         Args:
-            business_date: desired business date for request, determined by function _get_business_date
+            date: desired business date for request, determined by function _get_business_date
             version: required version, gets converted to bool, defaults to SOD
             timestamp: timestamp for the data, defaults to 0
             to_excel: determines whether to export to excel
@@ -75,27 +75,26 @@ class SeriesRequestHandler(RequestHandler):
             products: list of comma-separated list of products for request
             type: option or future, for filtering
             call_put_flag: C or P, for filtering
-            filter_handler: class for handling of the filtering of the data
             filters: comma-separated list of filters, parsed by filter_handler
             template: decides whether to generate template for portfolio
-            max_tte: maximum day_to_expiratoin, for filtering
+            max_tte: maximum day_to_expiration, for filtering
             min_tte: minimum day_to_expiration, for filtering
         """
         super().__init__()
-        self.business_date = self._get_business_date(date, version)
-        self.version = version == "LIVE"
-        self.timestamp = timestamp if timestamp is not None else 0
-        self.to_excel = to_excel
-        self.to_json = to_json
-        self.export_dir = export_dir or os.getcwd()
-        self.products = products.split(",")
-        self.type = type
-        self.call_put_flag = call_put_flag
-        self.filter_handler = FilterHandler(self.EXTRAFIELDS, self.NUMERIC_VALUES)
-        self.filters = self.filter_handler.parse_filters(filters)
-        self.template = template
-        self.max_tte = max_tte
-        self.min_tte = min_tte
+        self._business_date = self._get_business_date(date, version)
+        self._version = version == "LIVE"
+        self._timestamp = timestamp if timestamp is not None else 0
+        self._to_excel = to_excel
+        self._to_json = to_json
+        self._export_dir = export_dir or os.getcwd()
+        self._products = products.split(",")
+        self._type = type
+        self._call_put_flag = call_put_flag
+        self._filter_handler = FilterHandler(self._EXTRAFIELDS, self._NUMERIC_VALUES)
+        self._filters = self._filter_handler.parse_filters(filters)
+        self._template = template
+        self._max_tte = max_tte
+        self._min_tte = min_tte
 
     def process_and_provide_output(self) -> None:
         """
@@ -108,14 +107,14 @@ class SeriesRequestHandler(RequestHandler):
         DataExporter.export(
             filtered_series,
             "Series",
-            self.export_dir,
-            self.to_excel,
-            self.to_json,
-            str(self.business_date),
-            self.version,
+            self._export_dir,
+            self._to_excel,
+            self._to_json,
+            str(self._business_date),
+            self._version,
         )
 
-        if self.template:
+        if self._template:
             self._generate_etd_portfolio_template(filtered_series)
 
     def send_request(self) -> List[Dict[str, Any]]:
@@ -128,12 +127,12 @@ class SeriesRequestHandler(RequestHandler):
                       Returns empty list in case of error in the response.
         """
         try:
-            response = self.api.series_get(
-                products=self.products,
-                extrafields=self.EXTRAFIELDS,
-                business_date=self.business_date,
-                live_timestamp=self.timestamp,
-                live=self.version,
+            response = self._api.series_get(
+                products=self._products,
+                extrafields=self._EXTRAFIELDS,
+                business_date=self._business_date,
+                live_timestamp=self._timestamp,
+                live=self._version,
             )
             self._check_for_error_in_response(response)
             response = response.get("list_series", [])
@@ -166,11 +165,11 @@ class SeriesRequestHandler(RequestHandler):
         DataExporter.export(
             etd_portfolio,
             "Template",
-            self.export_dir,
-            self.to_excel,
-            self.to_json,
-            str(self.business_date),
-            self.version,
+            self._export_dir,
+            self._to_excel,
+            self._to_json,
+            str(self._business_date),
+            self._version,
         )
 
     def _filter_series(self, series: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -183,15 +182,15 @@ class SeriesRequestHandler(RequestHandler):
 
         def call_put_filter(series_: Dict[str, Any]) -> bool:
             """Filter for call_put_flag."""
-            if not self.call_put_flag:
+            if not self._call_put_flag:
                 return True
-            return series_.get("call_put_flag") == self.call_put_flag
+            return series_.get("call_put_flag") == self._call_put_flag
 
         def type_filter(series_: Dict[str, Any]) -> bool:
             """Filter for 'type' - options or futures."""
-            if self.type == "option":
+            if self._type == "option":
                 return series_.get("call_put_flag") is not None
-            if self.type == "future":
+            if self._type == "future":
                 return series_.get("call_put_flag") is None
             return True
 
@@ -201,9 +200,9 @@ class SeriesRequestHandler(RequestHandler):
             if days_to_expiration is None:
                 return False
 
-            if self.max_tte is not None and days_to_expiration > self.max_tte:
+            if self._max_tte is not None and days_to_expiration > self._max_tte:
                 return False
-            if self.min_tte is not None and days_to_expiration < self.min_tte:
+            if self._min_tte is not None and days_to_expiration < self._min_tte:
                 return False
 
             return True
@@ -214,8 +213,8 @@ class SeriesRequestHandler(RequestHandler):
             "tte": tte_filter,
         }
 
-        filtered_series = self.filter_handler.filter_response(
-            series, self.filters, custom_filters
+        filtered_series = self._filter_handler.filter_response(
+            series, self._filters, custom_filters
         )
 
         return filtered_series

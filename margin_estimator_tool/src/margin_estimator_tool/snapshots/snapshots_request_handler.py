@@ -25,8 +25,8 @@ class SnapshotRequestHandler(RequestHandler):
             date_to: End date of the range, optional, defaults to current date.
         """
         super().__init__()
-        self.date_from = date_from
-        self.date_to = date_to or datetime.now().strftime("%Y%m%d")
+        self._date_from = date_from
+        self._date_to = date_to or datetime.now().strftime("%Y%m%d")
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /snapshots and outputs it according to the specified format."""
@@ -44,8 +44,8 @@ class SnapshotRequestHandler(RequestHandler):
                       Returns empty list in case of an error during the request.
         """
         try:
-            response = self.api.snapshots_get(
-                business_date_from=self.date_from, business_date_to=self.date_to
+            response = self._api.snapshots_get(
+                business_date_from=self._date_from, business_date_to=self._date_to
             )
             self._check_for_error_in_response(response)
             response = response.get("snapshots", [])

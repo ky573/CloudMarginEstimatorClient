@@ -10,11 +10,11 @@ class ExportContext:
     """Context for using the export strategy."""
 
     def __init__(self, strategy: ExportStrategy = None):
-        self.strategy = strategy
+        self._strategy = strategy
 
     def set_strategy(self, strategy: ExportStrategy) -> None:
         """Sets the strategy for exporting."""
-        self.strategy = strategy
+        self._strategy = strategy
 
     def export_data(
         self,
@@ -35,8 +35,8 @@ class ExportContext:
         Returns:
             True if there were any data to export, false otherwise
         """
-        if self.strategy:
-            return self.strategy.export(date, version, data, output_path)
+        if self._strategy:
+            return self._strategy.export(date, version, data, output_path)
         else:
             print("No export strategy defined.")
             return False

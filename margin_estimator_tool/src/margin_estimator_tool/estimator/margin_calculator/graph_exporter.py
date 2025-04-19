@@ -19,25 +19,25 @@ class GraphExporter:
             initial_margins: list of initial margins for y-axis
             export_dir: directory to export to
         """
-        self.dates = dates
-        self.initial_margins = initial_margins
-        self.export_dir = export_dir
+        self._dates = dates
+        self._initial_margins = initial_margins
+        self._export_dir = export_dir
 
     def save_graph(self) -> None:
         """Saves the initial margin graph to a file."""
         fig = self._plot_graph()
 
-        fig.write_image(f"{self.export_dir}/initial_margin_graph.jpeg")
+        fig.write_image(f"{self._export_dir}/initial_margin_graph.jpeg")
 
     def _plot_graph(self) -> go.Figure:
         """Plots the initial margin graph."""
         formatted_dates = [
-            datetime.strptime(str(date), "%Y%m%d") for date in self.dates
+            datetime.strptime(str(date), "%Y%m%d") for date in self._dates
         ]
 
         fig = go.Figure(
             data=go.Scatter(
-                x=formatted_dates, y=self.initial_margins, mode="lines+markers"
+                x=formatted_dates, y=self._initial_margins, mode="lines+markers"
             )
         )
         fig.update_layout(

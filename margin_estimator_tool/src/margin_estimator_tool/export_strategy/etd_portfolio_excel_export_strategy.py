@@ -1,10 +1,10 @@
-"""This module defines strategy for etd portfolio exporting into excel."""
+"""This module defines strategy for etd portfolio exporting into Excel."""
 
 from typing import Dict, Any, List
 import os
 import click
 import pandas as pd
-from margin_estimator_tool.core.utils import flatten_dict
+from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
 from .export_strategy import ExportStrategy
 
 
@@ -26,11 +26,14 @@ class EtdPortfolioExcelExportStrategy(ExportStrategy):
         Returns:
             True if there were any data to export, false otherwise
         """
-        version_path = "LIVE" if version else "EOD"
-        file_path = os.path.join(output_path, f"{date}_{version_path}_portfolio.xlsx")
-
         portfolio_margin = portfolio_data.get("portfolio_margin", [])
         drilldowns = portfolio_data.get("drilldowns", [])
+
+        if not portfolio_margin and not drilldowns:
+            return False
+
+        version_path = "LIVE" if version else "EOD"
+        file_path = os.path.join(output_path, f"{date}_{version_path}_portfolio.xlsx")
 
         with pd.ExcelWriter(file_path, engine="openpyxl") as writer:
             margin_success = self._export_margins(portfolio_margin, writer)

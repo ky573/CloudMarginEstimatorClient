@@ -19,8 +19,8 @@ class FilterHandler:
             extrafields: extrafields to be checked in parsing
             numeric_values: values from extrafields to be converted to int or float
         """
-        self.extrafields = set(extrafields)
-        self.numeric_values = set(numeric_values) if numeric_values else set()
+        self._extrafields = set(extrafields)
+        self._numeric_values = set(numeric_values) if numeric_values else set()
 
     def parse_filters(
         self, filter_str: Optional[str]
@@ -57,14 +57,14 @@ class FilterHandler:
 
     def _validate_key(self, key: str) -> None:
         """Checks if the key is in the allowed extrafields."""
-        if key not in self.extrafields:
+        if key not in self._extrafields:
             raise click.ClickException(
-                f"Invalid filter key: {key}. Must be one of {self.extrafields}"
+                f"Invalid filter key: {key}. Must be one of {self._extrafields}"
             )
 
     def _parse_value(self, key: str, value: str) -> Union[str, int, float, bool]:
         """Parses the value into the appropriate type based on the key."""
-        if key in self.numeric_values:
+        if key in self._numeric_values:
             return self._parse_numeric_value(key, value)
         if key == "xm_eligibility":
             return self._parse_boolean_value(value)
@@ -86,7 +86,7 @@ class FilterHandler:
     @staticmethod
     def filter_response(
         data: List[Dict[str, Any]],
-        filters: Dict[str, Union[str, int, bool]],
+        filters: Dict[str, Union[str, int, float, bool]],
         custom_filters: Optional[Dict[str, Callable[[Dict[str, Any]], bool]]] = None,
     ) -> List[Dict[str, Any]]:
         """

@@ -12,7 +12,7 @@ from margin_estimator_tool.core.data_exporter import (
 from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
-from margin_estimator_tool.estimator.estimator_request_builder import (
+from src.margin_estimator_tool.estimator.estimator_request_builder import (
     EstimatorRequestBuilder,
 )
 from margin_estimator_tool.estimator.margin_calculator.extractor import (
@@ -50,19 +50,19 @@ class MarginCalculatorRequestHandler(RequestHandler):
             export_dir: directory to export to
         """
         super().__init__()
-        self.header_validator = HeaderValidator()
-        self.request_builder = EstimatorRequestBuilder(self.header_validator)
-        self.csv_file = csv_file
-        self.version = version == "LIVE"
-        self.timestamp = timestamp if timestamp is not None else 0
-        self.date_from = date_from
-        self.date_to = date_to
-        self.export_dir = export_dir
-        self.extractor = Extractor()
+        self._header_validator = HeaderValidator()
+        self._request_builder = EstimatorRequestBuilder(self._header_validator)
+        self._csv_file = csv_file
+        self._version = version == "LIVE"
+        self._timestamp = timestamp if timestamp is not None else 0
+        self._date_from = date_from
+        self._date_to = date_to
+        self._export_dir = export_dir
+        self._extractor = Extractor()
 
     def process_and_provide_output(self) -> None:
         """Main method to process and export margin data."""
-        if not self.header_validator.validate_headers(self.csv_file):
+        if not self._header_validator.validate_headers(self._csv_file):
             click.echo("Failed to validate CSV portfolio file. Process aborted.")
             return
 
@@ -82,11 +82,11 @@ class MarginCalculatorRequestHandler(RequestHandler):
         Returns:
             response: response returned from the endpoint
         """
-        estimator_request_body = self.request_builder.build_request(
-            business_date, self.csv_file, self.version, self.timestamp
+        estimator_request_body = self._request_builder.build_request(
+            business_date, self._csv_file, self._version, self._timestamp
         )
         try:
-            response = self.api.estimator_post(body=estimator_request_body.to_dict())
+            response = self._api.estimator_post(body=estimator_request_body.to_dict())
             self._check_for_error_in_response(response)
             return response
         except Exception as e:
@@ -100,14 +100,14 @@ class MarginCalculatorRequestHandler(RequestHandler):
         for business_day in business_days:
             data = self.send_request(business_day)
             if data:
-                self.extractor.extract_data(data)
+                self._extractor.extract_data(data)
                 margin_data.append(data)
         return margin_data
 
     def _collect_business_days(self) -> List[int]:
         """Collects the list of business days for the calculation period."""
-        start_date = datetime.strptime(self.date_from, "%Y%m%d")
-        end_date = datetime.strptime(self.date_to, "%Y%m%d")
+        start_date = datetime.strptime(self._date_from, "%Y%m%d")
+        end_date = datetime.strptime(self._date_to, "%Y%m%d")
 
         current_date = start_date
         business_days: List[int] = []
@@ -124,14 +124,14 @@ class MarginCalculatorRequestHandler(RequestHandler):
         DataExporter.export(
             margin_data,
             "Margins",
-            self.export_dir,
+            self._export_dir,
             True,
             False,
-            self.date_from + "_" + self.date_to,
-            self.version,
+            self._date_from + "_" + self._date_to,
+            self._version,
         )
 
         graph_exporter = GraphExporter(
-            self.extractor.dates, self.extractor.initial_margins, self.export_dir
+            self._extractor.dates, self._extractor.initial_margins, self._export_dir
         )
         graph_exporter.save_graph()

@@ -19,7 +19,7 @@ from margin_estimator_tool.core.filter_handler import (
 class ProductsRequestHandler(RequestHandler):
     """Handler for sending requests to the /products endpoint and exporting data."""
 
-    EXTRAFIELDS = [
+    _EXTRAFIELDS = [
         "product",
         "instrument_type",
         "clearing_house",
@@ -53,39 +53,38 @@ class ProductsRequestHandler(RequestHandler):
         Initializes the ProductsRequestHandler instance.
 
         Args:
-            business_date: desired date, gets decied by function _get_business_date
+            date: desired date, gets decied by function _get_business_date
             version: desired version in bool format, defaults to SOD
             to_excel: whether to export to excel
             to_json: whether to export to json
             export_dir: directory to export data to, defaults to root of the project
             timestamp: timestamp for request, defaults to 0
-            filter_handler: instance of FilterHandler class, takes care of filters
             filters: comma-separeted string of key:values pairs for filtering
         """
         super().__init__()
-        self.business_date = self._get_business_date(date, version)
-        self.version = version == "LIVE"
-        self.to_excel = to_excel
-        self.to_json = to_json
-        self.export_dir = export_dir or os.getcwd()
-        self.timestamp = timestamp if timestamp is not None else 0
-        self.filter_handler = FilterHandler(
-            self.EXTRAFIELDS, ["product_tick_size", "product_tick_value"]
+        self._business_date = self._get_business_date(date, version)
+        self._version = version == "LIVE"
+        self._to_excel = to_excel
+        self._to_json = to_json
+        self._export_dir = export_dir or os.getcwd()
+        self._timestamp = timestamp if timestamp is not None else 0
+        self._filter_handler = FilterHandler(
+            self._EXTRAFIELDS, ["product_tick_size", "product_tick_value"]
         )
-        self.filters = self.filter_handler.parse_filters(filters)
+        self._filters = self._filter_handler.parse_filters(filters)
 
     def process_and_provide_output(self) -> None:
         """Processes the data from /products and exports it according to the specified format."""
         products = self.send_request()
-        filtered_products = self.filter_handler.filter_response(products, self.filters)
+        filtered_products = self._filter_handler.filter_response(products, self._filters)
         DataExporter.export(
             filtered_products,
             "Products",
-            self.export_dir,
-            self.to_excel,
-            self.to_json,
-            str(self.business_date),
-            self.version,
+            self._export_dir,
+            self._to_excel,
+            self._to_json,
+            str(self._business_date),
+            self._version,
         )
 
     def send_request(self) -> List[Dict[str, Any]]:
@@ -98,11 +97,11 @@ class ProductsRequestHandler(RequestHandler):
                       If an error is encountered during the request, it returns an empty list.
         """
         try:
-            response = self.api.products_get(
-                extrafields=self.EXTRAFIELDS,
-                business_date=self.business_date,
-                live_timestamp=self.timestamp,
-                live=self.version,
+            response = self._api.products_get(
+                extrafields=self._EXTRAFIELDS,
+                business_date=self._business_date,
+                live_timestamp=self._timestamp,
+                live=self._version,
             )
             self._check_for_error_in_response(response)
             response = response.get("products", [])
