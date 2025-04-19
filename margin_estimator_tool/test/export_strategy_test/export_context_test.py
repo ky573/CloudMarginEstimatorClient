@@ -19,12 +19,12 @@ class TestExportContext:
 
     def test_initialization(self):
         """Tests that the context is initialized without a strategy."""
-        assert self.context.strategy is None
+        assert self.context._strategy is None
 
     def test_set_strategy(self):
         """Tests setting an export strategy."""
         self.context.set_strategy(self.mock_strategy)
-        assert self.context.strategy == self.mock_strategy
+        assert self.context._strategy == self.mock_strategy
 
     def test_export_data_with_strategy(self):
         """Tests exporting data with a valid strategy."""

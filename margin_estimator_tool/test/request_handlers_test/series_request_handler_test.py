@@ -44,16 +44,16 @@ class TestSeriesRequestHandler:
 
     def test_initialization(self):
         """Test that the handler is initialized with the correct parameters."""
-        assert self.handler.business_date == int(self.date)
-        assert self.handler.version is True  # "LIVE" should map to True
-        assert self.handler.timestamp == self.timestamp
-        assert self.handler.to_excel == self.to_excel
-        assert self.handler.to_json == self.to_json
-        assert self.handler.export_dir == self.export_dir
-        assert self.handler.products == ["product1", "product2"]
-        assert self.handler.type == self.type
-        assert self.handler.call_put_flag == self.call_put_flag
-        assert self.handler.filters is not None  # Filters should be parsed
+        assert self.handler._business_date == int(self.date)
+        assert self.handler._version is True  # "LIVE" should map to True
+        assert self.handler._timestamp == self.timestamp
+        assert self.handler._to_excel == self.to_excel
+        assert self.handler._to_json == self.to_json
+        assert self.handler._export_dir == self.export_dir
+        assert self.handler._products == ["product1", "product2"]
+        assert self.handler._type == self.type
+        assert self.handler._call_put_flag == self.call_put_flag
+        assert self.handler._filters is not None  # Filters should be parsed
 
     def test_process_and_provide_output(self):
         """Test that data is processed and exported correctly."""
@@ -89,7 +89,7 @@ class TestSeriesRequestHandler:
         }
 
         with patch.object(
-            self.handler.api, "series_get", return_value=mock_response
+            self.handler._api, "series_get", return_value=mock_response
         ), patch.object(self.handler, "_check_for_error_in_response"):
             response = self.handler.send_request()
 
@@ -98,7 +98,7 @@ class TestSeriesRequestHandler:
     def test_send_request_handles_exception(self):
         """Test that an exception during the request is properly handled."""
         with patch.object(
-            self.handler.api, "series_get", side_effect=Exception("API error")
+            self.handler._api, "series_get", side_effect=Exception("API error")
         ), patch.object(self.handler, "_handle_request_error") as mock_handle_error:
             response = self.handler.send_request()
 

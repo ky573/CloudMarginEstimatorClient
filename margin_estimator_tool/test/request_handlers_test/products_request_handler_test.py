@@ -15,11 +15,11 @@ class TestProductsRequestHandler:
         """Test initialization with default values."""
         handler = ProductsRequestHandler()
 
-        assert handler.version is False  # Default to EOD (not LIVE)
-        assert handler.to_excel is False
-        assert handler.to_json is False
-        assert handler.timestamp == 0
-        assert os.path.isabs(handler.export_dir)
+        assert handler._version is False  # Default to EOD (not LIVE)
+        assert handler._to_excel is False
+        assert handler._to_json is False
+        assert handler._timestamp == 0
+        assert os.path.isabs(handler._export_dir)
 
     def test_init_with_custom_values(self):
         """Test initialization with custom values."""
@@ -37,12 +37,12 @@ class TestProductsRequestHandler:
             filters="currency:USD,product_type:OINX",
         )
 
-        assert handler.business_date == int(current_date)
-        assert handler.version is True  # LIVE
-        assert handler.to_excel is True
-        assert handler.to_json is True
-        assert handler.export_dir == export_dir
-        assert handler.timestamp == timestamp
+        assert handler._business_date == int(current_date)
+        assert handler._version is True  # LIVE
+        assert handler._to_excel is True
+        assert handler._to_json is True
+        assert handler._export_dir == export_dir
+        assert handler._timestamp == timestamp
 
     def test_init_parses_filters(self):
         """Test that filters are parsed during initialization."""
@@ -57,7 +57,7 @@ class TestProductsRequestHandler:
             handler = ProductsRequestHandler(filters="currency:USD,product_type:OINX")
 
             mock_parse_filters.assert_called_once_with("currency:USD,product_type:OINX")
-            assert handler.filters == {"currency": "USD", "product_type": "OINX"}
+            assert handler._filters == {"currency": "USD", "product_type": "OINX"}
 
     def test_send_request_error(self):
         """Test API request with error response."""
@@ -79,4 +79,4 @@ class TestProductsRequestHandler:
         """Test business date handling logic."""
         # Test with specific date
         handler = ProductsRequestHandler(date="20250101")
-        assert handler.business_date == 20250101
+        assert handler._business_date == 20250101

@@ -20,7 +20,7 @@ class TestLiveSnapshotRequestHandler:
             handler = LiveSnapshotRequestHandler(date=date)
 
             assert (
-                handler.business_date == 20250301
+                    handler._business_date == 20250301
             )  # Check that string date is converted to int
             mock_setup_api.assert_called_once()
 

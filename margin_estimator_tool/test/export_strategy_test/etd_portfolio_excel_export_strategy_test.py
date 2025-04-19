@@ -64,9 +64,10 @@ class TestEtdPortfolioExcelExportStrategy:
             )
 
             assert result is False
-            mock_excel_writer.assert_called_once_with(
-                self.expected_filename, engine="openpyxl"
-            )
+            # mock_excel_writer.assert_called_once_with(
+            #     self.expected_filename, engine="openpyxl"
+            # )
+            mock_excel_writer.assert_not_called()
             mock_save.assert_not_called()  # Should not save when no data
 
     def test_export_calls_submethods(self):

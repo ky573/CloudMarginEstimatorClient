@@ -32,18 +32,18 @@ class TestEtdPortfolioRequestHandler:
 
     def test_initialization(self):
         """Test that the handler is initialized with the correct parameters."""
-        assert self.handler.csv_file == self.csv_file
-        assert self.handler.business_date == int(self.date)
-        assert self.handler.version is True  # "LIVE" should map to True
-        assert self.handler.timestamp == self.timestamp
-        assert self.handler.to_excel == self.to_excel
-        assert self.handler.to_json == self.to_json
-        assert self.handler.export_dir == self.export_dir
+        assert self.handler._csv_file == self.csv_file
+        assert self.handler._business_date == int(self.date)
+        assert self.handler._version is True  # "LIVE" should map to True
+        assert self.handler._timestamp == self.timestamp
+        assert self.handler._to_excel == self.to_excel
+        assert self.handler._to_json == self.to_json
+        assert self.handler._export_dir == self.export_dir
 
     def test_process_and_provide_output_valid_headers(self):
         """Test that data is processed and exported when headers are valid."""
         with patch.object(
-            self.handler.header_validator, "validate_headers", return_value=True
+            self.handler._header_validator, "validate_headers", return_value=True
         ), patch.object(
             self.handler, "send_request", return_value={"portfolio": "data"}
         ), patch(
@@ -65,7 +65,7 @@ class TestEtdPortfolioRequestHandler:
     def test_process_and_provide_output_invalid_headers(self):
         """Test that no data is processed when headers are invalid."""
         with patch.object(
-            self.handler.header_validator, "validate_headers", return_value=False
+            self.handler._header_validator, "validate_headers", return_value=False
         ), patch("click.echo") as mock_echo, patch.object(
             self.handler, "send_request"
         ) as mock_send_request:
@@ -83,9 +83,9 @@ class TestEtdPortfolioRequestHandler:
         mock_response.to_dict.return_value = {"key": "value"}
 
         with patch.object(
-            self.handler.request_builder, "build_request", return_value=mock_response
+            self.handler._request_builder, "build_request", return_value=mock_response
         ), patch.object(
-            self.handler.api, "estimator_post", return_value={"portfolio": "data"}
+            self.handler._api, "estimator_post", return_value={"portfolio": "data"}
         ), patch.object(
             self.handler, "_check_for_error_in_response"
         ) as mock_check_error:
@@ -97,8 +97,8 @@ class TestEtdPortfolioRequestHandler:
 
     def test_send_request_handles_exception(self):
         """Test handling an exception when the API request fails."""
-        with patch.object(self.handler.request_builder, "build_request"), patch.object(
-            self.handler.api, "estimator_post", side_effect=Exception("API error")
+        with patch.object(self.handler._request_builder, "build_request"), patch.object(
+            self.handler._api, "estimator_post", side_effect=Exception("API error")
         ), patch.object(self.handler, "_handle_request_error") as mock_handle_error:
 
             response = self.handler.send_request()

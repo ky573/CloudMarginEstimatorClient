@@ -30,12 +30,12 @@ class TestMarginCalculatorRequestHandler:
 
     def test_initialization(self):
         """Test that the handler is initialized with correct attributes."""
-        assert self.handler.csv_file == self.csv_file
-        assert self.handler.version is True  # "LIVE" should map to True
-        assert self.handler.timestamp == self.timestamp
-        assert self.handler.date_from == self.date_from
-        assert self.handler.date_to == self.date_to
-        assert self.handler.export_dir == self.export_dir
+        assert self.handler._csv_file == self.csv_file
+        assert self.handler._version is True  # "LIVE" should map to True
+        assert self.handler._timestamp == self.timestamp
+        assert self.handler._date_from == self.date_from
+        assert self.handler._date_to == self.date_to
+        assert self.handler._export_dir == self.export_dir
 
     def test_process_and_provide_output_valid_headers(self):
         """Test that margin data is processed and exported when headers are valid."""
@@ -43,7 +43,7 @@ class TestMarginCalculatorRequestHandler:
         mock_margin_data = [{"margin": "data"}]
 
         with patch.object(
-            self.handler.header_validator, "validate_headers", return_value=True
+            self.handler._header_validator, "validate_headers", return_value=True
         ), patch.object(
             self.handler, "_collect_business_days", return_value=mock_business_days
         ), patch.object(
@@ -59,7 +59,7 @@ class TestMarginCalculatorRequestHandler:
     def test_process_and_provide_output_invalid_headers(self):
         """Test that processing stops if CSV header validation fails."""
         with patch.object(
-            self.handler.header_validator, "validate_headers", return_value=False
+            self.handler._header_validator, "validate_headers", return_value=False
         ), patch("click.echo") as mock_echo, patch.object(
             self.handler, "_collect_business_days"
         ) as mock_collect_days:
@@ -77,9 +77,9 @@ class TestMarginCalculatorRequestHandler:
         mock_response = {"portfolio": "data"}
 
         with patch.object(
-            self.handler.request_builder, "build_request", return_value=MagicMock()
+            self.handler._request_builder, "build_request", return_value=MagicMock()
         ), patch.object(
-            self.handler.api, "estimator_post", return_value=mock_response
+            self.handler._api, "estimator_post", return_value=mock_response
         ), patch.object(
             self.handler, "_check_for_error_in_response"
         ) as mock_check:
@@ -93,8 +93,8 @@ class TestMarginCalculatorRequestHandler:
         """Test handling an exception when the API request fails."""
         business_date = 20250303
 
-        with patch.object(self.handler.request_builder, "build_request"), patch.object(
-            self.handler.api, "estimator_post", side_effect=Exception("API error")
+        with patch.object(self.handler._request_builder, "build_request"), patch.object(
+            self.handler._api, "estimator_post", side_effect=Exception("API error")
         ), patch("click.echo") as mock_echo, patch.object(
             self.handler, "_handle_request_error"
         ) as mock_handle_error:
@@ -147,7 +147,7 @@ class TestMarginCalculatorRequestHandler:
 
         with patch.object(
             self.handler, "send_request", side_effect=[mock_data, {}]
-        ), patch.object(self.handler.extractor, "extract_data") as mock_extract:
+        ), patch.object(self.handler._extractor, "extract_data") as mock_extract:
 
             margin_data = self.handler._fetch_margin_data(business_days)
 

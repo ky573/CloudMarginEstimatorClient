@@ -17,13 +17,13 @@ class TestFilterHandler:
 
         handler = FilterHandler(extrafields, numeric_values)
 
-        assert handler.extrafields == set(extrafields)
-        assert handler.numeric_values == set(numeric_values)
+        assert handler._extrafields == set(extrafields)
+        assert handler._numeric_values == set(numeric_values)
 
         # Test with default numeric_values
         handler = FilterHandler(extrafields)
-        assert handler.extrafields == set(extrafields)
-        assert handler.numeric_values == set()
+        assert handler._extrafields == set(extrafields)
+        assert handler._numeric_values == set()
 
     def test_parse_filters_empty(self):
         """Test parsing empty or None filter string"""

@@ -20,8 +20,8 @@ class TestSnapshotRequestHandler:
 
             handler = SnapshotRequestHandler(date_from=date_from, date_to=date_to)
 
-            assert handler.date_from == date_from
-            assert handler.date_to == date_to
+            assert handler._date_from == date_from
+            assert handler._date_to == date_to
             mock_setup_api.assert_called_once()
 
     def test_initialization_with_default_date_to(self):
@@ -40,8 +40,8 @@ class TestSnapshotRequestHandler:
 
                 handler = SnapshotRequestHandler(date_from=date_from)
 
-                assert handler.date_from == date_from
-                assert handler.date_to == "20250320"
+                assert handler._date_from == date_from
+                assert handler._date_to == "20250320"
                 mock_datetime.now.assert_called_once()
 
     def test_process_and_provide_output_with_data(self):

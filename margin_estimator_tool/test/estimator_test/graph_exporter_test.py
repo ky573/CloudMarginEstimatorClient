@@ -20,9 +20,9 @@ class TestGraphExporter:
 
     def test_initialization(self):
         """Tests that the exporter is initialized correctly."""
-        assert self.exporter.dates == self.dates
-        assert self.exporter.initial_margins == self.initial_margins
-        assert self.exporter.export_dir == self.export_dir
+        assert self.exporter._dates == self.dates
+        assert self.exporter._initial_margins == self.initial_margins
+        assert self.exporter._export_dir == self.export_dir
 
     def test_plot_graph(self):
         """Tests that the _plot_graph method generates a valid Plotly figure."""
