@@ -3,7 +3,6 @@ CLI commands module for the margin estimator tool.
 """
 
 from typing import Optional
-from textwrap import dedent
 import click
 from cli.endpoint_handler_factory import EndpointHandlerFactory
 from cli.argument_validator import (
