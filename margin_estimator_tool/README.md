@@ -16,7 +16,7 @@ The CLI Tool is a command-line interface designed to interact with CPME API for 
 
 ### Prerequisites
 Ensure you have the following installed on your system:
-- Python 3.8+
+- Python 3.10+
 - `pip` (Python package manager)
 
 ### Setup
