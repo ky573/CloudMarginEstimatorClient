@@ -3,6 +3,7 @@ CLI commands module for the margin estimator tool.
 """
 
 from typing import Optional
+from textwrap import dedent
 import click
 from cli.endpoint_handler_factory import EndpointHandlerFactory
 from cli.argument_validator import (
@@ -97,24 +98,22 @@ def register_get_products_command(cli_group):
     @click.option(
         "--filter",
         type=str,
-        help="""Filter products based on key:value pairs separated by comma.
-                                                        The extrafields with examples are:\n
-                                                        "clearing_house": "EUXCDEFF",\n
-                                                        "prod_name": "OPT ON SWISS MARKET INDEX",\n
-                                                        "prod_isin": "CH0008616382",\n
-                                                        "underlying_isin": "CH0009980894",\n
-                                                        "currency": "CHF",\n
-                                                        "product_type": "OINX",\n
-                                                        "extended_product_type": null,\n
-                                                        "margin_style_flag": "T",\n
-                                                        "exercise_style_flag": "E",\n
-                                                        "product_settlement_type": "CASH",\n
-                                                        "final_settlement_time": "09:00",\n
-                                                        "product_tick_size": 0.1,\n
-                                                        "product_tick_value": 1,\n
-                                                        "liquidation_group": "PEQ01",\n
-                                                        "xm_eligibility": false
-                                                        """,
+        help="\b\nFilter products based on key:value pairs separated by comma. The extrafields with examples are:\n"
+             "clearing_house: EUXCDEFF\n"
+             "prod_name: OPT ON SWISS MARKET INDEX\n"
+             "prod_isin: CH0008616382\n"
+             "underlying_isin: CH0009980894\n"
+             "currency: CHF\n"
+             "product_type: OINX\n"
+             "extended_product_type: null\n"
+             "margin_style_flag: T\n"
+             "exercise_style_flag: E\n"
+             "product_settlement_type: CASH\n"
+             "final_settlement_time: 09:00\n"
+             "product_tick_size: 0.1\n"
+             "product_tick_value: 1\n"
+             "liquidation_group: PEQ01\n"
+             "xm_eligibility: false"
     )
     def get_products(
         date: Optional[str],
@@ -196,22 +195,20 @@ def register_get_series_command(cli_group):
     @click.option(
         "--filter",
         type=str,
-        help="""Filter series based on key:value pairs separated by comma.
-                                                        The extrafields with examples are:\n
-                                                        "iid": 78490800,\n
-                                                        "product_id": "BMW",\n
-                                                        "contract_date": 20250321,\n
-                                                        "contract_maturity": 202503,\n
-                                                        "expiry_maturity": 202503,\n
-                                                        "version_number": "0",\n
-                                                        "act_trade_unit_no": 100.0,\n
-                                                        "days_to_expiration": 50,\n
-                                                        "trade_unit_value": 100.0,\n
-                                                        "contract_frequency": "MONTHLY",\n
-                                                        "call_put_flag": "P",\n
-                                                        "exercise_price": 91.0,\n
-                                                        "exercise_style_flag": "A"
-                                                        """,
+        help="\b\nFilter series based on key:value pairs separated by comma. The extrafields with examples are:\n"
+             "iid: 78490800\n"
+             "product_id: BMW\n"
+             "contract_date: 20250321\n"
+             "contract_maturity: 202503\n"
+             "expiry_maturity: 202503\n"
+             "version_number: 0\n"
+             "act_trade_unit_no: 100.0\n"
+             "days_to_expiration: 50\n"
+             "trade_unit_value: 100.0\n"
+             "contract_frequency: MONTHLY\n"
+             "call_put_flag: P\n"
+             "exercise_price: 91.0\n"
+             "exercise_style_flag: A"
     )
     def get_series(
         date: Optional[str],
