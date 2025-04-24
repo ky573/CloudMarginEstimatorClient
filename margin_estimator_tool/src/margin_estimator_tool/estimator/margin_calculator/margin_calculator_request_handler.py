@@ -12,7 +12,7 @@ from margin_estimator_tool.core.data_exporter import (
 from margin_estimator_tool.core.request_handler_base import (
     RequestHandler,
 )
-from src.margin_estimator_tool.estimator.estimator_request_builder import (
+from margin_estimator_tool.estimator.estimator_request_builder import (
     EstimatorRequestBuilder,
 )
 from margin_estimator_tool.estimator.margin_calculator.extractor import (
