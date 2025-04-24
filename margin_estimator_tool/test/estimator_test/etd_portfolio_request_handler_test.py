@@ -1,7 +1,7 @@
 """Test suite for EtdPortfolioRequestHandler class"""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
+from estimator.etd_portfolio.etd_portfolio_request_handler import (
     EtdPortfolioRequestHandler,
 )
 
@@ -47,7 +47,7 @@ class TestEtdPortfolioRequestHandler:
         ), patch.object(
             self.handler, "send_request", return_value={"portfolio": "data"}
         ), patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+            "core.data_exporter.DataExporter.export"
         ) as mock_export:
 
             self.handler.process_and_provide_output()

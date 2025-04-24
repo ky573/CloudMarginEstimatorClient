@@ -2,7 +2,7 @@
 
 import os
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
+from export_strategy.etd_portfolio_excel_export_strategy import (
     EtdPortfolioExcelExportStrategy,
 )
 
@@ -75,9 +75,9 @@ class TestEtdPortfolioExcelExportStrategy:
         with patch("pandas.ExcelWriter", autospec=True) as mock_excel_writer, patch(
             "openpyxl.workbook.workbook.Workbook.save"
         ) as mock_save, patch(
-            "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_margins"
+            "export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_margins"
         ) as mock_export_margins, patch(
-            "margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_drilldowns"
+            "export_strategy.etd_portfolio_excel_export_strategy.EtdPortfolioExcelExportStrategy._export_drilldowns"
         ) as mock_export_drilldowns:
             mock_export_margins.return_value = True
             mock_export_drilldowns.return_value = False

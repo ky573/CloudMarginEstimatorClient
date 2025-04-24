@@ -1,28 +1,28 @@
 """Test suite for EndpointHandlerFactory class."""
 
 import pytest
-from margin_estimator_tool.cli.endpoint_handler_factory import (
+from cli.endpoint_handler_factory import (
     EndpointHandlerFactory,
 )
-from margin_estimator_tool.core.request_handler_base import (
+from core.request_handler_base import (
     RequestHandler,
 )
-from margin_estimator_tool.products.products_request_handler import (
+from products.products_request_handler import (
     ProductsRequestHandler,
 )
-from margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
+from estimator.margin_calculator.margin_calculator_request_handler import (
     MarginCalculatorRequestHandler,
 )
-from margin_estimator_tool.series.series_request_handler import (
+from series.series_request_handler import (
     SeriesRequestHandler,
 )
-from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import (
+from live_snapshots.live_snapshots_request_handler import (
     LiveSnapshotRequestHandler,
 )
-from margin_estimator_tool.snapshots.snapshots_request_handler import (
+from snapshots.snapshots_request_handler import (
     SnapshotRequestHandler,
 )
-from margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
+from estimator.etd_portfolio.etd_portfolio_request_handler import (
     EtdPortfolioRequestHandler,
 )
 

@@ -2,7 +2,7 @@
 
 import os
 from unittest.mock import patch, mock_open
-from margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import (
+from export_strategy.etd_portfolio_csv_export_strategy import (
     EtdPortfolioCSVExportStrategy,
 )
 

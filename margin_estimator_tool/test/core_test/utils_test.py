@@ -1,6 +1,6 @@
 """Test suite for the flatten_dict utility function."""
 
-from margin_estimator_tool.core.utils import flatten_dict
+from core.utils import flatten_dict
 
 
 class TestFlattenDict:

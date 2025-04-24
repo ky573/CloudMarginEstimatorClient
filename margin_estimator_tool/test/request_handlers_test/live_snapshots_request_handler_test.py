@@ -1,7 +1,7 @@
 """Test suite for LiveSnapshotsRequestHandler class."""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import (
+from live_snapshots.live_snapshots_request_handler import (
     LiveSnapshotRequestHandler,
 )
 
@@ -12,7 +12,7 @@ class TestLiveSnapshotRequestHandler:
     def test_initialization(self):
         """Test that handler initializes correctly with proper values."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
+            "live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
         ) as mock_setup_api:
             mock_setup_api.return_value = MagicMock()
             date = "20250301"
@@ -27,10 +27,10 @@ class TestLiveSnapshotRequestHandler:
     def test_process_and_provide_output(self):
         """Test that handler processes and outputs data correctly."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
+            "live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
         ) as mock_setup_api:
             with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.click"
+                "live_snapshots.live_snapshots_request_handler.click"
             ) as mock_click:
                 mock_api = MagicMock()
                 mock_setup_api.return_value = mock_api
@@ -71,10 +71,10 @@ class TestLiveSnapshotRequestHandler:
     def test_send_request_successful(self):
         """Test that send_request correctly processes successful API response."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
+            "live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
         ) as mock_setup_api:
             with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._check_for_error_in_response"
+                "live_snapshots.live_snapshots_request_handler.RequestHandler._check_for_error_in_response"
             ) as mock_check_error:
                 mock_api = MagicMock()
                 mock_setup_api.return_value = mock_api
@@ -106,10 +106,10 @@ class TestLiveSnapshotRequestHandler:
     def test_send_request_exception(self):
         """Test that send_request correctly handles exceptions."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
+            "live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
         ) as mock_setup_api:
             with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._handle_request_error"
+                "live_snapshots.live_snapshots_request_handler.RequestHandler._handle_request_error"
             ) as mock_handle_error:
                 mock_api = MagicMock()
                 mock_setup_api.return_value = mock_api
@@ -131,10 +131,10 @@ class TestLiveSnapshotRequestHandler:
     def test_print_output(self):
         """Test that _print_output formats and displays data correctly."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.click"
+            "live_snapshots.live_snapshots_request_handler.click"
         ) as mock_click:
             with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.datetime"
+                "live_snapshots.live_snapshots_request_handler.datetime"
             ) as mock_datetime:
                 date = "20250301"
                 handler = LiveSnapshotRequestHandler(date=date)
@@ -200,10 +200,10 @@ class TestLiveSnapshotRequestHandler:
     def test_process_and_provide_output_with_empty_result(self):
         """Test that handler handles empty result lists correctly."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
+            "live_snapshots.live_snapshots_request_handler.RequestHandler._setup_api"
         ) as mock_setup_api:
             with patch(
-                "margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler.click"
+                "live_snapshots.live_snapshots_request_handler.click"
             ) as mock_click:
                 mock_setup_api.return_value = MagicMock()
                 date = "20250301"

@@ -1,9 +1,7 @@
 """Test suite for the SeriesRequestHandler class."""
 
 from unittest.mock import patch
-from margin_estimator_tool.series.series_request_handler import (
-    SeriesRequestHandler,
-)
+from series.series_request_handler import SeriesRequestHandler
 
 
 class TestSeriesRequestHandler:
@@ -64,7 +62,7 @@ class TestSeriesRequestHandler:
         with patch.object(
             self.handler, "send_request", return_value=mock_series_data
         ), patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+            "core.data_exporter.DataExporter.export"
         ) as mock_export, patch.object(
             self.handler, "_filter_series", return_value=mock_series_data
         ):  # Mock the filter step
@@ -118,7 +116,7 @@ class TestSeriesRequestHandler:
         ]
 
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+            "core.data_exporter.DataExporter.export"
         ) as mock_export:
             self.handler._generate_etd_portfolio_template(mock_filtered_series)
 

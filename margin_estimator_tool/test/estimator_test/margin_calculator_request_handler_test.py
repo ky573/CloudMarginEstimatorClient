@@ -1,7 +1,7 @@
 """Test suite for MarginCalculatorRequestHandler class"""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
+from estimator.margin_calculator.margin_calculator_request_handler import (
     MarginCalculatorRequestHandler,
 )
 
@@ -122,9 +122,9 @@ class TestMarginCalculatorRequestHandler:
         margin_data = [{"key": "value"}]
 
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.data_exporter.DataExporter.export"
+            "core.data_exporter.DataExporter.export"
         ) as mock_data_export, patch(
-            "margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter.GraphExporter.save_graph"
+            "estimator.margin_calculator.graph_exporter.GraphExporter.save_graph"
         ) as mock_save_graph:
 
             self.handler._export_results(margin_data)

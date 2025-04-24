@@ -2,9 +2,7 @@
 
 import os
 from unittest.mock import mock_open, patch
-from margin_estimator_tool.export_strategy.json_export_strategy import (
-    JSONExportStrategy,
-)
+from export_strategy.json_export_strategy import JSONExportStrategy
 
 
 class TestJSONExportStrategy:

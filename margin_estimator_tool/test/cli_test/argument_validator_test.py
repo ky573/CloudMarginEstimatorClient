@@ -3,7 +3,7 @@
 import pytest
 import click
 from unittest.mock import patch
-from margin_estimator_tool.cli.argument_validator import (
+from cli.argument_validator import (
     BaseArgumentValidator,
     MarginCalculatorValidator,
     GetProductsValidator,

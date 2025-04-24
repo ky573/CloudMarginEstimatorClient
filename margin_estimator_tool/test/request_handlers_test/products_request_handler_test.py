@@ -3,9 +3,7 @@
 from unittest.mock import patch
 import os
 from datetime import datetime
-from margin_estimator_tool.products.products_request_handler import (
-    ProductsRequestHandler,
-)
+from products.products_request_handler import ProductsRequestHandler
 
 
 class TestProductsRequestHandler:
@@ -47,7 +45,7 @@ class TestProductsRequestHandler:
     def test_init_parses_filters(self):
         """Test that filters are parsed during initialization."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.filter_handler.FilterHandler.parse_filters"
+            "core.filter_handler.FilterHandler.parse_filters"
         ) as mock_parse_filters:
             mock_parse_filters.return_value = {
                 "currency": "USD",
@@ -62,7 +60,7 @@ class TestProductsRequestHandler:
     def test_send_request_error(self):
         """Test API request with error response."""
         with patch(
-            "margin_estimator_tool.src.margin_estimator_tool.core.request_handler_base.RequestHandler.api",
+            "core.request_handler_base.RequestHandler.api",
             create=True,
         ) as mock_api:
             with patch("click.echo") as mock_echo, patch("sys.exit") as mock_exit:

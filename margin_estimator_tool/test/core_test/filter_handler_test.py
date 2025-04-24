@@ -2,9 +2,7 @@
 
 import pytest
 import click
-from margin_estimator_tool.core.filter_handler import (
-    FilterHandler,
-)
+from core.filter_handler import FilterHandler
 
 
 class TestFilterHandler:
