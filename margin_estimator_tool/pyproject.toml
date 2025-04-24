@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "margin-estimator-tool"
-version = "0.9"
+version = "1.0"
 dependencies = [
     "wheel>=0.34.2",
     "pyyaml>=6.0",
@@ -20,11 +20,12 @@ dependencies = [
     "sphinx>=8.2.0",
     "sphinx-rtd-theme>=2.0.0",
     "nbsphinx",
-    "certifi",
-    "pprintjson"
+    "certifi"
 ]
 description = "CLI tool for CPME"
 readme = "README.md"
+readme_content_type = "text/markdown"
+license = { text = "MIT" }
 authors = [
     { name = "Daniel Lopata", email = "daniel.lopata@deutsche-boerse.com" }
 ]
@@ -33,6 +34,8 @@ keywords = ["margining", "risk", "estimator", "marginestimator", "tool"]
 classifiers = [
     "Development Status :: 5 - Production",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent"
 ]
@@ -47,10 +50,11 @@ testpaths = ["test"]
 pythonpath = ["src"]
 filterwarnings = [
     "ignore::DeprecationWarning",
+    "ignore::urllib3.exceptions.InsecureRequestWarning",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [project.scripts]
-margin_estimator_tool = "margin_estimator_tool.main:cli"
+margin_estimator_tool = "margin_estimator_tool.src.main:cli"
