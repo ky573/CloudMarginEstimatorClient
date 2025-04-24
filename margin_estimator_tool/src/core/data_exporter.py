@@ -5,28 +5,18 @@ and can be easily modified or extended.
 
 from typing import Dict, Any, List
 import click
-from margin_estimator_tool.export_strategy.export_context import (
-    ExportContext,
-)
-from margin_estimator_tool.export_strategy.export_strategy import (
-    ExportStrategy,
-)
-from margin_estimator_tool.export_strategy.json_export_strategy import (
-    JSONExportStrategy,
-)
-from margin_estimator_tool.export_strategy.csv_export_strategy import (
-    CSVExportStrategy,
-)
-from margin_estimator_tool.export_strategy.excel_export_strategy import (
-    ExcelExportStrategy,
-)
-from margin_estimator_tool.export_strategy.etd_portfolio_csv_export_strategy import (
+from export_strategy.export_context import ExportContext
+from export_strategy.export_strategy import ExportStrategy
+from export_strategy.json_export_strategy import JSONExportStrategy
+from export_strategy.csv_export_strategy import CSVExportStrategy
+from export_strategy.excel_export_strategy import ExcelExportStrategy
+from export_strategy.etd_portfolio_csv_export_strategy import (
     EtdPortfolioCSVExportStrategy,
 )
-from margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
+from export_strategy.etd_portfolio_excel_export_strategy import (
     EtdPortfolioExcelExportStrategy,
 )
-from margin_estimator_tool.export_strategy.margin_calculator_excel_export_strategy import (
+from export_strategy.margin_calculator_excel_export_strategy import (
     MarginCalculatorExcelExportStrategy,
 )
 

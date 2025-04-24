@@ -5,15 +5,9 @@ output to the user in desired format.
 
 from typing import Dict, Any, List, Optional
 import os
-from margin_estimator_tool.core.data_exporter import (
-    DataExporter,
-)
-from margin_estimator_tool.core.request_handler_base import (
-    RequestHandler,
-)
-from margin_estimator_tool.core.filter_handler import (
-    FilterHandler,
-)
+from core.data_exporter import DataExporter
+from core.request_handler_base import RequestHandler
+from core.filter_handler import FilterHandler
 
 
 class SeriesRequestHandler(RequestHandler):

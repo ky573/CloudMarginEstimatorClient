@@ -6,9 +6,7 @@ endpoint for both GUI and inner format.
 import csv
 from cpme_api.models import BodyEstimator, Snapshot
 import cpme_api.models as spec
-from margin_estimator_tool.estimator.portfolio_header_validator import (
-    HeaderValidator,
-)
+from estimator.portfolio_header_validator import HeaderValidator
 
 
 class EstimatorRequestBuilder:

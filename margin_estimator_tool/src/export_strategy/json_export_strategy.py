@@ -3,7 +3,7 @@
 import os
 import json
 from typing import Dict, Any, List
-from .export_strategy import ExportStrategy
+from export_strategy.export_strategy import ExportStrategy
 
 
 class JSONExportStrategy(ExportStrategy):

@@ -1,9 +1,7 @@
 """This module defines context for exporting the data."""
 
 from typing import Dict, Any, List
-from margin_estimator_tool.export_strategy.export_strategy import (
-    ExportStrategy,
-)
+from export_strategy.export_strategy import ExportStrategy
 
 
 class ExportContext:

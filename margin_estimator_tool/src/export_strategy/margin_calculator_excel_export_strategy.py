@@ -4,10 +4,8 @@ import os
 from typing import Dict, Any, List, Set, Tuple
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
-from margin_estimator_tool.core.utils import flatten_dict
-from margin_estimator_tool.export_strategy.export_strategy import (
-    ExportStrategy,
-)
+from core.utils import flatten_dict
+from export_strategy.export_strategy import ExportStrategy
 
 
 class MarginCalculatorExcelExportStrategy(ExportStrategy):

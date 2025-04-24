@@ -3,7 +3,7 @@
 import os
 from typing import Dict, Any, List
 import pandas as pd
-from .export_strategy import ExportStrategy
+from export_strategy.export_strategy import ExportStrategy
 
 
 class ExcelExportStrategy(ExportStrategy):

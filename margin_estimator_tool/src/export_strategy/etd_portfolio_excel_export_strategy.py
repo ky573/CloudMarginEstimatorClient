@@ -4,8 +4,8 @@ from typing import Dict, Any, List
 import os
 import click
 import pandas as pd
-from margin_estimator_tool.src.margin_estimator_tool.core.utils import flatten_dict
-from .export_strategy import ExportStrategy
+from core.utils import flatten_dict
+from export_strategy.export_strategy import ExportStrategy
 
 
 class EtdPortfolioExcelExportStrategy(ExportStrategy):

@@ -7,9 +7,7 @@ formatted output.
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 import click
-from margin_estimator_tool.core.request_handler_base import (
-    RequestHandler,
-)
+from core.request_handler_base import RequestHandler
 
 
 class SnapshotRequestHandler(RequestHandler):

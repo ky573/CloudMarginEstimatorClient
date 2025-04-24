@@ -7,18 +7,10 @@ import json
 from typing import Dict, Any, Optional
 import os
 import click
-from margin_estimator_tool.core.data_exporter import (
-    DataExporter,
-)
-from margin_estimator_tool.core.request_handler_base import (
-    RequestHandler,
-)
-from margin_estimator_tool.estimator.estimator_request_builder import (
-    EstimatorRequestBuilder,
-)
-from margin_estimator_tool.estimator.portfolio_header_validator import (
-    HeaderValidator,
-)
+from core.data_exporter import DataExporter
+from core.request_handler_base import RequestHandler
+from estimator.estimator_request_builder import EstimatorRequestBuilder
+from estimator.portfolio_header_validator import HeaderValidator
 
 
 class EtdPortfolioRequestHandler(RequestHandler):

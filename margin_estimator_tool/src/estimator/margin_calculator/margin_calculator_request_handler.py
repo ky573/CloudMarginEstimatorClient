@@ -6,24 +6,12 @@ fetching the results, aggregating the data and exporting them in the form of gra
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 import click
-from margin_estimator_tool.core.data_exporter import (
-    DataExporter,
-)
-from margin_estimator_tool.core.request_handler_base import (
-    RequestHandler,
-)
-from margin_estimator_tool.estimator.estimator_request_builder import (
-    EstimatorRequestBuilder,
-)
-from margin_estimator_tool.estimator.margin_calculator.extractor import (
-    Extractor,
-)
-from margin_estimator_tool.estimator.margin_calculator.graph_exporter import (
-    GraphExporter,
-)
-from margin_estimator_tool.estimator.portfolio_header_validator import (
-    HeaderValidator,
-)
+from core.data_exporter import DataExporter
+from core.request_handler_base import RequestHandler
+from estimator.estimator_request_builder import EstimatorRequestBuilder
+from estimator.margin_calculator.extractor import Extractor
+from estimator.margin_calculator.graph_exporter import GraphExporter
+from estimator.portfolio_header_validator import HeaderValidator
 
 
 class MarginCalculatorRequestHandler(RequestHandler):

@@ -4,8 +4,8 @@ import os
 import csv
 from typing import Dict, Any
 import click
-from margin_estimator_tool.core.utils import flatten_dict
-from .export_strategy import ExportStrategy
+from core.utils import flatten_dict
+from export_strategy.export_strategy import ExportStrategy
 
 
 class EtdPortfolioCSVExportStrategy(ExportStrategy):
