@@ -2,7 +2,7 @@
 
 import os
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
+from margin_estimator_tool.export_strategy.etd_portfolio_excel_export_strategy import (
     EtdPortfolioExcelExportStrategy,
 )
 

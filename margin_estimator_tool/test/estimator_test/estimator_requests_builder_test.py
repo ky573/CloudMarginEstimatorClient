@@ -3,10 +3,10 @@
 import pytest
 from unittest.mock import patch, mock_open, MagicMock
 from io import StringIO
-from margin_estimator_tool.src.margin_estimator_tool.estimator.portfolio_header_validator import (
+from margin_estimator_tool.estimator.portfolio_header_validator import (
     HeaderValidator,
 )
-from margin_estimator_tool.src.margin_estimator_tool.estimator.estimator_request_builder import (
+from margin_estimator_tool.estimator.estimator_request_builder import (
     EstimatorRequestBuilder,
 )
 

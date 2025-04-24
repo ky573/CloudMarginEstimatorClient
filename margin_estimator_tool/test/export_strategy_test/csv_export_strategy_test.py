@@ -2,7 +2,7 @@
 
 import os
 from unittest.mock import patch, mock_open
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.csv_export_strategy import (
+from margin_estimator_tool.export_strategy.csv_export_strategy import (
     CSVExportStrategy,
 )
 

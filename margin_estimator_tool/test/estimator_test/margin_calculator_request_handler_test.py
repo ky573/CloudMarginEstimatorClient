@@ -1,7 +1,7 @@
 """Test suite for MarginCalculatorRequestHandler class"""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
+from margin_estimator_tool.estimator.margin_calculator.margin_calculator_request_handler import (
     MarginCalculatorRequestHandler,
 )
 

@@ -1,10 +1,10 @@
 """Test suite for the DataExporter class."""
 
 from unittest.mock import patch
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import (
+from margin_estimator_tool.export_strategy.export_context import (
     ExportContext,
 )
-from margin_estimator_tool.src.margin_estimator_tool.core.data_exporter import (
+from margin_estimator_tool.core.data_exporter import (
     DataExporter,
 )
 

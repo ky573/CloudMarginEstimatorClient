@@ -1,10 +1,10 @@
 """Test suite for the ExportContext class."""
 
 from unittest.mock import MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_strategy import (
+from margin_estimator_tool.export_strategy.export_strategy import (
     ExportStrategy,
 )
-from margin_estimator_tool.src.margin_estimator_tool.export_strategy.export_context import (
+from margin_estimator_tool.export_strategy.export_context import (
     ExportContext,
 )
 

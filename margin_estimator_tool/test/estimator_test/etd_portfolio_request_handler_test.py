@@ -1,7 +1,7 @@
 """Test suite for EtdPortfolioRequestHandler class"""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
+from margin_estimator_tool.estimator.etd_portfolio.etd_portfolio_request_handler import (
     EtdPortfolioRequestHandler,
 )
 

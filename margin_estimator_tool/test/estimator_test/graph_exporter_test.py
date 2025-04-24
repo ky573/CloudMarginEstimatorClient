@@ -3,7 +3,7 @@
 import plotly.graph_objects as go
 from datetime import datetime
 from unittest.mock import patch
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.graph_exporter import (
+from margin_estimator_tool.estimator.margin_calculator.graph_exporter import (
     GraphExporter,
 )
 

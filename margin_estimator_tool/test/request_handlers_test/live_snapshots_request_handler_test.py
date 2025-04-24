@@ -1,7 +1,7 @@
 """Test suite for LiveSnapshotsRequestHandler class."""
 
 from unittest.mock import patch, MagicMock
-from margin_estimator_tool.src.margin_estimator_tool.live_snapshots.live_snapshots_request_handler import (
+from margin_estimator_tool.live_snapshots.live_snapshots_request_handler import (
     LiveSnapshotRequestHandler,
 )
 

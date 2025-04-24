@@ -1,7 +1,7 @@
 """Test suite for the SeriesRequestHandler class."""
 
 from unittest.mock import patch
-from margin_estimator_tool.src.margin_estimator_tool.series.series_request_handler import (
+from margin_estimator_tool.series.series_request_handler import (
     SeriesRequestHandler,
 )
 

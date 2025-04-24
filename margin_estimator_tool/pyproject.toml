@@ -53,4 +53,4 @@ filterwarnings = [
 where = ["src"]
 
 [project.scripts]
-margin_estimator_tool = "margin_estimator_tool.src.margin_estimator_tool.main:cli"
+margin_estimator_tool = "margin_estimator_tool.main:cli"

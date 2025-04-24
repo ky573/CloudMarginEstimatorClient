@@ -1,7 +1,7 @@
 """Test suite for Extractor class"""
 
 import pytest
-from margin_estimator_tool.src.margin_estimator_tool.estimator.margin_calculator.extractor import (
+from margin_estimator_tool.estimator.margin_calculator.extractor import (
     Extractor,
 )
 

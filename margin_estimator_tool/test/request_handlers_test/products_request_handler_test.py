@@ -3,7 +3,7 @@
 from unittest.mock import patch
 import os
 from datetime import datetime
-from margin_estimator_tool.src.margin_estimator_tool.products.products_request_handler import (
+from margin_estimator_tool.products.products_request_handler import (
     ProductsRequestHandler,
 )
 
