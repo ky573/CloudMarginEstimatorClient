@@ -24,7 +24,6 @@ dependencies = [
 ]
 description = "CLI tool for CPME"
 readme = "README.md"
-readme_content_type = "text/markdown"
 license = { text = "MIT" }
 authors = [
     { name = "Daniel Lopata", email = "daniel.lopata@deutsche-boerse.com" }
