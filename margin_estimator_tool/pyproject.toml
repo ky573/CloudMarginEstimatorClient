@@ -44,6 +44,7 @@ dev = ["mypy", "pylint", "pytest", "black"]
 minversion = "7.0"
 addopts = "-ra -q"
 testpaths = ["test"]
+pythonpath = ["src"]
 filterwarnings = [
     "ignore::DeprecationWarning",
 ]
