@@ -3,6 +3,7 @@
 from unittest.mock import patch
 import os
 from datetime import datetime
+import pytest
 from products.products_request_handler import ProductsRequestHandler
 
 
@@ -63,15 +64,14 @@ class TestProductsRequestHandler:
             "core.request_handler_base.RequestHandler.api",
             create=True,
         ) as mock_api:
-            with patch("click.echo") as mock_echo, patch("sys.exit") as mock_exit:
+            with patch("click.echo") as mock_echo:
                 handler = ProductsRequestHandler(date="20250101")
-                result = handler.send_request()
 
-                # Verify that sys.exit(1) is called (program exits with exit code 1)
-                mock_exit.assert_called_with(1)
+                # Verify that SystemExit is raised with exit code 1
+                with pytest.raises(SystemExit) as excinfo:
+                    result = handler.send_request()
 
-                # Verify empty list returned on error
-                assert result == []
+                assert excinfo.value.code == 1
 
     def test_business_date_handling(self):
         """Test business date handling logic."""
