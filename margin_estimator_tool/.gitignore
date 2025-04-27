@@ -1,0 +1,33 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Virtual environments
+env/
+venv/
+ENV/
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Caches
+*.log
+*.pot
+*.mo
+*.swp
+*~
+
+# Environment variable files
+.env
