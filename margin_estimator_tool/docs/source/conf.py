@@ -1,28 +1,36 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# For the full list of built-in configuration values, see the documentation:
-# https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
+import sys
 
-# -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+
+sys.path.insert(0, project_root)
+sys.path.insert(0, os.path.join(project_root, 'src'))
 
 project = 'Margin Estimator Tool'
 copyright = '2025, Daniel Lopata'
 author = 'Daniel Lopata'
 
-# -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
-import os
-import sys
-
-for x in os.walk('../../src'):
-  sys.path.insert(0, x[0])
-
 extensions = [
-    'sphinx.ext.autodoc',      # Extracts docstrings for documentation
-    'sphinx.ext.napoleon',     # Parses Google-style and NumPy-style docstrings
-    'sphinx.ext.intersphinx',  # Links to other project's documentation
+    'sphinx.ext.autodoc',       # Core extension for auto API documentation
+    'sphinx.ext.viewcode',      # Add links to view the source code
+    'sphinx.ext.napoleon',      # Support for Google or NumPy style docstrings
+    'sphinx.ext.autosummary',   # Generate summary tables for modules
 ]
 
-html_theme = "sphinx_rtd_theme"
+# Configure autodoc
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+    'member-order': 'bysource',
+}
+
+autosummary_generate = True
+
+html_theme = 'sphinx_rtd_theme'
+
+viewcode_follow_imported_members = True
+
+autodoc_member_order = 'bysource'
+
+autodoc_default_flags = ['members', 'undoc-members', 'private-members']
