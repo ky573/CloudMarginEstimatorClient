@@ -25,7 +25,7 @@ class RequestHandler(ABC):
 
     @abstractmethod
     def process_and_provide_output(self) -> None:
-        """Abstract method for sending a request and exporting data; implemented by subclasses."""
+        """Method for sending a request and exporting data; implemented by subclasses."""
 
     @staticmethod
     def _handle_request_error(error: Exception) -> None:

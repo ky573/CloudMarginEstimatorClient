@@ -28,7 +28,7 @@ class ExportStrategy(ABC):
         output_path: str,
     ) -> bool:
         """
-        Abstract method for exporting to be implemented by subclasses.
+        Method for exporting to be implemented by subclasses.
 
         Args:
             date: date to be included in file name

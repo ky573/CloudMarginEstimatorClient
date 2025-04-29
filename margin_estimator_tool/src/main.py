@@ -1,8 +1,6 @@
 #! /usr/bin/env python3
 
-"""
-Main module of the application, contains the starting point.
-"""
+"""Main module of the application, contains the starting point."""
 
 
 import click
