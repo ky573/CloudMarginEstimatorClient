@@ -32,7 +32,7 @@ class EtdPortfolioRequestHandler(RequestHandler):
         Args:
             csv_file: path to csv file containing portfolio
             date: desired business date, decided by method get_business_date
-            version: desired version, defaults to SOD
+            version: desired version, defaults to EOD
             timestamp: timestamp for request, defaults to 0
             to_excel: whether to export to excel
             to_json: whether to export to json

@@ -47,13 +47,13 @@ class ProductsRequestHandler(RequestHandler):
         Initializes the ProductsRequestHandler instance.
 
         Args:
-            date: desired date, gets decied by function _get_business_date
-            version: desired version in bool format, defaults to SOD
+            date: desired date, gets decided by function _get_business_date
+            version: desired version in bool format, defaults to EOD
             to_excel: whether to export to excel
             to_json: whether to export to json
             export_dir: directory to export data to, defaults to root of the project
             timestamp: timestamp for request, defaults to 0
-            filters: comma-separeted string of key:values pairs for filtering
+            filters: comma-separated string of key:values pairs for filtering
         """
         super().__init__()
         self._business_date = self._get_business_date(date, version)

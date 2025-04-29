@@ -61,7 +61,7 @@ class SeriesRequestHandler(RequestHandler):
 
         Args:
             date: desired business date for request, determined by function _get_business_date
-            version: required version, gets converted to bool, defaults to SOD
+            version: required version, gets converted to bool, defaults to EOD
             timestamp: timestamp for the data, defaults to 0
             to_excel: determines whether to export to excel
             to_json: determined whether to export to json
