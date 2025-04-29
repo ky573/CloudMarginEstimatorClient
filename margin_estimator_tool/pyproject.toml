@@ -40,7 +40,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["mypy", "pylint", "pytest", "black"]
+dev = ["mypy", "pylint", "pytest", "black", "pytest-cov"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
