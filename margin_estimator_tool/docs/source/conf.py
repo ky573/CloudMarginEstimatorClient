@@ -22,6 +22,8 @@ autodoc_default_options = {
     'members': True,
     'undoc-members': True,
     'show-inheritance': True,
+    'private-members': True,
+    'special-members': '__init__',
     'member-order': 'bysource',
 }
 

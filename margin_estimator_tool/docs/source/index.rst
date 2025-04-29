@@ -1,5 +1,5 @@
 Welcome to Margin Estimator Tool's documentation!
-================================================
+=================================================
 
 .. toctree::
    :maxdepth: 2
