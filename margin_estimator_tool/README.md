@@ -94,8 +94,8 @@ API_KEY="1234abcd-12ab-12ab-12ab-abcdef123456"
 ```
 
 The API key is free and can be obtained from [DBG Digital Business Platform](https://console.developer.deutsche-boerse.com/) after signing into the company's Digital Platform. 
-For our purposes, we want to choose [Prisma Margin Estimator 2.0 API key](https://console.developer.deutsche-boerse.com/apis/afdc9fa5-767a-49ac-b834-ee92ea0ac040). 
-To obtain the key, we can follow the instructions on the website.
+For our purposes, we want to choose [Prisma Margin Estimator API key](https://console.developer.deutsche-boerse.com/apis/416d7067-45dc-465b-a56a-abbabdd1467d). 
+To obtain the key, we can follow the instructions on the website. It may take a few minutes for the key to be recognized.
 
 The proxy address for requests might not be needed, as it is usually used only to bypass network restrictions in some company networks. 
 Users can try the setup without the proxy first, and only in a situation when they get a time-out from a request, they can set the proxy. 
