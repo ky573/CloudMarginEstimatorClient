@@ -74,7 +74,7 @@ Ensure you have the following installed on your system:
     ```
    
 ### Environment Configuration
-Create a `.env` file in the `CloudMarginEstimatorClient` directory and define the required environment variables:
+Create a `.env` file in the `margin_estimator_tool` directory and define the required environment variables:
 ```ini
 API_KEY=/api key/
 PROXY=/proxy/
