@@ -133,6 +133,11 @@ This will execute all tests in the `test` directory.
 
 The documentation for the CLI tool is available in the `margin_estimator_tool/docs` directory.
 It was generated using [Sphinx](https://www.sphinx-doc.org/en/master/) from the docstrings from the codebase.
+To generate html version, navigate to `docs` directory and use:
+
+```bash
+make html
+```
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
