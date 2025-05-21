@@ -82,7 +82,6 @@ class EtdPortfolioRequestHandler(RequestHandler):
         )
         try:
             response = self._api.estimator_post(body=estimator_request_body.to_dict())
-            print(json.dumps(response, indent=4))
             self._check_for_error_in_response(response)
             return response
         except Exception as e:
